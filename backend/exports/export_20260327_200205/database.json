@@ -1,0 +1,4334 @@
+[
+{
+  "model": "auth.permission",
+  "pk": 1,
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": 1,
+    "codename": "add_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 2,
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": 1,
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 3,
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": 1,
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 4,
+  "fields": {
+    "name": "Can view log entry",
+    "content_type": 1,
+    "codename": "view_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 5,
+  "fields": {
+    "name": "Can add permission",
+    "content_type": 3,
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 6,
+  "fields": {
+    "name": "Can change permission",
+    "content_type": 3,
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 7,
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": 3,
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 8,
+  "fields": {
+    "name": "Can view permission",
+    "content_type": 3,
+    "codename": "view_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 9,
+  "fields": {
+    "name": "Can add group",
+    "content_type": 2,
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 10,
+  "fields": {
+    "name": "Can change group",
+    "content_type": 2,
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 11,
+  "fields": {
+    "name": "Can delete group",
+    "content_type": 2,
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 12,
+  "fields": {
+    "name": "Can view group",
+    "content_type": 2,
+    "codename": "view_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 13,
+  "fields": {
+    "name": "Can add content type",
+    "content_type": 4,
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 14,
+  "fields": {
+    "name": "Can change content type",
+    "content_type": 4,
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 15,
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": 4,
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 16,
+  "fields": {
+    "name": "Can view content type",
+    "content_type": 4,
+    "codename": "view_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 17,
+  "fields": {
+    "name": "Can add session",
+    "content_type": 5,
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 18,
+  "fields": {
+    "name": "Can change session",
+    "content_type": 5,
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 19,
+  "fields": {
+    "name": "Can delete session",
+    "content_type": 5,
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 20,
+  "fields": {
+    "name": "Can view session",
+    "content_type": 5,
+    "codename": "view_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 21,
+  "fields": {
+    "name": "Can add user",
+    "content_type": 6,
+    "codename": "add_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 22,
+  "fields": {
+    "name": "Can change user",
+    "content_type": 6,
+    "codename": "change_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 23,
+  "fields": {
+    "name": "Can delete user",
+    "content_type": 6,
+    "codename": "delete_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 24,
+  "fields": {
+    "name": "Can view user",
+    "content_type": 6,
+    "codename": "view_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 25,
+  "fields": {
+    "name": "Can add disponibilite",
+    "content_type": 7,
+    "codename": "add_disponibilite"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 26,
+  "fields": {
+    "name": "Can change disponibilite",
+    "content_type": 7,
+    "codename": "change_disponibilite"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 27,
+  "fields": {
+    "name": "Can delete disponibilite",
+    "content_type": 7,
+    "codename": "delete_disponibilite"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 28,
+  "fields": {
+    "name": "Can view disponibilite",
+    "content_type": 7,
+    "codename": "view_disponibilite"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 29,
+  "fields": {
+    "name": "Can add offre tutorat",
+    "content_type": 11,
+    "codename": "add_offretutorat"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 30,
+  "fields": {
+    "name": "Can change offre tutorat",
+    "content_type": 11,
+    "codename": "change_offretutorat"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 31,
+  "fields": {
+    "name": "Can delete offre tutorat",
+    "content_type": 11,
+    "codename": "delete_offretutorat"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 32,
+  "fields": {
+    "name": "Can view offre tutorat",
+    "content_type": 11,
+    "codename": "view_offretutorat"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 33,
+  "fields": {
+    "name": "Can add groupe tutorat",
+    "content_type": 9,
+    "codename": "add_groupetutorat"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 34,
+  "fields": {
+    "name": "Can change groupe tutorat",
+    "content_type": 9,
+    "codename": "change_groupetutorat"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 35,
+  "fields": {
+    "name": "Can delete groupe tutorat",
+    "content_type": 9,
+    "codename": "delete_groupetutorat"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 36,
+  "fields": {
+    "name": "Can view groupe tutorat",
+    "content_type": 9,
+    "codename": "view_groupetutorat"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 37,
+  "fields": {
+    "name": "Can add seance",
+    "content_type": 12,
+    "codename": "add_seance"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 38,
+  "fields": {
+    "name": "Can change seance",
+    "content_type": 12,
+    "codename": "change_seance"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 39,
+  "fields": {
+    "name": "Can delete seance",
+    "content_type": 12,
+    "codename": "delete_seance"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 40,
+  "fields": {
+    "name": "Can view seance",
+    "content_type": 12,
+    "codename": "view_seance"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 41,
+  "fields": {
+    "name": "Can add inscription groupe",
+    "content_type": 10,
+    "codename": "add_inscriptiongroupe"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 42,
+  "fields": {
+    "name": "Can change inscription groupe",
+    "content_type": 10,
+    "codename": "change_inscriptiongroupe"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 43,
+  "fields": {
+    "name": "Can delete inscription groupe",
+    "content_type": 10,
+    "codename": "delete_inscriptiongroupe"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 44,
+  "fields": {
+    "name": "Can view inscription groupe",
+    "content_type": 10,
+    "codename": "view_inscriptiongroupe"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 45,
+  "fields": {
+    "name": "Can add evaluation",
+    "content_type": 8,
+    "codename": "add_evaluation"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 46,
+  "fields": {
+    "name": "Can change evaluation",
+    "content_type": 8,
+    "codename": "change_evaluation"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 47,
+  "fields": {
+    "name": "Can delete evaluation",
+    "content_type": 8,
+    "codename": "delete_evaluation"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 48,
+  "fields": {
+    "name": "Can view evaluation",
+    "content_type": 8,
+    "codename": "view_evaluation"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 49,
+  "fields": {
+    "name": "Can add ressource",
+    "content_type": 16,
+    "codename": "add_ressource"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 50,
+  "fields": {
+    "name": "Can change ressource",
+    "content_type": 16,
+    "codename": "change_ressource"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 51,
+  "fields": {
+    "name": "Can delete ressource",
+    "content_type": 16,
+    "codename": "delete_ressource"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 52,
+  "fields": {
+    "name": "Can view ressource",
+    "content_type": 16,
+    "codename": "view_ressource"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 53,
+  "fields": {
+    "name": "Can add commentaire ressource",
+    "content_type": 13,
+    "codename": "add_commentaireressource"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 54,
+  "fields": {
+    "name": "Can change commentaire ressource",
+    "content_type": 13,
+    "codename": "change_commentaireressource"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 55,
+  "fields": {
+    "name": "Can delete commentaire ressource",
+    "content_type": 13,
+    "codename": "delete_commentaireressource"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 56,
+  "fields": {
+    "name": "Can view commentaire ressource",
+    "content_type": 13,
+    "codename": "view_commentaireressource"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 57,
+  "fields": {
+    "name": "Can add signalement",
+    "content_type": 17,
+    "codename": "add_signalement"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 58,
+  "fields": {
+    "name": "Can change signalement",
+    "content_type": 17,
+    "codename": "change_signalement"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 59,
+  "fields": {
+    "name": "Can delete signalement",
+    "content_type": 17,
+    "codename": "delete_signalement"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 60,
+  "fields": {
+    "name": "Can view signalement",
+    "content_type": 17,
+    "codename": "view_signalement"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 61,
+  "fields": {
+    "name": "Can add version ressource",
+    "content_type": 18,
+    "codename": "add_versionressource"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 62,
+  "fields": {
+    "name": "Can change version ressource",
+    "content_type": 18,
+    "codename": "change_versionressource"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 63,
+  "fields": {
+    "name": "Can delete version ressource",
+    "content_type": 18,
+    "codename": "delete_versionressource"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 64,
+  "fields": {
+    "name": "Can view version ressource",
+    "content_type": 18,
+    "codename": "view_versionressource"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 65,
+  "fields": {
+    "name": "Can add note ressource",
+    "content_type": 15,
+    "codename": "add_noteressource"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 66,
+  "fields": {
+    "name": "Can change note ressource",
+    "content_type": 15,
+    "codename": "change_noteressource"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 67,
+  "fields": {
+    "name": "Can delete note ressource",
+    "content_type": 15,
+    "codename": "delete_noteressource"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 68,
+  "fields": {
+    "name": "Can view note ressource",
+    "content_type": 15,
+    "codename": "view_noteressource"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 69,
+  "fields": {
+    "name": "Can add favori ressource",
+    "content_type": 14,
+    "codename": "add_favoriressource"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 70,
+  "fields": {
+    "name": "Can change favori ressource",
+    "content_type": 14,
+    "codename": "change_favoriressource"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 71,
+  "fields": {
+    "name": "Can delete favori ressource",
+    "content_type": 14,
+    "codename": "delete_favoriressource"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 72,
+  "fields": {
+    "name": "Can view favori ressource",
+    "content_type": 14,
+    "codename": "view_favoriressource"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 73,
+  "fields": {
+    "name": "Can add question",
+    "content_type": 19,
+    "codename": "add_question"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 74,
+  "fields": {
+    "name": "Can change question",
+    "content_type": 19,
+    "codename": "change_question"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 75,
+  "fields": {
+    "name": "Can delete question",
+    "content_type": 19,
+    "codename": "delete_question"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 76,
+  "fields": {
+    "name": "Can view question",
+    "content_type": 19,
+    "codename": "view_question"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 77,
+  "fields": {
+    "name": "Can add reponse",
+    "content_type": 20,
+    "codename": "add_reponse"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 78,
+  "fields": {
+    "name": "Can change reponse",
+    "content_type": 20,
+    "codename": "change_reponse"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 79,
+  "fields": {
+    "name": "Can delete reponse",
+    "content_type": 20,
+    "codename": "delete_reponse"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 80,
+  "fields": {
+    "name": "Can view reponse",
+    "content_type": 20,
+    "codename": "view_reponse"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 81,
+  "fields": {
+    "name": "Can add vote reponse",
+    "content_type": 21,
+    "codename": "add_votereponse"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 82,
+  "fields": {
+    "name": "Can change vote reponse",
+    "content_type": 21,
+    "codename": "change_votereponse"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 83,
+  "fields": {
+    "name": "Can delete vote reponse",
+    "content_type": 21,
+    "codename": "delete_votereponse"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 84,
+  "fields": {
+    "name": "Can view vote reponse",
+    "content_type": 21,
+    "codename": "view_votereponse"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 85,
+  "fields": {
+    "name": "Can add notification",
+    "content_type": 22,
+    "codename": "add_notification"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 86,
+  "fields": {
+    "name": "Can change notification",
+    "content_type": 22,
+    "codename": "change_notification"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 87,
+  "fields": {
+    "name": "Can delete notification",
+    "content_type": 22,
+    "codename": "delete_notification"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 88,
+  "fields": {
+    "name": "Can view notification",
+    "content_type": 22,
+    "codename": "view_notification"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 89,
+  "fields": {
+    "name": "Can add conversation",
+    "content_type": 23,
+    "codename": "add_conversation"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 90,
+  "fields": {
+    "name": "Can change conversation",
+    "content_type": 23,
+    "codename": "change_conversation"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 91,
+  "fields": {
+    "name": "Can delete conversation",
+    "content_type": 23,
+    "codename": "delete_conversation"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 92,
+  "fields": {
+    "name": "Can view conversation",
+    "content_type": 23,
+    "codename": "view_conversation"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 93,
+  "fields": {
+    "name": "Can add message",
+    "content_type": 24,
+    "codename": "add_message"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 94,
+  "fields": {
+    "name": "Can change message",
+    "content_type": 24,
+    "codename": "change_message"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 95,
+  "fields": {
+    "name": "Can delete message",
+    "content_type": 24,
+    "codename": "delete_message"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 96,
+  "fields": {
+    "name": "Can view message",
+    "content_type": 24,
+    "codename": "view_message"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 97,
+  "fields": {
+    "name": "Can add demande tuteur",
+    "content_type": 25,
+    "codename": "add_demandetuteur"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 98,
+  "fields": {
+    "name": "Can change demande tuteur",
+    "content_type": 25,
+    "codename": "change_demandetuteur"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 99,
+  "fields": {
+    "name": "Can delete demande tuteur",
+    "content_type": 25,
+    "codename": "delete_demandetuteur"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 100,
+  "fields": {
+    "name": "Can view demande tuteur",
+    "content_type": 25,
+    "codename": "view_demandetuteur"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 101,
+  "fields": {
+    "name": "Can add moderation log",
+    "content_type": 26,
+    "codename": "add_moderationlog"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 102,
+  "fields": {
+    "name": "Can change moderation log",
+    "content_type": 26,
+    "codename": "change_moderationlog"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 103,
+  "fields": {
+    "name": "Can delete moderation log",
+    "content_type": 26,
+    "codename": "delete_moderationlog"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 104,
+  "fields": {
+    "name": "Can view moderation log",
+    "content_type": 26,
+    "codename": "view_moderationlog"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 105,
+  "fields": {
+    "name": "Can add announcement",
+    "content_type": 27,
+    "codename": "add_announcement"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 106,
+  "fields": {
+    "name": "Can change announcement",
+    "content_type": 27,
+    "codename": "change_announcement"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 107,
+  "fields": {
+    "name": "Can delete announcement",
+    "content_type": 27,
+    "codename": "delete_announcement"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 108,
+  "fields": {
+    "name": "Can view announcement",
+    "content_type": 27,
+    "codename": "view_announcement"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 109,
+  "fields": {
+    "name": "Can add announcement recipient",
+    "content_type": 28,
+    "codename": "add_announcementrecipient"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 110,
+  "fields": {
+    "name": "Can change announcement recipient",
+    "content_type": 28,
+    "codename": "change_announcementrecipient"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 111,
+  "fields": {
+    "name": "Can delete announcement recipient",
+    "content_type": 28,
+    "codename": "delete_announcementrecipient"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 112,
+  "fields": {
+    "name": "Can view announcement recipient",
+    "content_type": 28,
+    "codename": "view_announcementrecipient"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 113,
+  "fields": {
+    "name": "Can add device token",
+    "content_type": 29,
+    "codename": "add_devicetoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 114,
+  "fields": {
+    "name": "Can change device token",
+    "content_type": 29,
+    "codename": "change_devicetoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 115,
+  "fields": {
+    "name": "Can delete device token",
+    "content_type": 29,
+    "codename": "delete_devicetoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 116,
+  "fields": {
+    "name": "Can view device token",
+    "content_type": 29,
+    "codename": "view_devicetoken"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 117,
+  "fields": {
+    "name": "Can add email message",
+    "content_type": 31,
+    "codename": "add_emailmessage"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 118,
+  "fields": {
+    "name": "Can change email message",
+    "content_type": 31,
+    "codename": "change_emailmessage"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 119,
+  "fields": {
+    "name": "Can delete email message",
+    "content_type": 31,
+    "codename": "delete_emailmessage"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 120,
+  "fields": {
+    "name": "Can view email message",
+    "content_type": 31,
+    "codename": "view_emailmessage"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 121,
+  "fields": {
+    "name": "Can add accuse reception",
+    "content_type": 30,
+    "codename": "add_accusereception"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 122,
+  "fields": {
+    "name": "Can change accuse reception",
+    "content_type": 30,
+    "codename": "change_accusereception"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 123,
+  "fields": {
+    "name": "Can delete accuse reception",
+    "content_type": 30,
+    "codename": "delete_accusereception"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 124,
+  "fields": {
+    "name": "Can view accuse reception",
+    "content_type": 30,
+    "codename": "view_accusereception"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 125,
+  "fields": {
+    "name": "Can add email reponse",
+    "content_type": 32,
+    "codename": "add_emailreponse"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 126,
+  "fields": {
+    "name": "Can change email reponse",
+    "content_type": 32,
+    "codename": "change_emailreponse"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 127,
+  "fields": {
+    "name": "Can delete email reponse",
+    "content_type": 32,
+    "codename": "delete_emailreponse"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 128,
+  "fields": {
+    "name": "Can view email reponse",
+    "content_type": 32,
+    "codename": "view_emailreponse"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 129,
+  "fields": {
+    "name": "Can add student profile",
+    "content_type": 33,
+    "codename": "add_studentprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 130,
+  "fields": {
+    "name": "Can change student profile",
+    "content_type": 33,
+    "codename": "change_studentprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 131,
+  "fields": {
+    "name": "Can delete student profile",
+    "content_type": 33,
+    "codename": "delete_studentprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 132,
+  "fields": {
+    "name": "Can view student profile",
+    "content_type": 33,
+    "codename": "view_studentprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 133,
+  "fields": {
+    "name": "Can add tutor profile",
+    "content_type": 34,
+    "codename": "add_tutorprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 134,
+  "fields": {
+    "name": "Can change tutor profile",
+    "content_type": 34,
+    "codename": "change_tutorprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 135,
+  "fields": {
+    "name": "Can delete tutor profile",
+    "content_type": 34,
+    "codename": "delete_tutorprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 136,
+  "fields": {
+    "name": "Can view tutor profile",
+    "content_type": 34,
+    "codename": "view_tutorprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 137,
+  "fields": {
+    "name": "Can add Ressource pédagogique",
+    "content_type": 36,
+    "codename": "add_ressource"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 138,
+  "fields": {
+    "name": "Can change Ressource pédagogique",
+    "content_type": 36,
+    "codename": "change_ressource"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 139,
+  "fields": {
+    "name": "Can delete Ressource pédagogique",
+    "content_type": 36,
+    "codename": "delete_ressource"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 140,
+  "fields": {
+    "name": "Can view Ressource pédagogique",
+    "content_type": 36,
+    "codename": "view_ressource"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 141,
+  "fields": {
+    "name": "Can add Inscription à une offre",
+    "content_type": 35,
+    "codename": "add_inscriptionoffre"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 142,
+  "fields": {
+    "name": "Can change Inscription à une offre",
+    "content_type": 35,
+    "codename": "change_inscriptionoffre"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 143,
+  "fields": {
+    "name": "Can delete Inscription à une offre",
+    "content_type": 35,
+    "codename": "delete_inscriptionoffre"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 144,
+  "fields": {
+    "name": "Can view Inscription à une offre",
+    "content_type": 35,
+    "codename": "view_inscriptionoffre"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 145,
+  "fields": {
+    "name": "Can add Conversation",
+    "content_type": 37,
+    "codename": "add_conversation"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 146,
+  "fields": {
+    "name": "Can change Conversation",
+    "content_type": 37,
+    "codename": "change_conversation"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 147,
+  "fields": {
+    "name": "Can delete Conversation",
+    "content_type": 37,
+    "codename": "delete_conversation"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 148,
+  "fields": {
+    "name": "Can view Conversation",
+    "content_type": 37,
+    "codename": "view_conversation"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 149,
+  "fields": {
+    "name": "Can add Message",
+    "content_type": 40,
+    "codename": "add_message"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 150,
+  "fields": {
+    "name": "Can change Message",
+    "content_type": 40,
+    "codename": "change_message"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 151,
+  "fields": {
+    "name": "Can delete Message",
+    "content_type": 40,
+    "codename": "delete_message"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 152,
+  "fields": {
+    "name": "Can view Message",
+    "content_type": 40,
+    "codename": "view_message"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 153,
+  "fields": {
+    "name": "Can add Question forum",
+    "content_type": 38,
+    "codename": "add_forumquestion"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 154,
+  "fields": {
+    "name": "Can change Question forum",
+    "content_type": 38,
+    "codename": "change_forumquestion"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 155,
+  "fields": {
+    "name": "Can delete Question forum",
+    "content_type": 38,
+    "codename": "delete_forumquestion"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 156,
+  "fields": {
+    "name": "Can view Question forum",
+    "content_type": 38,
+    "codename": "view_forumquestion"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 157,
+  "fields": {
+    "name": "Can add Réponse forum",
+    "content_type": 39,
+    "codename": "add_forumreponse"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 158,
+  "fields": {
+    "name": "Can change Réponse forum",
+    "content_type": 39,
+    "codename": "change_forumreponse"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 159,
+  "fields": {
+    "name": "Can delete Réponse forum",
+    "content_type": 39,
+    "codename": "delete_forumreponse"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 160,
+  "fields": {
+    "name": "Can view Réponse forum",
+    "content_type": 39,
+    "codename": "view_forumreponse"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 161,
+  "fields": {
+    "name": "Can add Paramètre système",
+    "content_type": 41,
+    "codename": "add_systemsettings"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 162,
+  "fields": {
+    "name": "Can change Paramètre système",
+    "content_type": 41,
+    "codename": "change_systemsettings"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 163,
+  "fields": {
+    "name": "Can delete Paramètre système",
+    "content_type": 41,
+    "codename": "delete_systemsettings"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 164,
+  "fields": {
+    "name": "Can view Paramètre système",
+    "content_type": 41,
+    "codename": "view_systemsettings"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 1,
+  "fields": {
+    "app_label": "admin",
+    "model": "logentry"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 2,
+  "fields": {
+    "app_label": "auth",
+    "model": "group"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 3,
+  "fields": {
+    "app_label": "auth",
+    "model": "permission"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 4,
+  "fields": {
+    "app_label": "contenttypes",
+    "model": "contenttype"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 5,
+  "fields": {
+    "app_label": "sessions",
+    "model": "session"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 6,
+  "fields": {
+    "app_label": "accounts",
+    "model": "user"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 7,
+  "fields": {
+    "app_label": "tutorat",
+    "model": "disponibilite"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 8,
+  "fields": {
+    "app_label": "tutorat",
+    "model": "evaluation"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 9,
+  "fields": {
+    "app_label": "tutorat",
+    "model": "groupetutorat"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 10,
+  "fields": {
+    "app_label": "tutorat",
+    "model": "inscriptiongroupe"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 11,
+  "fields": {
+    "app_label": "tutorat",
+    "model": "offretutorat"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 12,
+  "fields": {
+    "app_label": "tutorat",
+    "model": "seance"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 13,
+  "fields": {
+    "app_label": "ressources",
+    "model": "commentaireressource"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 14,
+  "fields": {
+    "app_label": "ressources",
+    "model": "favoriressource"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 15,
+  "fields": {
+    "app_label": "ressources",
+    "model": "noteressource"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 16,
+  "fields": {
+    "app_label": "ressources",
+    "model": "ressource"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 17,
+  "fields": {
+    "app_label": "ressources",
+    "model": "signalement"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 18,
+  "fields": {
+    "app_label": "ressources",
+    "model": "versionressource"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 19,
+  "fields": {
+    "app_label": "forum",
+    "model": "question"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 20,
+  "fields": {
+    "app_label": "forum",
+    "model": "reponse"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 21,
+  "fields": {
+    "app_label": "forum",
+    "model": "votereponse"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 22,
+  "fields": {
+    "app_label": "notifications",
+    "model": "notification"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 23,
+  "fields": {
+    "app_label": "messagerie",
+    "model": "conversation"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 24,
+  "fields": {
+    "app_label": "messagerie",
+    "model": "message"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 25,
+  "fields": {
+    "app_label": "accounts",
+    "model": "demandetuteur"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 26,
+  "fields": {
+    "app_label": "forum",
+    "model": "moderationlog"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 27,
+  "fields": {
+    "app_label": "notifications",
+    "model": "announcement"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 28,
+  "fields": {
+    "app_label": "notifications",
+    "model": "announcementrecipient"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 29,
+  "fields": {
+    "app_label": "notifications",
+    "model": "devicetoken"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 30,
+  "fields": {
+    "app_label": "messagerie",
+    "model": "accusereception"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 31,
+  "fields": {
+    "app_label": "messagerie",
+    "model": "emailmessage"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 32,
+  "fields": {
+    "app_label": "messagerie",
+    "model": "emailreponse"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 33,
+  "fields": {
+    "app_label": "accounts",
+    "model": "studentprofile"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 34,
+  "fields": {
+    "app_label": "accounts",
+    "model": "tutorprofile"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 35,
+  "fields": {
+    "app_label": "tutorat",
+    "model": "inscriptionoffre"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 36,
+  "fields": {
+    "app_label": "tutorat",
+    "model": "ressource"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 37,
+  "fields": {
+    "app_label": "communication",
+    "model": "conversation"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 38,
+  "fields": {
+    "app_label": "communication",
+    "model": "forumquestion"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 39,
+  "fields": {
+    "app_label": "communication",
+    "model": "forumreponse"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 40,
+  "fields": {
+    "app_label": "communication",
+    "model": "message"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 41,
+  "fields": {
+    "app_label": "accounts",
+    "model": "systemsettings"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "n8tfvs70n4o3d90rl2mwyxphec2jacsw",
+  "fields": {
+    "session_data": ".eJxVjLsOwjAMAP_FM4rsNE6djux8Q-U8SgsolfqYEP-OKnWA9e50b-h138Z-X8vSTxk6IA-XXxg1PUs9TH5ovc8mzXVbpmiOxJx2Nbc5l9f1bP8Go64jdBCFiAMKBx6wCb5F61izFczKxQb1pAUbFvaOmGPrhBCTR2kj8WDh8wXEHDYh:1w24YI:8FuTSOf8xy-8kViKp0u3J4MDSIAosQ4T1pqeDiGJpa0",
+    "expire_date": "2026-03-30T09:47:58.326Z"
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$W0SAjWmDzKddAQMbNDpOQA$tOu9mVtCPvlTkZu6oro9xb7sx/YFHxLEQoFos0Vz/ww=",
+    "last_login": null,
+    "is_superuser": true,
+    "email": "ndjerabeernest@gmail.com",
+    "nom": "Djerabe",
+    "prenom": "Ernest",
+    "role": "admin",
+    "filiere": null,
+    "annee": null,
+    "bio": "",
+    "photo": "profils/fbdf7541-72dc-4bbe-a8d4-23cf45a7a895.jpeg",
+    "centres_interet": "",
+    "matieres_maitrisees": "",
+    "tarif_horaire": null,
+    "justificatif": "",
+    "est_actif": true,
+    "date_inscription": "2026-03-04T12:00:01.454Z",
+    "date_derniere_connexion": null,
+    "is_staff": true,
+    "is_active": true,
+    "is_suspended": false,
+    "suspension_until": null,
+    "suspension_reason": "",
+    "telephone": "",
+    "biographie": "",
+    "date_naissance": null,
+    "derniere_connexion": null,
+    "email_verifie": false,
+    "telephone_verifie": false,
+    "matieres_enseignees": [],
+    "niveau_enseignement": "",
+    "experience": 0,
+    "disponible": true,
+    "note_moyenne": 0.0,
+    "nombre_evaluations": 0,
+    "niveau_etudes": "",
+    "etablissement": "",
+    "objectifs_apprentissage": "",
+    "badges": [],
+    "certifie": false,
+    "date_certification": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$xyLffKFAGn336AVq36e9e9$BKalgU5F+yluc8nWRehnMGrDWwdclx3cNElD4h8ktdY=",
+    "last_login": "2026-03-04T20:22:21.377Z",
+    "is_superuser": true,
+    "email": "madromjudith@gmail.com",
+    "nom": "madrom",
+    "prenom": "judith",
+    "role": "admin",
+    "filiere": null,
+    "annee": null,
+    "bio": "",
+    "photo": "",
+    "centres_interet": "",
+    "matieres_maitrisees": "",
+    "tarif_horaire": null,
+    "justificatif": "",
+    "est_actif": true,
+    "date_inscription": "2026-03-04T20:13:27.420Z",
+    "date_derniere_connexion": null,
+    "is_staff": true,
+    "is_active": true,
+    "is_suspended": false,
+    "suspension_until": null,
+    "suspension_reason": "",
+    "telephone": "",
+    "biographie": "",
+    "date_naissance": null,
+    "derniere_connexion": null,
+    "email_verifie": false,
+    "telephone_verifie": false,
+    "matieres_enseignees": [],
+    "niveau_enseignement": "",
+    "experience": 0,
+    "disponible": true,
+    "note_moyenne": 0.0,
+    "nombre_evaluations": 0,
+    "niveau_etudes": "",
+    "etablissement": "",
+    "objectifs_apprentissage": "",
+    "badges": [],
+    "certifie": false,
+    "date_certification": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$9VcfvJSWHGVUpSptjIiHYm$0n3sJl0PwlTjinMBgrZ61GOv5NVHubRLcizpw0Vonj8=",
+    "last_login": null,
+    "is_superuser": false,
+    "email": "madromjudith61@gmail.com",
+    "nom": "Jean",
+    "prenom": "Luc",
+    "role": "etudiant",
+    "filiere": "Mathématiques",
+    "annee": "L1",
+    "bio": "Je suis étudiant",
+    "photo": "",
+    "centres_interet": "Lecture, écrit",
+    "matieres_maitrisees": "",
+    "tarif_horaire": null,
+    "justificatif": "",
+    "est_actif": true,
+    "date_inscription": "2026-03-06T13:06:31.220Z",
+    "date_derniere_connexion": null,
+    "is_staff": false,
+    "is_active": true,
+    "is_suspended": false,
+    "suspension_until": null,
+    "suspension_reason": "",
+    "telephone": "",
+    "biographie": "",
+    "date_naissance": null,
+    "derniere_connexion": null,
+    "email_verifie": false,
+    "telephone_verifie": false,
+    "matieres_enseignees": [],
+    "niveau_enseignement": "",
+    "experience": 0,
+    "disponible": true,
+    "note_moyenne": 0.0,
+    "nombre_evaluations": 0,
+    "niveau_etudes": "",
+    "etablissement": "",
+    "objectifs_apprentissage": "",
+    "badges": [],
+    "certifie": false,
+    "date_certification": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$C4mMMFcXe7MOm9iVujON76$HoYoE//Ow4Md+GdUcwrYw1xXy0CtUHoWuPUksaUtPfQ=",
+    "last_login": null,
+    "is_superuser": false,
+    "email": "nn@gmail.com",
+    "nom": "Bien",
+    "prenom": "How",
+    "role": "etudiant",
+    "filiere": "Name",
+    "annee": "L1",
+    "bio": "Jean Jaurès",
+    "photo": "",
+    "centres_interet": "Numéro",
+    "matieres_maitrisees": "",
+    "tarif_horaire": null,
+    "justificatif": "",
+    "est_actif": true,
+    "date_inscription": "2026-03-06T15:00:19.684Z",
+    "date_derniere_connexion": null,
+    "is_staff": false,
+    "is_active": true,
+    "is_suspended": false,
+    "suspension_until": null,
+    "suspension_reason": "",
+    "telephone": "",
+    "biographie": "",
+    "date_naissance": null,
+    "derniere_connexion": null,
+    "email_verifie": false,
+    "telephone_verifie": false,
+    "matieres_enseignees": [],
+    "niveau_enseignement": "",
+    "experience": 0,
+    "disponible": true,
+    "note_moyenne": 0.0,
+    "nombre_evaluations": 0,
+    "niveau_etudes": "",
+    "etablissement": "",
+    "objectifs_apprentissage": "",
+    "badges": [],
+    "certifie": false,
+    "date_certification": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$IpZ8A5MsuplsiDjD4X9a6E$B3nSpfmq+Ki2XqUkQ2KL6JDRS3VN8JUMWlQ342Q8Y38=",
+    "last_login": null,
+    "is_superuser": false,
+    "email": "persev@gmail.com",
+    "nom": "Jk",
+    "prenom": "N'est",
+    "role": "etudiant",
+    "filiere": "Hfj",
+    "annee": "L2",
+    "bio": "",
+    "photo": "",
+    "centres_interet": "",
+    "matieres_maitrisees": "",
+    "tarif_horaire": null,
+    "justificatif": "",
+    "est_actif": true,
+    "date_inscription": "2026-03-08T12:12:13.383Z",
+    "date_derniere_connexion": null,
+    "is_staff": false,
+    "is_active": true,
+    "is_suspended": false,
+    "suspension_until": null,
+    "suspension_reason": "",
+    "telephone": "",
+    "biographie": "",
+    "date_naissance": null,
+    "derniere_connexion": null,
+    "email_verifie": false,
+    "telephone_verifie": false,
+    "matieres_enseignees": [],
+    "niveau_enseignement": "",
+    "experience": 0,
+    "disponible": true,
+    "note_moyenne": 0.0,
+    "nombre_evaluations": 0,
+    "niveau_etudes": "",
+    "etablissement": "",
+    "objectifs_apprentissage": "",
+    "badges": [],
+    "certifie": false,
+    "date_certification": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$1uDlwoQjwSnXoae6DasgJS$OZxyMHkYwK4gfgbP6CBYXOV6aWB9zyx1czU4TT9y90Q=",
+    "last_login": null,
+    "is_superuser": false,
+    "email": "n@gmail.com",
+    "nom": "Buy",
+    "prenom": "Youyou",
+    "role": "etudiant",
+    "filiere": "Eps",
+    "annee": "L1",
+    "bio": "",
+    "photo": "",
+    "centres_interet": "",
+    "matieres_maitrisees": "",
+    "tarif_horaire": null,
+    "justificatif": "",
+    "est_actif": true,
+    "date_inscription": "2026-03-09T14:57:44.097Z",
+    "date_derniere_connexion": null,
+    "is_staff": false,
+    "is_active": true,
+    "is_suspended": false,
+    "suspension_until": null,
+    "suspension_reason": "",
+    "telephone": "",
+    "biographie": "",
+    "date_naissance": null,
+    "derniere_connexion": null,
+    "email_verifie": false,
+    "telephone_verifie": false,
+    "matieres_enseignees": [],
+    "niveau_enseignement": "",
+    "experience": 0,
+    "disponible": true,
+    "note_moyenne": 0.0,
+    "nombre_evaluations": 0,
+    "niveau_etudes": "",
+    "etablissement": "",
+    "objectifs_apprentissage": "",
+    "badges": [],
+    "certifie": false,
+    "date_certification": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 8,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$nTAwFRKN7vKxIjuLbz7Lcs$Hlpno6IR7ru37XJMA55dOSO0j2zeJEJ/A4OaKmmis50=",
+    "last_login": null,
+    "is_superuser": false,
+    "email": "maha@gmail.com",
+    "nom": "Nour",
+    "prenom": "Mahamat",
+    "role": "etudiant",
+    "filiere": "Crypto",
+    "annee": "L2",
+    "bio": "",
+    "photo": "",
+    "centres_interet": "",
+    "matieres_maitrisees": "",
+    "tarif_horaire": null,
+    "justificatif": "",
+    "est_actif": true,
+    "date_inscription": "2026-03-10T20:08:24.867Z",
+    "date_derniere_connexion": null,
+    "is_staff": false,
+    "is_active": true,
+    "is_suspended": false,
+    "suspension_until": null,
+    "suspension_reason": "",
+    "telephone": "",
+    "biographie": "",
+    "date_naissance": null,
+    "derniere_connexion": null,
+    "email_verifie": false,
+    "telephone_verifie": false,
+    "matieres_enseignees": [],
+    "niveau_enseignement": "",
+    "experience": 0,
+    "disponible": true,
+    "note_moyenne": 0.0,
+    "nombre_evaluations": 0,
+    "niveau_etudes": "",
+    "etablissement": "",
+    "objectifs_apprentissage": "",
+    "badges": [],
+    "certifie": false,
+    "date_certification": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 9,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$tF7GRfKmjJ9RMUNU2yzDEA$b/BNlexkDQb9+uAh32h62Ohdumqke2JW9Xs3l9ghXSo=",
+    "last_login": null,
+    "is_superuser": false,
+    "email": "telo@gmail.com",
+    "nom": "Nest-Er",
+    "prenom": "Nestelo",
+    "role": "etudiant",
+    "filiere": "Psychologie",
+    "annee": "M2",
+    "bio": "",
+    "photo": "",
+    "centres_interet": "",
+    "matieres_maitrisees": "",
+    "tarif_horaire": null,
+    "justificatif": "",
+    "est_actif": true,
+    "date_inscription": "2026-03-10T20:18:52.232Z",
+    "date_derniere_connexion": null,
+    "is_staff": false,
+    "is_active": true,
+    "is_suspended": false,
+    "suspension_until": null,
+    "suspension_reason": "",
+    "telephone": "",
+    "biographie": "",
+    "date_naissance": null,
+    "derniere_connexion": null,
+    "email_verifie": false,
+    "telephone_verifie": false,
+    "matieres_enseignees": [],
+    "niveau_enseignement": "",
+    "experience": 0,
+    "disponible": true,
+    "note_moyenne": 0.0,
+    "nombre_evaluations": 0,
+    "niveau_etudes": "",
+    "etablissement": "",
+    "objectifs_apprentissage": "",
+    "badges": [],
+    "certifie": false,
+    "date_certification": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 10,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$U8cSjXtBqBXyjRJV6KvYVZ$Tba/x9V631SmF/c1D8l/kabFtQ0I3NYg/e8mZwvUHlo=",
+    "last_login": null,
+    "is_superuser": false,
+    "email": "need@gmail.com",
+    "nom": "Need",
+    "prenom": "Needs",
+    "role": "tuteur",
+    "filiere": null,
+    "annee": null,
+    "bio": "",
+    "photo": "",
+    "centres_interet": "",
+    "matieres_maitrisees": "",
+    "tarif_horaire": null,
+    "justificatif": "",
+    "est_actif": true,
+    "date_inscription": "2026-03-11T08:56:07.169Z",
+    "date_derniere_connexion": null,
+    "is_staff": false,
+    "is_active": true,
+    "is_suspended": false,
+    "suspension_until": null,
+    "suspension_reason": "",
+    "telephone": "",
+    "biographie": "",
+    "date_naissance": null,
+    "derniere_connexion": null,
+    "email_verifie": false,
+    "telephone_verifie": false,
+    "matieres_enseignees": [],
+    "niveau_enseignement": "",
+    "experience": 0,
+    "disponible": true,
+    "note_moyenne": 0.0,
+    "nombre_evaluations": 0,
+    "niveau_etudes": "",
+    "etablissement": "",
+    "objectifs_apprentissage": "",
+    "badges": [],
+    "certifie": false,
+    "date_certification": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 11,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$dHgbjdG7fxAF1W7qbmv8T4$38fPjIi3k7VQZYwHfQyYR+fTqP+l0OfHMLkIZ0HXSx4=",
+    "last_login": null,
+    "is_superuser": false,
+    "email": "nest@gmail.com",
+    "nom": "Nestelo",
+    "prenom": "Nest",
+    "role": "etudiant",
+    "filiere": "Énergie",
+    "annee": "L3",
+    "bio": "",
+    "photo": "",
+    "centres_interet": "",
+    "matieres_maitrisees": "",
+    "tarif_horaire": null,
+    "justificatif": "",
+    "est_actif": true,
+    "date_inscription": "2026-03-11T09:05:48.927Z",
+    "date_derniere_connexion": null,
+    "is_staff": false,
+    "is_active": true,
+    "is_suspended": false,
+    "suspension_until": null,
+    "suspension_reason": "",
+    "telephone": "",
+    "biographie": "",
+    "date_naissance": null,
+    "derniere_connexion": null,
+    "email_verifie": false,
+    "telephone_verifie": false,
+    "matieres_enseignees": [],
+    "niveau_enseignement": "",
+    "experience": 0,
+    "disponible": true,
+    "note_moyenne": 0.0,
+    "nombre_evaluations": 0,
+    "niveau_etudes": "",
+    "etablissement": "",
+    "objectifs_apprentissage": "",
+    "badges": [],
+    "certifie": false,
+    "date_certification": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 13,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$lQaZCWhLmEWRz00OFQvbni$E7XTSwJp/sJvKUNnza06rxR7Djx59OK24qqdIubDGzw=",
+    "last_login": null,
+    "is_superuser": false,
+    "email": "lolo@gmail.com",
+    "nom": "Lolo",
+    "prenom": "Lalala",
+    "role": "etudiant",
+    "filiere": "Bio",
+    "annee": "L1",
+    "bio": "",
+    "photo": "profils/6540de77-0bb0-4ced-9fc2-6818a9a95691_iunf1zS_E8Tqbov_ToLYB6C.jpeg",
+    "centres_interet": "",
+    "matieres_maitrisees": "",
+    "tarif_horaire": null,
+    "justificatif": "",
+    "est_actif": true,
+    "date_inscription": "2026-03-11T12:50:29.632Z",
+    "date_derniere_connexion": null,
+    "is_staff": false,
+    "is_active": true,
+    "is_suspended": false,
+    "suspension_until": null,
+    "suspension_reason": "",
+    "telephone": "",
+    "biographie": "",
+    "date_naissance": null,
+    "derniere_connexion": null,
+    "email_verifie": false,
+    "telephone_verifie": false,
+    "matieres_enseignees": [],
+    "niveau_enseignement": "",
+    "experience": 0,
+    "disponible": true,
+    "note_moyenne": 0.0,
+    "nombre_evaluations": 0,
+    "niveau_etudes": "",
+    "etablissement": "",
+    "objectifs_apprentissage": "",
+    "badges": [],
+    "certifie": false,
+    "date_certification": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 14,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$Sn21W6EZWoITvDmguwP66Y$kpcscqCdrBKd00P5z5FNgPq19EyIpwk1bNUNh+q5QY4=",
+    "last_login": null,
+    "is_superuser": false,
+    "email": "tuteur@insta.dz",
+    "nom": "Tuteur",
+    "prenom": "Tutorat",
+    "role": "enseignant",
+    "filiere": null,
+    "annee": null,
+    "bio": "",
+    "photo": "",
+    "centres_interet": "",
+    "matieres_maitrisees": "",
+    "tarif_horaire": null,
+    "justificatif": "",
+    "est_actif": false,
+    "date_inscription": "2026-03-11T13:39:06.748Z",
+    "date_derniere_connexion": null,
+    "is_staff": false,
+    "is_active": false,
+    "is_suspended": false,
+    "suspension_until": null,
+    "suspension_reason": "",
+    "telephone": "",
+    "biographie": "",
+    "date_naissance": null,
+    "derniere_connexion": null,
+    "email_verifie": false,
+    "telephone_verifie": false,
+    "matieres_enseignees": [],
+    "niveau_enseignement": "",
+    "experience": 0,
+    "disponible": true,
+    "note_moyenne": 0.0,
+    "nombre_evaluations": 0,
+    "niveau_etudes": "",
+    "etablissement": "",
+    "objectifs_apprentissage": "",
+    "badges": [],
+    "certifie": false,
+    "date_certification": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 15,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$reDGWklRZZMvh1eEhrn540$+mfEatLnO7hRn5zYG2CGwz/5sWME+QFH4XqH6LqzCmw=",
+    "last_login": null,
+    "is_superuser": true,
+    "email": "nest@insta.dz",
+    "nom": "Admin",
+    "prenom": "Super",
+    "role": "admin",
+    "filiere": null,
+    "annee": null,
+    "bio": "",
+    "photo": "",
+    "centres_interet": "",
+    "matieres_maitrisees": "",
+    "tarif_horaire": null,
+    "justificatif": "",
+    "est_actif": true,
+    "date_inscription": "2026-03-11T22:42:24.105Z",
+    "date_derniere_connexion": null,
+    "is_staff": true,
+    "is_active": true,
+    "is_suspended": false,
+    "suspension_until": null,
+    "suspension_reason": "",
+    "telephone": "",
+    "biographie": "",
+    "date_naissance": null,
+    "derniere_connexion": null,
+    "email_verifie": false,
+    "telephone_verifie": false,
+    "matieres_enseignees": [],
+    "niveau_enseignement": "",
+    "experience": 0,
+    "disponible": true,
+    "note_moyenne": 0.0,
+    "nombre_evaluations": 0,
+    "niveau_etudes": "",
+    "etablissement": "",
+    "objectifs_apprentissage": "",
+    "badges": [],
+    "certifie": false,
+    "date_certification": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 20,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$vDU31AOdbKjdQs8BAYyOoJ$JMMiwfOZqtNCXd4cLw93XF3bt5dL+Sd2z3Lyam3MWM4=",
+    "last_login": null,
+    "is_superuser": false,
+    "email": "motar@gmail.com",
+    "nom": "Motar",
+    "prenom": "Bienvenue",
+    "role": "tuteur",
+    "filiere": "GI",
+    "annee": "L2",
+    "bio": "Djcc",
+    "photo": "profils/980257a8-b1dc-44ff-9da6-ac39ede84560.jpeg",
+    "centres_interet": "Lecture",
+    "matieres_maitrisees": "Crypto",
+    "tarif_horaire": "12.00",
+    "justificatif": "",
+    "est_actif": true,
+    "date_inscription": "2026-03-12T12:33:02.147Z",
+    "date_derniere_connexion": null,
+    "is_staff": false,
+    "is_active": true,
+    "is_suspended": false,
+    "suspension_until": null,
+    "suspension_reason": "",
+    "telephone": "",
+    "biographie": "",
+    "date_naissance": null,
+    "derniere_connexion": null,
+    "email_verifie": false,
+    "telephone_verifie": false,
+    "matieres_enseignees": [],
+    "niveau_enseignement": "",
+    "experience": 0,
+    "disponible": true,
+    "note_moyenne": 0.0,
+    "nombre_evaluations": 0,
+    "niveau_etudes": "",
+    "etablissement": "",
+    "objectifs_apprentissage": "",
+    "badges": [],
+    "certifie": false,
+    "date_certification": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 21,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$dxNK95IyzJagzGZGg5u3HS$l+Unzv0hCF9pd9aLyRxMO2HAXGsCRmyRE91h+zX5dZA=",
+    "last_login": null,
+    "is_superuser": false,
+    "email": "youssoufmoungonan@gmail.com",
+    "nom": "Moungonan",
+    "prenom": "Youssouf1",
+    "role": "tuteur",
+    "filiere": null,
+    "annee": null,
+    "bio": "",
+    "photo": "",
+    "centres_interet": "",
+    "matieres_maitrisees": "",
+    "tarif_horaire": null,
+    "justificatif": "",
+    "est_actif": true,
+    "date_inscription": "2026-03-13T09:21:53.810Z",
+    "date_derniere_connexion": null,
+    "is_staff": false,
+    "is_active": true,
+    "is_suspended": false,
+    "suspension_until": null,
+    "suspension_reason": "",
+    "telephone": "",
+    "biographie": "",
+    "date_naissance": null,
+    "derniere_connexion": null,
+    "email_verifie": false,
+    "telephone_verifie": false,
+    "matieres_enseignees": [],
+    "niveau_enseignement": "",
+    "experience": 0,
+    "disponible": true,
+    "note_moyenne": 0.0,
+    "nombre_evaluations": 0,
+    "niveau_etudes": "",
+    "etablissement": "",
+    "objectifs_apprentissage": "",
+    "badges": [],
+    "certifie": false,
+    "date_certification": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 24,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$3qQHToB8RCOdgPq2zyCMSI$wTFj8f8ZMiHAQ+yhnevvERs3BiM8VRDQwF7gox2JbEU=",
+    "last_login": null,
+    "is_superuser": true,
+    "email": "admin@test.com",
+    "nom": "Test",
+    "prenom": "Admin",
+    "role": "admin",
+    "filiere": null,
+    "annee": null,
+    "bio": "",
+    "photo": "",
+    "centres_interet": "",
+    "matieres_maitrisees": "",
+    "tarif_horaire": null,
+    "justificatif": "",
+    "est_actif": true,
+    "date_inscription": "2026-03-16T08:53:07.071Z",
+    "date_derniere_connexion": null,
+    "is_staff": true,
+    "is_active": true,
+    "is_suspended": false,
+    "suspension_until": null,
+    "suspension_reason": "",
+    "telephone": "",
+    "biographie": "",
+    "date_naissance": null,
+    "derniere_connexion": null,
+    "email_verifie": false,
+    "telephone_verifie": false,
+    "matieres_enseignees": [],
+    "niveau_enseignement": "",
+    "experience": 0,
+    "disponible": true,
+    "note_moyenne": 0.0,
+    "nombre_evaluations": 0,
+    "niveau_etudes": "",
+    "etablissement": "",
+    "objectifs_apprentissage": "",
+    "badges": [],
+    "certifie": false,
+    "date_certification": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 25,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$uv47lD9DYNMc9u0FldsMyU$A9J+bFq+QuK9DGJS4W/0oQfLQG56qyylJjfTsERaPxo=",
+    "last_login": null,
+    "is_superuser": true,
+    "email": "ndoubadabonheur@gmail.com",
+    "nom": "Ndoubada",
+    "prenom": "Admin",
+    "role": "admin",
+    "filiere": null,
+    "annee": null,
+    "bio": "",
+    "photo": "profils/7f3f152f-8600-4fc1-ab52-0a8a5c71ed38.jpeg",
+    "centres_interet": "",
+    "matieres_maitrisees": "",
+    "tarif_horaire": null,
+    "justificatif": "",
+    "est_actif": true,
+    "date_inscription": "2026-03-17T12:07:21.894Z",
+    "date_derniere_connexion": null,
+    "is_staff": true,
+    "is_active": true,
+    "is_suspended": false,
+    "suspension_until": null,
+    "suspension_reason": "",
+    "telephone": "",
+    "biographie": "",
+    "date_naissance": null,
+    "derniere_connexion": null,
+    "email_verifie": false,
+    "telephone_verifie": false,
+    "matieres_enseignees": [],
+    "niveau_enseignement": "",
+    "experience": 0,
+    "disponible": true,
+    "note_moyenne": 0.0,
+    "nombre_evaluations": 0,
+    "niveau_etudes": "",
+    "etablissement": "",
+    "objectifs_apprentissage": "",
+    "badges": [],
+    "certifie": false,
+    "date_certification": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 28,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$Nh2FeA1vsIkLB1yao7BVec$7s5nEneToLGHAOvHIye0jbI+b46JWfCeFjdYJKcno14=",
+    "last_login": null,
+    "is_superuser": false,
+    "email": "yaya@gmail.com",
+    "nom": "Yaya",
+    "prenom": "Yayo",
+    "role": "etudiant",
+    "filiere": null,
+    "annee": null,
+    "bio": "",
+    "photo": "",
+    "centres_interet": "",
+    "matieres_maitrisees": "",
+    "tarif_horaire": null,
+    "justificatif": "",
+    "est_actif": true,
+    "date_inscription": "2026-03-18T04:30:24.959Z",
+    "date_derniere_connexion": null,
+    "is_staff": false,
+    "is_active": true,
+    "is_suspended": false,
+    "suspension_until": null,
+    "suspension_reason": "",
+    "telephone": "",
+    "biographie": "",
+    "date_naissance": null,
+    "derniere_connexion": null,
+    "email_verifie": false,
+    "telephone_verifie": false,
+    "matieres_enseignees": [],
+    "niveau_enseignement": "",
+    "experience": 0,
+    "disponible": true,
+    "note_moyenne": 0.0,
+    "nombre_evaluations": 0,
+    "niveau_etudes": "",
+    "etablissement": "",
+    "objectifs_apprentissage": "",
+    "badges": [],
+    "certifie": false,
+    "date_certification": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 29,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$V17Wjv5lABMBTq6PqTEB7v$hkSzNViakz++vXbfZP3r3lBEWpUi7ngMWFEP8d+4S0w=",
+    "last_login": null,
+    "is_superuser": false,
+    "email": "lala@gmail.com",
+    "nom": "Lala",
+    "prenom": "Lama",
+    "role": "tuteur",
+    "filiere": null,
+    "annee": null,
+    "bio": "",
+    "photo": "",
+    "centres_interet": "",
+    "matieres_maitrisees": "",
+    "tarif_horaire": null,
+    "justificatif": "",
+    "est_actif": true,
+    "date_inscription": "2026-03-26T11:09:29.718Z",
+    "date_derniere_connexion": null,
+    "is_staff": false,
+    "is_active": true,
+    "is_suspended": false,
+    "suspension_until": null,
+    "suspension_reason": "",
+    "telephone": "",
+    "biographie": "",
+    "date_naissance": null,
+    "derniere_connexion": null,
+    "email_verifie": false,
+    "telephone_verifie": false,
+    "matieres_enseignees": [],
+    "niveau_enseignement": "",
+    "experience": 0,
+    "disponible": true,
+    "note_moyenne": 0.0,
+    "nombre_evaluations": 0,
+    "niveau_etudes": "",
+    "etablissement": "",
+    "objectifs_apprentissage": "",
+    "badges": [],
+    "certifie": false,
+    "date_certification": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 30,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$RbLHeynxkPYX5u7zDE5Cxv$lb5JlXC0I/qMvFZ8sHtLen2SI8R5iRIg5Wc2qzCwxUY=",
+    "last_login": null,
+    "is_superuser": false,
+    "email": "yuyu@gmail.com",
+    "nom": "Yoyu",
+    "prenom": "yuyu",
+    "role": "tuteur",
+    "filiere": null,
+    "annee": null,
+    "bio": "",
+    "photo": "",
+    "centres_interet": "",
+    "matieres_maitrisees": "",
+    "tarif_horaire": null,
+    "justificatif": "",
+    "est_actif": true,
+    "date_inscription": "2026-03-26T12:56:38.886Z",
+    "date_derniere_connexion": null,
+    "is_staff": false,
+    "is_active": true,
+    "is_suspended": false,
+    "suspension_until": null,
+    "suspension_reason": "",
+    "telephone": "",
+    "biographie": "",
+    "date_naissance": null,
+    "derniere_connexion": null,
+    "email_verifie": false,
+    "telephone_verifie": false,
+    "matieres_enseignees": [],
+    "niveau_enseignement": "",
+    "experience": 0,
+    "disponible": true,
+    "note_moyenne": 0.0,
+    "nombre_evaluations": 0,
+    "niveau_etudes": "",
+    "etablissement": "",
+    "objectifs_apprentissage": "",
+    "badges": [],
+    "certifie": false,
+    "date_certification": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 31,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$mjbRnqpHdvrkkZpDsb0pK6$DoF2CVYy3Oa/0/S2eDvXT1X0o8igNF1Rq2y5yVzKalk=",
+    "last_login": null,
+    "is_superuser": false,
+    "email": "didi@gmail.com",
+    "nom": "Didi",
+    "prenom": "Dido",
+    "role": "enseignant",
+    "filiere": null,
+    "annee": null,
+    "bio": "",
+    "photo": "",
+    "centres_interet": "",
+    "matieres_maitrisees": "",
+    "tarif_horaire": null,
+    "justificatif": "",
+    "est_actif": false,
+    "date_inscription": "2026-03-27T09:56:03.558Z",
+    "date_derniere_connexion": null,
+    "is_staff": false,
+    "is_active": true,
+    "is_suspended": false,
+    "suspension_until": null,
+    "suspension_reason": "",
+    "telephone": "",
+    "biographie": "",
+    "date_naissance": null,
+    "derniere_connexion": null,
+    "email_verifie": false,
+    "telephone_verifie": false,
+    "matieres_enseignees": [],
+    "niveau_enseignement": "",
+    "experience": 0,
+    "disponible": true,
+    "note_moyenne": 0.0,
+    "nombre_evaluations": 0,
+    "niveau_etudes": "",
+    "etablissement": "",
+    "objectifs_apprentissage": "",
+    "badges": [],
+    "certifie": false,
+    "date_certification": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 32,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$wEHzDToIvUsVKLyEnRNFas$6vljonIQkiCUiDl8+i60d0W+pCjW+zY2hEnEPrhQYWc=",
+    "last_login": null,
+    "is_superuser": false,
+    "email": "lot@gmail.com",
+    "nom": "Lot",
+    "prenom": "Lote",
+    "role": "tuteur",
+    "filiere": null,
+    "annee": null,
+    "bio": "",
+    "photo": "",
+    "centres_interet": "",
+    "matieres_maitrisees": "",
+    "tarif_horaire": null,
+    "justificatif": "",
+    "est_actif": true,
+    "date_inscription": "2026-03-27T13:07:37.825Z",
+    "date_derniere_connexion": null,
+    "is_staff": false,
+    "is_active": true,
+    "is_suspended": false,
+    "suspension_until": null,
+    "suspension_reason": "",
+    "telephone": "",
+    "biographie": "",
+    "date_naissance": null,
+    "derniere_connexion": null,
+    "email_verifie": false,
+    "telephone_verifie": false,
+    "matieres_enseignees": [],
+    "niveau_enseignement": "",
+    "experience": 0,
+    "disponible": true,
+    "note_moyenne": 0.0,
+    "nombre_evaluations": 0,
+    "niveau_etudes": "",
+    "etablissement": "",
+    "objectifs_apprentissage": "",
+    "badges": [],
+    "certifie": false,
+    "date_certification": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 33,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$efJTzB6fybkpRzaVZVJxV4$QaUrPAsqIiA8wP4qQfcIJzjhYa4BBZI+f9nJkLZw7Zw=",
+    "last_login": null,
+    "is_superuser": false,
+    "email": "brahim@gmail.com",
+    "nom": "Brahim",
+    "prenom": "Ali",
+    "role": "enseignant",
+    "filiere": null,
+    "annee": null,
+    "bio": "",
+    "photo": "",
+    "centres_interet": "",
+    "matieres_maitrisees": "",
+    "tarif_horaire": null,
+    "justificatif": "",
+    "est_actif": true,
+    "date_inscription": "2026-03-27T14:28:51.816Z",
+    "date_derniere_connexion": null,
+    "is_staff": false,
+    "is_active": true,
+    "is_suspended": false,
+    "suspension_until": null,
+    "suspension_reason": "",
+    "telephone": "",
+    "biographie": "",
+    "date_naissance": null,
+    "derniere_connexion": null,
+    "email_verifie": false,
+    "telephone_verifie": false,
+    "matieres_enseignees": [],
+    "niveau_enseignement": "",
+    "experience": 0,
+    "disponible": true,
+    "note_moyenne": 0.0,
+    "nombre_evaluations": 0,
+    "niveau_etudes": "",
+    "etablissement": "",
+    "objectifs_apprentissage": "",
+    "badges": [],
+    "certifie": false,
+    "date_certification": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.systemsettings",
+  "pk": 1,
+  "fields": {
+    "email_notifications": true,
+    "push_notifications": false,
+    "auto_backup": false,
+    "maintenance_mode": false,
+    "allow_registration": true,
+    "require_email_verification": true,
+    "max_file_size": 10,
+    "max_users_per_day": 100,
+    "created_at": "2026-03-25T13:08:03.853Z",
+    "updated_at": "2026-03-25T13:08:18.837Z",
+    "updated_by": 25
+  }
+},
+{
+  "model": "tutorat.offretutorat",
+  "pk": 1,
+  "fields": {
+    "tuteur": 20,
+    "titre": "Algorithme",
+    "description": "Pc algorithme",
+    "matiere": "Économie",
+    "niveau": "professionnel",
+    "type": "groupe",
+    "tarif": "15.00",
+    "tarif_reduction": null,
+    "gratuit": false,
+    "duree_session": 60,
+    "nombre_places": 12,
+    "planning_flexible": true,
+    "mode_planning": "auto_dispos",
+    "en_ligne": false,
+    "presentiel": true,
+    "lieu": "JO",
+    "lien_visio": "",
+    "statut_workflow": "publie",
+    "est_active": true,
+    "validee_par_admin": false,
+    "date_validation": null,
+    "admin_validateur": null,
+    "repetition_config": {
+      "type": "aucune",
+      "jours": [],
+      "date_fin": null,
+      "frequence": "hebdomadaire",
+      "exceptions": []
+    },
+    "dates_exclues": [],
+    "date_publication": null,
+    "vues": 0,
+    "candidatures": 0,
+    "sessions_realisees": 0,
+    "note_moyenne": 0.0,
+    "date_creation": "2026-03-26T04:27:57.910Z",
+    "date_modification": "2026-03-26T04:27:57.910Z"
+  }
+},
+{
+  "model": "tutorat.offretutorat",
+  "pk": 2,
+  "fields": {
+    "tuteur": 20,
+    "titre": "Database",
+    "description": "Database for",
+    "matiere": "genie_informatique",
+    "niveau": "L1",
+    "type": "groupe",
+    "tarif": null,
+    "tarif_reduction": null,
+    "gratuit": true,
+    "duree_session": 60,
+    "nombre_places": 12,
+    "planning_flexible": true,
+    "mode_planning": "manuel",
+    "en_ligne": false,
+    "presentiel": true,
+    "lieu": "Her",
+    "lien_visio": "",
+    "statut_workflow": "en_attente_validation",
+    "est_active": true,
+    "validee_par_admin": false,
+    "date_validation": null,
+    "admin_validateur": null,
+    "repetition_config": {
+      "type": "aucune",
+      "jours": [],
+      "date_fin": null,
+      "frequence": "hebdomadaire",
+      "exceptions": []
+    },
+    "dates_exclues": [],
+    "date_publication": null,
+    "vues": 0,
+    "candidatures": 0,
+    "sessions_realisees": 0,
+    "note_moyenne": 0.0,
+    "date_creation": "2026-03-26T07:27:01.358Z",
+    "date_modification": "2026-03-26T07:27:01.358Z"
+  }
+},
+{
+  "model": "tutorat.offretutorat",
+  "pk": 3,
+  "fields": {
+    "tuteur": 20,
+    "titre": "pharmacie",
+    "description": "Partage de fichiers",
+    "matiere": "multimedia_audiovisuel",
+    "niveau": "L2",
+    "type": "individuel",
+    "tarif": null,
+    "tarif_reduction": null,
+    "gratuit": true,
+    "duree_session": 60,
+    "nombre_places": 1,
+    "planning_flexible": true,
+    "mode_planning": "manuel",
+    "en_ligne": false,
+    "presentiel": true,
+    "lieu": "You can",
+    "lien_visio": "",
+    "statut_workflow": "en_attente_validation",
+    "est_active": true,
+    "validee_par_admin": false,
+    "date_validation": null,
+    "admin_validateur": null,
+    "repetition_config": {
+      "type": "aucune",
+      "jours": [],
+      "date_fin": null,
+      "frequence": "hebdomadaire",
+      "exceptions": []
+    },
+    "dates_exclues": [],
+    "date_publication": null,
+    "vues": 0,
+    "candidatures": 0,
+    "sessions_realisees": 0,
+    "note_moyenne": 0.0,
+    "date_creation": "2026-03-26T07:37:40.402Z",
+    "date_modification": "2026-03-26T07:37:40.402Z"
+  }
+},
+{
+  "model": "tutorat.offretutorat",
+  "pk": 4,
+  "fields": {
+    "tuteur": 20,
+    "titre": "Gboard.",
+    "description": "Bienvenue dans le presse-papiers Gboard. Le texte que vous copiez est enregistré ici.",
+    "matiere": "Gboard.",
+    "niveau": "L2",
+    "type": "individuel",
+    "tarif": null,
+    "tarif_reduction": null,
+    "gratuit": true,
+    "duree_session": 60,
+    "nombre_places": 1,
+    "planning_flexible": true,
+    "mode_planning": "manuel",
+    "en_ligne": false,
+    "presentiel": true,
+    "lieu": "Gboard.",
+    "lien_visio": "",
+    "statut_workflow": "en_attente_validation",
+    "est_active": true,
+    "validee_par_admin": false,
+    "date_validation": null,
+    "admin_validateur": null,
+    "repetition_config": {
+      "type": "aucune",
+      "jours": [],
+      "date_fin": null,
+      "frequence": "hebdomadaire",
+      "exceptions": []
+    },
+    "dates_exclues": [],
+    "date_publication": null,
+    "vues": 0,
+    "candidatures": 0,
+    "sessions_realisees": 0,
+    "note_moyenne": 0.0,
+    "date_creation": "2026-03-26T08:01:15.678Z",
+    "date_modification": "2026-03-26T08:01:15.678Z"
+  }
+},
+{
+  "model": "tutorat.offretutorat",
+  "pk": 5,
+  "fields": {
+    "tuteur": 20,
+    "titre": "Cour pc",
+    "description": "Tout bien reçu",
+    "matiere": "Analyse de données",
+    "niveau": "L1",
+    "type": "individuel",
+    "tarif": "12.00",
+    "tarif_reduction": null,
+    "gratuit": false,
+    "duree_session": 60,
+    "nombre_places": 1,
+    "planning_flexible": true,
+    "mode_planning": "manuel",
+    "en_ligne": true,
+    "presentiel": false,
+    "lieu": "",
+    "lien_visio": "https://www.facebook.com/share/v/1CPb4Xg7DU/",
+    "statut_workflow": "publie",
+    "est_active": true,
+    "validee_par_admin": false,
+    "date_validation": null,
+    "admin_validateur": null,
+    "repetition_config": {
+      "type": "aucune",
+      "jours": [],
+      "date_fin": null,
+      "frequence": "hebdomadaire",
+      "exceptions": []
+    },
+    "dates_exclues": [],
+    "date_publication": null,
+    "vues": 0,
+    "candidatures": 0,
+    "sessions_realisees": 0,
+    "note_moyenne": 0.0,
+    "date_creation": "2026-03-26T08:59:28.718Z",
+    "date_modification": "2026-03-26T08:59:28.718Z"
+  }
+},
+{
+  "model": "tutorat.offretutorat",
+  "pk": 6,
+  "fields": {
+    "tuteur": 20,
+    "titre": "Système d'exploitation",
+    "description": "How much",
+    "matiere": "SE1",
+    "niveau": "L2",
+    "type": "individuel",
+    "tarif": null,
+    "tarif_reduction": null,
+    "gratuit": true,
+    "duree_session": 60,
+    "nombre_places": 1,
+    "planning_flexible": true,
+    "mode_planning": "manuel",
+    "en_ligne": false,
+    "presentiel": true,
+    "lieu": "Rejoignez",
+    "lien_visio": "",
+    "statut_workflow": "publie",
+    "est_active": true,
+    "validee_par_admin": false,
+    "date_validation": null,
+    "admin_validateur": null,
+    "repetition_config": {
+      "type": "aucune",
+      "jours": [],
+      "date_fin": null,
+      "frequence": "hebdomadaire",
+      "exceptions": []
+    },
+    "dates_exclues": [],
+    "date_publication": null,
+    "vues": 0,
+    "candidatures": 0,
+    "sessions_realisees": 0,
+    "note_moyenne": 0.0,
+    "date_creation": "2026-03-26T09:31:46.880Z",
+    "date_modification": "2026-03-26T09:31:46.880Z"
+  }
+},
+{
+  "model": "tutorat.groupetutorat",
+  "pk": 1,
+  "fields": {
+    "offre": null,
+    "nom": "Groupe A",
+    "capacite_max": 10,
+    "description": "Partage",
+    "date_debut": null,
+    "date_fin": null,
+    "createur": 20,
+    "prive": false,
+    "code_acces": "",
+    "auto_inscription": true,
+    "nombre_membres": 0,
+    "nombre_sessions": 0,
+    "date_creation": "2026-03-25T09:32:57.202Z"
+  }
+},
+{
+  "model": "tutorat.groupetutorat",
+  "pk": 2,
+  "fields": {
+    "offre": null,
+    "nom": "TD1",
+    "capacite_max": 12,
+    "description": "Renforcement du technique de partage",
+    "date_debut": null,
+    "date_fin": null,
+    "createur": 20,
+    "prive": false,
+    "code_acces": "",
+    "auto_inscription": true,
+    "nombre_membres": 0,
+    "nombre_sessions": 0,
+    "date_creation": "2026-03-25T09:56:06.350Z"
+  }
+},
+{
+  "model": "tutorat.inscriptiongroupe",
+  "pk": 1,
+  "fields": {
+    "etudiant": 28,
+    "groupe": 2,
+    "date_inscription": "2026-03-25T10:55:02.574Z",
+    "statut": "accepte"
+  }
+},
+{
+  "model": "tutorat.inscriptiongroupe",
+  "pk": 2,
+  "fields": {
+    "etudiant": 3,
+    "groupe": 2,
+    "date_inscription": "2026-03-25T11:12:06.253Z",
+    "statut": "accepte"
+  }
+},
+{
+  "model": "tutorat.disponibilite",
+  "pk": 1,
+  "fields": {
+    "tuteur": 20,
+    "jour_semaine": 0,
+    "heure_debut": "07:15:00",
+    "heure_fin": "12:15:00",
+    "est_recurrent": true,
+    "date_exception": null,
+    "indisponible": false,
+    "created_at": "2026-03-20T12:18:34.804Z"
+  }
+},
+{
+  "model": "tutorat.disponibilite",
+  "pk": 2,
+  "fields": {
+    "tuteur": 20,
+    "jour_semaine": 4,
+    "heure_debut": "12:15:00",
+    "heure_fin": "14:15:00",
+    "est_recurrent": true,
+    "date_exception": null,
+    "indisponible": false,
+    "created_at": "2026-03-25T11:48:07.518Z"
+  }
+},
+{
+  "model": "tutorat.disponibilite",
+  "pk": 3,
+  "fields": {
+    "tuteur": 20,
+    "jour_semaine": 6,
+    "heure_debut": "10:22:00",
+    "heure_fin": "13:22:00",
+    "est_recurrent": true,
+    "date_exception": null,
+    "indisponible": false,
+    "created_at": "2026-03-25T12:04:51.383Z"
+  }
+},
+{
+  "model": "tutorat.seance",
+  "pk": 2,
+  "fields": {
+    "offre": null,
+    "groupe": 2,
+    "tuteur": 20,
+    "date_heure_debut": "2026-03-25T10:04:13.185Z",
+    "date_heure_fin": "2026-03-25T12:04:13.185Z",
+    "duree": 60,
+    "en_ligne": true,
+    "lien_visio": "https://meet.example.com/room-2-1774433053185",
+    "lieu": "",
+    "sujet": "Séance pour TD1",
+    "description": "Séance de tutorat",
+    "ressources_partagees": [],
+    "statut": "planifiee",
+    "commentaire_annulation": "",
+    "date_annulation": null,
+    "rapport_tuteur": "",
+    "rapport_etudiant": "",
+    "travail_realise": "",
+    "objectifs_suivants": "",
+    "date_creation": "2026-03-25T10:04:14.454Z",
+    "date_modification": "2026-03-25T10:04:14.454Z",
+    "etudiants": []
+  }
+},
+{
+  "model": "tutorat.seance",
+  "pk": 3,
+  "fields": {
+    "offre": null,
+    "groupe": 1,
+    "tuteur": 20,
+    "date_heure_debut": "2026-03-25T10:05:59.598Z",
+    "date_heure_fin": "2026-03-25T12:05:59.598Z",
+    "duree": 60,
+    "en_ligne": true,
+    "lien_visio": "https://meet.example.com/room-1-1774433159598",
+    "lieu": "",
+    "sujet": "Séance pour Groupe A",
+    "description": "Séance de tutorat",
+    "ressources_partagees": [],
+    "statut": "planifiee",
+    "commentaire_annulation": "",
+    "date_annulation": null,
+    "rapport_tuteur": "",
+    "rapport_etudiant": "",
+    "travail_realise": "",
+    "objectifs_suivants": "",
+    "date_creation": "2026-03-25T10:06:00.821Z",
+    "date_modification": "2026-03-25T10:06:00.821Z",
+    "etudiants": []
+  }
+},
+{
+  "model": "tutorat.seance",
+  "pk": 4,
+  "fields": {
+    "offre": null,
+    "groupe": 2,
+    "tuteur": 20,
+    "date_heure_debut": "2026-03-25T10:13:55.703Z",
+    "date_heure_fin": "2026-03-25T12:13:55.703Z",
+    "duree": 60,
+    "en_ligne": true,
+    "lien_visio": "https://meet.example.com/room-2-1774433635703",
+    "lieu": "",
+    "sujet": "Séance pour TD1",
+    "description": "Séance de tutorat",
+    "ressources_partagees": [],
+    "statut": "planifiee",
+    "commentaire_annulation": "",
+    "date_annulation": null,
+    "rapport_tuteur": "",
+    "rapport_etudiant": "",
+    "travail_realise": "",
+    "objectifs_suivants": "",
+    "date_creation": "2026-03-25T10:13:57.006Z",
+    "date_modification": "2026-03-25T10:13:57.006Z",
+    "etudiants": []
+  }
+},
+{
+  "model": "tutorat.seance",
+  "pk": 5,
+  "fields": {
+    "offre": null,
+    "groupe": 2,
+    "tuteur": 20,
+    "date_heure_debut": "2026-03-25T10:15:06.555Z",
+    "date_heure_fin": "2026-03-25T12:15:06.555Z",
+    "duree": 60,
+    "en_ligne": true,
+    "lien_visio": "https://meet.example.com/room-2-1774433706555",
+    "lieu": "",
+    "sujet": "Séance pour TD1",
+    "description": "Séance de tutorat",
+    "ressources_partagees": [],
+    "statut": "planifiee",
+    "commentaire_annulation": "",
+    "date_annulation": null,
+    "rapport_tuteur": "",
+    "rapport_etudiant": "",
+    "travail_realise": "",
+    "objectifs_suivants": "",
+    "date_creation": "2026-03-25T10:15:07.839Z",
+    "date_modification": "2026-03-25T10:15:07.839Z",
+    "etudiants": []
+  }
+},
+{
+  "model": "tutorat.seance",
+  "pk": 6,
+  "fields": {
+    "offre": null,
+    "groupe": 2,
+    "tuteur": 20,
+    "date_heure_debut": "2026-03-25T10:15:22.954Z",
+    "date_heure_fin": "2026-03-25T12:15:22.954Z",
+    "duree": 60,
+    "en_ligne": true,
+    "lien_visio": "https://meet.example.com/room-2-1774433722955",
+    "lieu": "",
+    "sujet": "Séance pour TD1",
+    "description": "Séance de tutorat",
+    "ressources_partagees": [],
+    "statut": "planifiee",
+    "commentaire_annulation": "",
+    "date_annulation": null,
+    "rapport_tuteur": "",
+    "rapport_etudiant": "",
+    "travail_realise": "",
+    "objectifs_suivants": "",
+    "date_creation": "2026-03-25T10:15:24.094Z",
+    "date_modification": "2026-03-25T10:15:24.094Z",
+    "etudiants": []
+  }
+},
+{
+  "model": "tutorat.seance",
+  "pk": 7,
+  "fields": {
+    "offre": null,
+    "groupe": 2,
+    "tuteur": 20,
+    "date_heure_debut": "2026-03-25T10:15:31.395Z",
+    "date_heure_fin": "2026-03-25T12:15:31.395Z",
+    "duree": 60,
+    "en_ligne": true,
+    "lien_visio": "https://meet.example.com/room-2-1774433731395",
+    "lieu": "",
+    "sujet": "Séance pour TD1",
+    "description": "Séance de tutorat",
+    "ressources_partagees": [],
+    "statut": "planifiee",
+    "commentaire_annulation": "",
+    "date_annulation": null,
+    "rapport_tuteur": "",
+    "rapport_etudiant": "",
+    "travail_realise": "",
+    "objectifs_suivants": "",
+    "date_creation": "2026-03-25T10:15:32.531Z",
+    "date_modification": "2026-03-25T10:15:32.531Z",
+    "etudiants": []
+  }
+},
+{
+  "model": "tutorat.seance",
+  "pk": 8,
+  "fields": {
+    "offre": null,
+    "groupe": 2,
+    "tuteur": 20,
+    "date_heure_debut": "2026-03-25T10:20:18.597Z",
+    "date_heure_fin": "2026-03-25T12:20:18.597Z",
+    "duree": 60,
+    "en_ligne": true,
+    "lien_visio": "https://meet.example.com/room-2-1774434018597",
+    "lieu": "",
+    "sujet": "Séance pour TD1",
+    "description": "Séance de tutorat",
+    "ressources_partagees": [],
+    "statut": "planifiee",
+    "commentaire_annulation": "",
+    "date_annulation": null,
+    "rapport_tuteur": "",
+    "rapport_etudiant": "",
+    "travail_realise": "",
+    "objectifs_suivants": "",
+    "date_creation": "2026-03-25T10:20:19.861Z",
+    "date_modification": "2026-03-25T10:20:19.861Z",
+    "etudiants": []
+  }
+},
+{
+  "model": "tutorat.seance",
+  "pk": 9,
+  "fields": {
+    "offre": null,
+    "groupe": null,
+    "tuteur": 20,
+    "date_heure_debut": "2026-03-26T09:30:00Z",
+    "date_heure_fin": "2026-03-26T10:30:00Z",
+    "duree": 60,
+    "en_ligne": true,
+    "lien_visio": "",
+    "lieu": "",
+    "sujet": "Séance du TP algorithme",
+    "description": "Les techniques de codage",
+    "ressources_partagees": [],
+    "statut": "planifiee",
+    "commentaire_annulation": "",
+    "date_annulation": null,
+    "rapport_tuteur": "",
+    "rapport_etudiant": "",
+    "travail_realise": "",
+    "objectifs_suivants": "",
+    "date_creation": "2026-03-25T10:23:33.566Z",
+    "date_modification": "2026-03-25T10:23:33.566Z",
+    "etudiants": []
+  }
+},
+{
+  "model": "tutorat.seance",
+  "pk": 10,
+  "fields": {
+    "offre": null,
+    "groupe": 2,
+    "tuteur": 20,
+    "date_heure_debut": "2026-03-25T10:34:18.854Z",
+    "date_heure_fin": "2026-03-25T12:34:18.854Z",
+    "duree": 60,
+    "en_ligne": true,
+    "lien_visio": "https://meet.example.com/room-2-1774434858854",
+    "lieu": "",
+    "sujet": "Séance pour TD1",
+    "description": "Séance de tutorat",
+    "ressources_partagees": [],
+    "statut": "planifiee",
+    "commentaire_annulation": "",
+    "date_annulation": null,
+    "rapport_tuteur": "",
+    "rapport_etudiant": "",
+    "travail_realise": "",
+    "objectifs_suivants": "",
+    "date_creation": "2026-03-25T10:34:20.238Z",
+    "date_modification": "2026-03-25T10:34:20.238Z",
+    "etudiants": []
+  }
+},
+{
+  "model": "tutorat.seance",
+  "pk": 11,
+  "fields": {
+    "offre": null,
+    "groupe": 1,
+    "tuteur": 20,
+    "date_heure_debut": "2026-03-25T10:36:31.163Z",
+    "date_heure_fin": "2026-03-25T12:36:31.163Z",
+    "duree": 60,
+    "en_ligne": true,
+    "lien_visio": "https://meet.example.com/room-1-1774434991163",
+    "lieu": "",
+    "sujet": "Séance pour Groupe A",
+    "description": "Séance de tutorat",
+    "ressources_partagees": [],
+    "statut": "planifiee",
+    "commentaire_annulation": "",
+    "date_annulation": null,
+    "rapport_tuteur": "",
+    "rapport_etudiant": "",
+    "travail_realise": "",
+    "objectifs_suivants": "",
+    "date_creation": "2026-03-25T10:36:32.501Z",
+    "date_modification": "2026-03-25T10:36:32.501Z",
+    "etudiants": []
+  }
+},
+{
+  "model": "tutorat.seance",
+  "pk": 12,
+  "fields": {
+    "offre": null,
+    "groupe": 2,
+    "tuteur": 20,
+    "date_heure_debut": "2026-03-25T11:15:00.616Z",
+    "date_heure_fin": "2026-03-25T13:15:00.616Z",
+    "duree": 60,
+    "en_ligne": true,
+    "lien_visio": "https://meet.example.com/room-2-1774437300616",
+    "lieu": "",
+    "sujet": "Séance pour TD1",
+    "description": "Séance de tutorat",
+    "ressources_partagees": [],
+    "statut": "planifiee",
+    "commentaire_annulation": "",
+    "date_annulation": null,
+    "rapport_tuteur": "",
+    "rapport_etudiant": "",
+    "travail_realise": "",
+    "objectifs_suivants": "",
+    "date_creation": "2026-03-25T11:15:02.300Z",
+    "date_modification": "2026-03-25T11:15:02.300Z",
+    "etudiants": []
+  }
+},
+{
+  "model": "tutorat.seance",
+  "pk": 13,
+  "fields": {
+    "offre": null,
+    "groupe": 1,
+    "tuteur": 20,
+    "date_heure_debut": "2026-03-25T12:32:32.326Z",
+    "date_heure_fin": "2026-03-25T14:32:32.326Z",
+    "duree": 60,
+    "en_ligne": true,
+    "lien_visio": "https://meet.example.com/room-1-1774441952326",
+    "lieu": "",
+    "sujet": "Séance pour Groupe A",
+    "description": "Séance de tutorat",
+    "ressources_partagees": [],
+    "statut": "planifiee",
+    "commentaire_annulation": "",
+    "date_annulation": null,
+    "rapport_tuteur": "",
+    "rapport_etudiant": "",
+    "travail_realise": "",
+    "objectifs_suivants": "",
+    "date_creation": "2026-03-25T12:32:33.208Z",
+    "date_modification": "2026-03-25T12:32:33.208Z",
+    "etudiants": []
+  }
+},
+{
+  "model": "ressources.ressource",
+  "pk": 1,
+  "fields": {
+    "titre": "1",
+    "description": "Good morning",
+    "auteur": 20,
+    "matiere": "Crazy",
+    "niveau": "L3",
+    "type_fichier": "cours",
+    "fichier": "ressources/1020ASTUCES20TECC81LECC81PHONE20Simples2C20cacheCC81es20et20puissantes.pdf.pdf",
+    "lien_externe": "",
+    "tags": "",
+    "statut": "publie",
+    "nb_telechargements": 0,
+    "nb_vues": 0,
+    "date_publication": "2026-03-20T01:57:06.870Z",
+    "date_maj": "2026-03-20T01:57:06.870Z"
+  }
+},
+{
+  "model": "ressources.ressource",
+  "pk": 2,
+  "fields": {
+    "titre": "Ressource de test API",
+    "description": "Ceci est une ressource de test pour vérifier la communication avec l'admin",
+    "auteur": 20,
+    "matiere": "Test",
+    "niveau": "L1",
+    "type_fichier": "cours",
+    "fichier": "",
+    "lien_externe": "",
+    "tags": "",
+    "statut": "publie",
+    "nb_telechargements": 0,
+    "nb_vues": 0,
+    "date_publication": "2026-03-22T04:35:55.586Z",
+    "date_maj": "2026-03-22T04:35:55.586Z"
+  }
+},
+{
+  "model": "ressources.ressource",
+  "pk": 3,
+  "fields": {
+    "titre": "Ressource de test API",
+    "description": "Ceci est une ressource de test pour vérifier la communication avec l'admin",
+    "auteur": 20,
+    "matiere": "Test",
+    "niveau": "L1",
+    "type_fichier": "cours",
+    "fichier": "",
+    "lien_externe": "",
+    "tags": "",
+    "statut": "publie",
+    "nb_telechargements": 0,
+    "nb_vues": 0,
+    "date_publication": "2026-03-22T04:36:01.479Z",
+    "date_maj": "2026-03-22T04:36:01.479Z"
+  }
+},
+{
+  "model": "ressources.ressource",
+  "pk": 4,
+  "fields": {
+    "titre": "Ressource de test API",
+    "description": "Ceci est une ressource de test pour vérifier la communication avec l'admin",
+    "auteur": 20,
+    "matiere": "Test",
+    "niveau": "L1",
+    "type_fichier": "cours",
+    "fichier": "",
+    "lien_externe": "",
+    "tags": "",
+    "statut": "en_attente",
+    "nb_telechargements": 0,
+    "nb_vues": 0,
+    "date_publication": "2026-03-22T04:36:04.320Z",
+    "date_maj": "2026-03-22T04:36:04.320Z"
+  }
+},
+{
+  "model": "ressources.ressource",
+  "pk": 5,
+  "fields": {
+    "titre": "Ressource de test API",
+    "description": "Ceci est une ressource de test pour vérifier la communication avec l'admin",
+    "auteur": 20,
+    "matiere": "Test",
+    "niveau": "L1",
+    "type_fichier": "cours",
+    "fichier": "",
+    "lien_externe": "",
+    "tags": "",
+    "statut": "en_attente",
+    "nb_telechargements": 0,
+    "nb_vues": 0,
+    "date_publication": "2026-03-22T04:36:05.870Z",
+    "date_maj": "2026-03-22T04:36:05.870Z"
+  }
+},
+{
+  "model": "ressources.ressource",
+  "pk": 12,
+  "fields": {
+    "titre": "Youtube",
+    "description": "Le versets",
+    "auteur": 20,
+    "matiere": "Mathématiques",
+    "niveau": "L2",
+    "type_fichier": "pdf",
+    "fichier": "ressources/art2.pdf",
+    "lien_externe": "",
+    "tags": "",
+    "statut": "en_attente",
+    "nb_telechargements": 0,
+    "nb_vues": 0,
+    "date_publication": "2026-03-23T08:12:02.282Z",
+    "date_maj": "2026-03-23T08:12:02.282Z"
+  }
+},
+{
+  "model": "ressources.ressource",
+  "pk": 13,
+  "fields": {
+    "titre": "Yuuh",
+    "description": "Hkjf",
+    "auteur": 20,
+    "matiere": "Yuy",
+    "niveau": "L2",
+    "type_fichier": "video",
+    "fichier": "ressources/file.mp4",
+    "lien_externe": "",
+    "tags": "",
+    "statut": "en_attente",
+    "nb_telechargements": 0,
+    "nb_vues": 0,
+    "date_publication": "2026-03-23T15:27:25.051Z",
+    "date_maj": "2026-03-23T15:27:25.051Z"
+  }
+},
+{
+  "model": "notifications.notification",
+  "pk": 1,
+  "fields": {
+    "destinataire": 20,
+    "type": "validation_ressource",
+    "titre": "Ressource validée",
+    "message": "Votre ressource \"1\" a été validée et publiée.",
+    "lien": "",
+    "est_lue": false,
+    "date_creation": "2026-03-20T01:58:05.421Z"
+  }
+},
+{
+  "model": "notifications.notification",
+  "pk": 2,
+  "fields": {
+    "destinataire": 20,
+    "type": "validation_ressource",
+    "titre": "Ressource validée",
+    "message": "Votre ressource \"Ressource de test API\" a été validée et publiée.",
+    "lien": "",
+    "est_lue": false,
+    "date_creation": "2026-03-23T15:01:12.578Z"
+  }
+},
+{
+  "model": "notifications.notification",
+  "pk": 3,
+  "fields": {
+    "destinataire": 20,
+    "type": "validation_ressource",
+    "titre": "Ressource validée",
+    "message": "Votre ressource \"Ressource de test API\" a été validée et publiée.",
+    "lien": "",
+    "est_lue": false,
+    "date_creation": "2026-03-23T15:01:27.247Z"
+  }
+},
+{
+  "model": "messagerie.emailmessage",
+  "pk": 15,
+  "fields": {
+    "expediteur": 25,
+    "destinataire": 2,
+    "sujet": "Évaluation",
+    "contenu": "Je suis en retard",
+    "statut": "envoye",
+    "date_envoi": "2026-03-17T21:41:33.517Z",
+    "date_reception": null,
+    "date_lecture": null,
+    "email_id_externe": ""
+  }
+},
+{
+  "model": "messagerie.emailmessage",
+  "pk": 16,
+  "fields": {
+    "expediteur": 25,
+    "destinataire": 2,
+    "sujet": "Message depuis la plateforme de tutorat",
+    "contenu": "Bonjour judith,",
+    "statut": "envoye",
+    "date_envoi": "2026-03-17T22:32:39.117Z",
+    "date_reception": null,
+    "date_lecture": null,
+    "email_id_externe": ""
+  }
+},
+{
+  "model": "messagerie.emailmessage",
+  "pk": 17,
+  "fields": {
+    "expediteur": 25,
+    "destinataire": 1,
+    "sujet": "Message depuis la plateforme de tutorat",
+    "contenu": "Bonjour Ernest,",
+    "statut": "envoye",
+    "date_envoi": "2026-03-17T22:34:32.603Z",
+    "date_reception": null,
+    "date_lecture": null,
+    "email_id_externe": ""
+  }
+},
+{
+  "model": "messagerie.emailmessage",
+  "pk": 18,
+  "fields": {
+    "expediteur": 25,
+    "destinataire": 1,
+    "sujet": "Message depuis la plateforme de tutorat",
+    "contenu": "Bonjour Ernest,",
+    "statut": "envoye",
+    "date_envoi": "2026-03-17T22:34:39.232Z",
+    "date_reception": null,
+    "date_lecture": null,
+    "email_id_externe": ""
+  }
+},
+{
+  "model": "messagerie.emailmessage",
+  "pk": 19,
+  "fields": {
+    "expediteur": 25,
+    "destinataire": 1,
+    "sujet": "Entretien",
+    "contenu": "Je suis désolée",
+    "statut": "envoye",
+    "date_envoi": "2026-03-17T22:37:20.314Z",
+    "date_reception": null,
+    "date_lecture": null,
+    "email_id_externe": ""
+  }
+},
+{
+  "model": "messagerie.emailmessage",
+  "pk": 20,
+  "fields": {
+    "expediteur": 25,
+    "destinataire": 2,
+    "sujet": "Message depuis la plateforme de tutorat",
+    "contenu": "Bonjour judith,",
+    "statut": "envoye",
+    "date_envoi": "2026-03-17T22:48:41.409Z",
+    "date_reception": null,
+    "date_lecture": null,
+    "email_id_externe": ""
+  }
+},
+{
+  "model": "messagerie.emailmessage",
+  "pk": 21,
+  "fields": {
+    "expediteur": 25,
+    "destinataire": 2,
+    "sujet": "Tutorat",
+    "contenu": "Devenir tuteur accepté",
+    "statut": "envoye",
+    "date_envoi": "2026-03-17T23:04:40.970Z",
+    "date_reception": null,
+    "date_lecture": null,
+    "email_id_externe": "911b283a-2695-441d-8f20-19d8df783444"
+  }
+},
+{
+  "model": "messagerie.emailmessage",
+  "pk": 22,
+  "fields": {
+    "expediteur": 25,
+    "destinataire": 1,
+    "sujet": "Tutorat",
+    "contenu": "Salut",
+    "statut": "envoye",
+    "date_envoi": "2026-03-17T23:05:55.548Z",
+    "date_reception": null,
+    "date_lecture": null,
+    "email_id_externe": "1163b0b3-9a6e-4972-affe-33526ff60e2a"
+  }
+},
+{
+  "model": "messagerie.emailmessage",
+  "pk": 23,
+  "fields": {
+    "expediteur": 25,
+    "destinataire": 2,
+    "sujet": "Message depuis la plateforme de tutorat",
+    "contenu": "Bonjour judith,",
+    "statut": "envoye",
+    "date_envoi": "2026-03-18T03:40:57.144Z",
+    "date_reception": null,
+    "date_lecture": null,
+    "email_id_externe": ""
+  }
+},
+{
+  "model": "messagerie.emailmessage",
+  "pk": 24,
+  "fields": {
+    "expediteur": 25,
+    "destinataire": 1,
+    "sujet": "Message depuis la plateforme de tutorat",
+    "contenu": "Bonjour Ernest,",
+    "statut": "envoye",
+    "date_envoi": "2026-03-18T03:41:46.218Z",
+    "date_reception": null,
+    "date_lecture": null,
+    "email_id_externe": ""
+  }
+},
+{
+  "model": "messagerie.emailmessage",
+  "pk": 25,
+  "fields": {
+    "expediteur": 1,
+    "destinataire": 1,
+    "sujet": "Test complet depuis API",
+    "contenu": "Ceci est un test complet pour vérifier que tout le système fonctionne parfaitement.",
+    "statut": "envoye",
+    "date_envoi": "2026-03-18T03:47:30.165Z",
+    "date_reception": null,
+    "date_lecture": null,
+    "email_id_externe": ""
+  }
+},
+{
+  "model": "messagerie.emailmessage",
+  "pk": 26,
+  "fields": {
+    "expediteur": 1,
+    "destinataire": 1,
+    "sujet": "Test depuis Admin Dashboard",
+    "contenu": "Ceci est un test envoyé depuis l'interface admin pour vérifier que tout fonctionne.",
+    "statut": "envoye",
+    "date_envoi": "2026-03-18T03:47:49.501Z",
+    "date_reception": null,
+    "date_lecture": null,
+    "email_id_externe": "a76ee285-e9fc-4d63-a17d-fff86d551036"
+  }
+},
+{
+  "model": "messagerie.emailmessage",
+  "pk": 27,
+  "fields": {
+    "expediteur": 25,
+    "destinataire": 2,
+    "sujet": "Message depuis la plateforme de tutorat",
+    "contenu": "Bonjour judith,",
+    "statut": "envoye",
+    "date_envoi": "2026-03-18T03:51:42.432Z",
+    "date_reception": null,
+    "date_lecture": null,
+    "email_id_externe": "9efd3e03-7d9e-4311-b99c-eb09043220d9"
+  }
+},
+{
+  "model": "messagerie.emailmessage",
+  "pk": 28,
+  "fields": {
+    "expediteur": 25,
+    "destinataire": 1,
+    "sujet": "Message depuis la plateforme de tutorat",
+    "contenu": "Bonjour Ernest,",
+    "statut": "envoye",
+    "date_envoi": "2026-03-18T03:51:52.957Z",
+    "date_reception": null,
+    "date_lecture": null,
+    "email_id_externe": "9ebf47e3-e856-4af6-a1d6-c36fc5554312"
+  }
+},
+{
+  "model": "messagerie.emailmessage",
+  "pk": 29,
+  "fields": {
+    "expediteur": 1,
+    "destinataire": 1,
+    "sujet": "Test Django Email Simplifié",
+    "contenu": "Test avec le système Django Email simplifié et plus fiable.",
+    "statut": "envoye",
+    "date_envoi": "2026-03-18T04:06:31.945Z",
+    "date_reception": null,
+    "date_lecture": null,
+    "email_id_externe": "1c67ec76-61a6-4502-8e08-3e08895c8692"
+  }
+},
+{
+  "model": "messagerie.emailmessage",
+  "pk": 30,
+  "fields": {
+    "expediteur": 1,
+    "destinataire": 1,
+    "sujet": "Test ULTRA SIMPLE",
+    "contenu": "Test ultra simple et fiable - pas de HTML, juste du texte pur.",
+    "statut": "envoye",
+    "date_envoi": "2026-03-18T04:10:06.035Z",
+    "date_reception": null,
+    "date_lecture": null,
+    "email_id_externe": "40466c90-011e-4a0b-a626-c3e55a7035f6"
+  }
+},
+{
+  "model": "messagerie.emailmessage",
+  "pk": 31,
+  "fields": {
+    "expediteur": 25,
+    "destinataire": 2,
+    "sujet": "Message depuis la plateforme de tutorat",
+    "contenu": "Bonjour judith,",
+    "statut": "envoye",
+    "date_envoi": "2026-03-18T04:13:55.295Z",
+    "date_reception": null,
+    "date_lecture": null,
+    "email_id_externe": "577165a5-eb68-4ff7-a197-6759c587bf8f"
+  }
+},
+{
+  "model": "messagerie.emailmessage",
+  "pk": 32,
+  "fields": {
+    "expediteur": 25,
+    "destinataire": 1,
+    "sujet": "Message depuis la plateforme de tutorat",
+    "contenu": "Bonjour Ernest,",
+    "statut": "envoye",
+    "date_envoi": "2026-03-18T04:14:33.288Z",
+    "date_reception": null,
+    "date_lecture": null,
+    "email_id_externe": "39556389-67c3-4ccb-83ef-9d1033efac89"
+  }
+},
+{
+  "model": "messagerie.emailmessage",
+  "pk": 33,
+  "fields": {
+    "expediteur": 25,
+    "destinataire": 1,
+    "sujet": "Tutorat",
+    "contenu": "Salut",
+    "statut": "envoye",
+    "date_envoi": "2026-03-18T04:15:10.755Z",
+    "date_reception": null,
+    "date_lecture": null,
+    "email_id_externe": "939a1525-5b63-4f5b-a1fd-92eaffb2bebd"
+  }
+},
+{
+  "model": "messagerie.emailmessage",
+  "pk": 34,
+  "fields": {
+    "expediteur": 25,
+    "destinataire": 25,
+    "sujet": "Totorat",
+    "contenu": "Salut man vous acceptez",
+    "statut": "envoye",
+    "date_envoi": "2026-03-18T04:16:35.909Z",
+    "date_reception": null,
+    "date_lecture": null,
+    "email_id_externe": "5d2c8901-7b7d-46f2-bd33-5dc4cd132e91"
+  }
+},
+{
+  "model": "messagerie.emailmessage",
+  "pk": 35,
+  "fields": {
+    "expediteur": 1,
+    "destinataire": 25,
+    "sujet": "Totorat",
+    "contenu": "Recevoir",
+    "statut": "envoye",
+    "date_envoi": "2026-03-19T20:21:31.102Z",
+    "date_reception": null,
+    "date_lecture": null,
+    "email_id_externe": "da81677b-67b7-4595-a534-a6bb75e7bfd0"
+  }
+},
+{
+  "model": "messagerie.emailmessage",
+  "pk": 36,
+  "fields": {
+    "expediteur": 25,
+    "destinataire": 28,
+    "sujet": "Tutorat",
+    "contenu": "Salut vous êtes activé",
+    "statut": "envoye",
+    "date_envoi": "2026-03-20T12:49:01.761Z",
+    "date_reception": null,
+    "date_lecture": null,
+    "email_id_externe": "7720935d-8089-49d0-8295-ce54d4d07997"
+  }
+},
+{
+  "model": "messagerie.emailmessage",
+  "pk": 37,
+  "fields": {
+    "expediteur": 1,
+    "destinataire": 33,
+    "sujet": "Message depuis la plateforme de tutorat",
+    "contenu": "Bonjour Ali,",
+    "statut": "envoye",
+    "date_envoi": "2026-03-27T14:35:28.679Z",
+    "date_reception": null,
+    "date_lecture": null,
+    "email_id_externe": "b7f02012-1f46-4214-8084-15aef3383803"
+  }
+},
+{
+  "model": "messagerie.emailmessage",
+  "pk": 38,
+  "fields": {
+    "expediteur": 1,
+    "destinataire": 33,
+    "sujet": "Message depuis la plateforme de tutorat",
+    "contenu": "Bonjour Ali,",
+    "statut": "envoye",
+    "date_envoi": "2026-03-27T14:35:36.340Z",
+    "date_reception": null,
+    "date_lecture": null,
+    "email_id_externe": "df118ee5-5af2-4627-9775-378156e93e53"
+  }
+},
+{
+  "model": "messagerie.accusereception",
+  "pk": 28,
+  "fields": {
+    "email": 21,
+    "type_accus": "envoi",
+    "date_accus": "2026-03-17T23:04:41.155Z",
+    "ip_adresse": "192.168.43.1",
+    "user_agent": "okhttp/4.12.0"
+  }
+},
+{
+  "model": "messagerie.accusereception",
+  "pk": 29,
+  "fields": {
+    "email": 22,
+    "type_accus": "envoi",
+    "date_accus": "2026-03-17T23:05:55.636Z",
+    "ip_adresse": "192.168.43.1",
+    "user_agent": "okhttp/4.12.0"
+  }
+},
+{
+  "model": "messagerie.accusereception",
+  "pk": 30,
+  "fields": {
+    "email": 26,
+    "type_accus": "envoi",
+    "date_accus": "2026-03-18T03:47:49.552Z",
+    "ip_adresse": "127.0.0.1",
+    "user_agent": "Test"
+  }
+},
+{
+  "model": "messagerie.accusereception",
+  "pk": 31,
+  "fields": {
+    "email": 27,
+    "type_accus": "envoi",
+    "date_accus": "2026-03-18T03:51:42.657Z",
+    "ip_adresse": "192.168.43.1",
+    "user_agent": "okhttp/4.12.0"
+  }
+},
+{
+  "model": "messagerie.accusereception",
+  "pk": 32,
+  "fields": {
+    "email": 28,
+    "type_accus": "envoi",
+    "date_accus": "2026-03-18T03:51:53.331Z",
+    "ip_adresse": "192.168.43.1",
+    "user_agent": "okhttp/4.12.0"
+  }
+},
+{
+  "model": "messagerie.accusereception",
+  "pk": 33,
+  "fields": {
+    "email": 29,
+    "type_accus": "envoi",
+    "date_accus": "2026-03-18T04:06:32.113Z",
+    "ip_adresse": "127.0.0.1",
+    "user_agent": "Test"
+  }
+},
+{
+  "model": "messagerie.accusereception",
+  "pk": 34,
+  "fields": {
+    "email": 30,
+    "type_accus": "envoi",
+    "date_accus": "2026-03-18T04:10:06.212Z",
+    "ip_adresse": "127.0.0.1",
+    "user_agent": "Test"
+  }
+},
+{
+  "model": "messagerie.accusereception",
+  "pk": 35,
+  "fields": {
+    "email": 31,
+    "type_accus": "envoi",
+    "date_accus": "2026-03-18T04:13:55.384Z",
+    "ip_adresse": "192.168.43.1",
+    "user_agent": "okhttp/4.12.0"
+  }
+},
+{
+  "model": "messagerie.accusereception",
+  "pk": 36,
+  "fields": {
+    "email": 32,
+    "type_accus": "envoi",
+    "date_accus": "2026-03-18T04:14:33.372Z",
+    "ip_adresse": "192.168.43.1",
+    "user_agent": "okhttp/4.12.0"
+  }
+},
+{
+  "model": "messagerie.accusereception",
+  "pk": 37,
+  "fields": {
+    "email": 33,
+    "type_accus": "envoi",
+    "date_accus": "2026-03-18T04:15:10.828Z",
+    "ip_adresse": "192.168.43.1",
+    "user_agent": "okhttp/4.12.0"
+  }
+},
+{
+  "model": "messagerie.accusereception",
+  "pk": 38,
+  "fields": {
+    "email": 34,
+    "type_accus": "envoi",
+    "date_accus": "2026-03-18T04:16:35.992Z",
+    "ip_adresse": "192.168.43.1",
+    "user_agent": "okhttp/4.12.0"
+  }
+},
+{
+  "model": "messagerie.accusereception",
+  "pk": 39,
+  "fields": {
+    "email": 35,
+    "type_accus": "envoi",
+    "date_accus": "2026-03-19T20:21:31.318Z",
+    "ip_adresse": "192.168.43.1",
+    "user_agent": "okhttp/4.12.0"
+  }
+},
+{
+  "model": "messagerie.accusereception",
+  "pk": 40,
+  "fields": {
+    "email": 36,
+    "type_accus": "envoi",
+    "date_accus": "2026-03-20T12:49:01.986Z",
+    "ip_adresse": "192.168.43.1",
+    "user_agent": "okhttp/4.12.0"
+  }
+}
+]

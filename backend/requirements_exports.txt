@@ -1,0 +1,13 @@
+# Dépendances pour les exports de rapports
+
+# Export Excel
+openpyxl>=3.8.0
+
+# Export Word
+python-docx>=0.8.11
+
+# Export PDF
+reportlab>=3.6.12
+
+# Export PowerPoint
+python-pptx>=0.6.21
