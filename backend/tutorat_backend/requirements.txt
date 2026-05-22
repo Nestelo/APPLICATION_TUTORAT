@@ -5,7 +5,7 @@ django-cors-headers==4.4.0
 django-filter==24.2
 psycopg2-binary==2.9.9
 python-dotenv==1.0.1
-pillow==10.3.0
+pillow>=11.0.0
 django-celery-results==2.5.1
 celery==5.3.6
 gunicorn==22.0.0
