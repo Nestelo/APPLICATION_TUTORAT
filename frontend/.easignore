@@ -1,0 +1,19 @@
+# Node modules
+node_modules/
+
+# Dossiers de build Android (Les coupables probables ici)
+android/build/
+android/.gradle/
+android/app/build/
+*.keystore
+
+# Dossiers de build iOS
+ios/build/
+ios/Pods/
+
+# Builds Web
+web-build/
+
+# Fichiers d'environnement locaux et logs de debug
+.env*.local
+*.log

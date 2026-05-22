@@ -1,14 +1,24 @@
 import os
 from pathlib import Path
 from datetime import timedelta
+from dotenv import load_dotenv
+import dj_database_url
 
+# Charger les variables d'environnement depuis .env (fichier local uniquement)
+load_dotenv()
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-1w1)bq^d3y)q72ky22$7azi0bh^_0jz^jtb_ekutk&8%u(d^vf'
-DEBUG = True
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-1w1)bq^d3y)q72ky22$7azi0bh^_0jz^jtb_ekutk&8%u(d^vf')
 
-ALLOWED_HOSTS = ['192.168.43.210', 'localhost', '127.0.0.1']
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,192.168.43.210,.onrender.com').split(',')
+
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -20,6 +30,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'django_filters',
+    'whitenoise.runserver_nostatic',  # Pour WhiteNoise (fichiers statiques)
     'apps.accounts',
     'apps.tutorat',
     'apps.communication',
@@ -34,6 +45,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # WhiteNoise pour fichiers statiques
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -62,18 +74,32 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'tutorat_backend.wsgi.application'
 
-# Base de données PostgreSQL
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'tutorat_db',
-        'USER': 'postgres',
-        'PASSWORD': 'Nestelo10',
-        'HOST': 'localhost',
-        'PORT': '5432',
+# Base de données PostgreSQL (Render) ou locale
+# Utilise DATABASE_URL pour Render, sinon PostgreSQL local
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if DATABASE_URL:
+    # Configuration pour Render (production)
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=not DEBUG
+        )
     }
-}
+else:
+    # Configuration pour développement local
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('DB_NAME', 'tutorat_db'),
+            'USER': os.environ.get('DB_USER', 'postgres'),
+            'PASSWORD': os.environ.get('DB_PASSWORD', 'Nestelo10'),
+            'HOST': os.environ.get('DB_HOST', 'localhost'),
+            'PORT': os.environ.get('DB_PORT', '5432'),
+        }
+    }
 
+# Custom user model
 AUTH_USER_MODEL = 'accounts.User'
 
 # REST Framework
@@ -88,6 +114,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 20,
 }
 
+# Simple JWT
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
@@ -95,45 +122,63 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
 }
 
-# CORS
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:19000",
-    "http://localhost:19006",
-    "http://192.168.43.210:19000",
-    "http://192.168.43.210:8081",
-]
+# CORS (Cross-Origin Resource Sharing)
+CORS_ALLOWED_ORIGINS = os.environ.get(
+    'CORS_ALLOWED_ORIGINS',
+    'http://localhost:19000,http://localhost:19006,http://192.168.43.210:19000,http://192.168.43.210:8081,https://*.onrender.com'
+).split(',')
 CORS_ALLOW_CREDENTIALS = True
+
+# Pour le développement uniquement - en production, utilisez CORS_ALLOWED_ORIGINS précis
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = True
 
 # Fichiers statiques et médias
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Configuration email – SendGrid SMTP (ACTIVÉE)
-# Pour tester: utilisez le backend console pour voir les emails dans la console
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# Pour production: utilisez le backend SMTP avec SendGrid
+# Configuration email – SendGrid SMTP (production)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'apikey'  # SendGrid utilise 'apikey' comme nom d'utilisateur
-# IMPORTANT: Remplacez cette clé par votre vraie clé API SendGrid (doit commencer par 'SG.' et faire ~69 caractères)
-EMAIL_HOST_PASSWORD = 'SG.20D27260A1085B15A25D339FD7A093'  # Clé à remplacer
-DEFAULT_FROM_EMAIL = 'ndjerabeernest@gmail.com'
+EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME', 'apikey')
+EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD', '')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'ndjerabeernest@gmail.com')
+
+# Pour le développement local, vous pouvez utiliser le backend console
+if DEBUG and not EMAIL_HOST_PASSWORD:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Logging
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
-        'console': {'class': 'logging.StreamHandler'},
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
     },
     'loggers': {
         'apps.messagerie': {
             'handlers': ['console'],
             'level': 'DEBUG',
         },
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
     },
 }
+
+# Redirection HTTPS (production)
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True

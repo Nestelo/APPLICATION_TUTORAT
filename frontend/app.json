@@ -21,7 +21,11 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.anonymous.tutoratinsta"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
@@ -36,6 +40,11 @@
         }
       ],
       "expo-document-picker"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "85c075e4-6474-4b83-b064-d38f3fbd04d1"
+      }
+    }
   }
 }

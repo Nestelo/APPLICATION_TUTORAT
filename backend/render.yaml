@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: tutorat-backend
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn tutorat_backend.wsgi:application
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: tutorat-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: false
+      - key: ALLOWED_HOSTS
+        value: .onrender.com
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://*.onrender.com,http://localhost:19000,http://localhost:8081
+
+databases:
+  - name: tutorat-db
+    plan: free
