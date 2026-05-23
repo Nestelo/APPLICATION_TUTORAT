@@ -6,11 +6,12 @@ from datetime import timedelta
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-your-secret-key-here-change-in-production'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-your-secret-key-here-change-in-production')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# ALLOWED_HOSTS - Autorise Render et les domaines locaux
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -140,7 +141,7 @@ REST_FRAMEWORK = {
 
 # JWT Configuration
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
@@ -148,48 +149,45 @@ SIMPLE_JWT = {
     'SIGNING_KEY': SECRET_KEY,
 }
 
-# CORS Configuration
+# CORS Configuration - Ajout de l'URL Render
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://192.168.43.210:8000",
     "exp://192.168.43.210:8082",
+    "https://application-tutorat.onrender.com",
+    "http://application-tutorat.onrender.com",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
 
+# Pour le développement, autoriser toutes les origines (à désactiver en production)
+CORS_ALLOW_ALL_ORIGINS = True
+
 # File upload configuration
 FILE_UPLOAD_MAX_MEMORY_SIZE = 500 * 1024 * 1024  # 500MB en mémoire
 DATA_UPLOAD_MAX_MEMORY_SIZE = 500 * 1024 * 1024  # 500MB pour les données
-UPLOAD_FILE_MAX_SIZE = 500 * 1024 * 1024  # 500MB max par fichier
 
 # Configure les types de fichiers autorisés
 ALLOWED_UPLOAD_EXTENSIONS = [
-    # Documents
     '.pdf', '.doc', '.docx', '.txt', '.rtf', '.odt',
-    # Présentations
     '.ppt', '.pptx', '.odp',
-    # Feuilles de calcul
     '.xls', '.xlsx', '.ods', '.csv',
-    # Images
     '.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.svg',
-    # Vidéos
     '.mp4', '.avi', '.mov', '.mkv', '.wmv', '.flv', '.webm',
-    # Audio
     '.mp3', '.wav', '.ogg', '.aac', '.flac',
-    # Archives
     '.zip', '.rar', '.7z', '.tar', '.gz',
-    # Code
     '.py', '.js', '.html', '.css', '.java', '.cpp', '.c',
 ]
 
 # Email configuration (pour les notifications)
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Pour les tests
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'ndjerabeernest@gmail.com'  # Remplacez par votre adresse Gmail
-EMAIL_HOST_PASSWORD = 'Nestelo10'  # Remplacez par votre mot de passe ou clé d'application
+EMAIL_HOST_USER = 'ndjerabeernest@gmail.com'
+EMAIL_HOST_PASSWORD = 'Nestelo10'
 
 # Logging configuration
 LOGGING = {
@@ -244,7 +242,7 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
 
 # API Configuration
-API_BASE_URL = 'http://192.168.43.210:8000'
+API_BASE_URL = 'https://application-tutorat.onrender.com'
 
 # Notifications settings
 NOTIFICATION_SETTINGS = {

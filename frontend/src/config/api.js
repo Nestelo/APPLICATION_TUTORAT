@@ -4,7 +4,7 @@ import { Platform } from 'react-native';
 
 // ===== URL DU BACKEND =====
 // URL de production sur Render (à utiliser pour l'APK final)
-export const API_BASE_URL = 'https://tutorat-backend.onrender.com';
+export const API_BASE_URL = 'https://application-tutorat.onrender.com';
 
 // Pour le développement local, décommentez la ligne ci-dessous et commentez celle du dessus
 // export const API_BASE_URL = 'http://192.168.43.210:8000';
