@@ -1,8 +1,8 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Configuration de base
-const BASE_URL = 'http://192.168.43.210:8000/api';
+// Configuration de base - CORRECTION : utiliser URL Render
+const BASE_URL = 'https://application-tutorat.onrender.com/api';
 
 // Création de l'instance axios
 const api = axios.create({
@@ -48,7 +48,6 @@ api.interceptors.response.use(
     // Si erreur 403, c'est probablement une erreur de permission du backend
     if (error.response?.status === 403) {
       console.log('Erreur 403 Forbidden - Vérifier les permissions backend');
-      // Ne pas tenter de rafraîchir le token pour 403, c'est une erreur de permission
       return Promise.reject(error);
     }
     
