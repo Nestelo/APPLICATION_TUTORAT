@@ -23,6 +23,7 @@
         "backgroundColor": "#ffffff"
       },
       "permissions": [
+        "android.permission.INTERNET",
         "android.permission.RECORD_AUDIO"
       ],
       "package": "com.anonymous.tutoratinsta"
