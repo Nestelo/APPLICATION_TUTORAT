@@ -42,16 +42,13 @@ export const DEFAULT_HEADERS = {
 
 // Vérifier la connexion Internet
 const isNetworkAvailable = async () => {
-  // Fonction simple pour vérifier si l'appareil a une connexion
-  // Sur React Native, vous pouvez utiliser NetInfo pour une vérification plus poussée
-  return true; // À remplacer par une vraie vérification si nécessaire
+  return true;
 };
 
 // Fonction utilitaire pour les requêtes API avec gestion du timeout
 export const apiRequest = async (endpoint, options = {}, timeout = 30000) => {
   const token = await AsyncStorage.getItem('accessToken');
   
-  // Vérifier si l'URL est accessible
   console.log(`🌐 Appel API: ${API_BASE_URL}${endpoint}`);
   
   const controller = new AbortController();
@@ -71,33 +68,27 @@ export const apiRequest = async (endpoint, options = {}, timeout = 30000) => {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
     clearTimeout(timeoutId);
     
-    // Gestion spéciale pour le code 503 (service en veille sur Render)
     if (response.status === 503) {
       console.log('⏳ Service en réveil (503), nouvelle tentative dans 3 secondes...');
       await new Promise(resolve => setTimeout(resolve, 3000));
-      return apiRequest(endpoint, options, timeout); // Réessayer
+      return apiRequest(endpoint, options, timeout);
     }
     
     if (!response.ok) {
-      // Essayer de lire le message d'erreur JSON
       let errorMessage = `Erreur ${response.status}: ${response.statusText}`;
       try {
         const errorData = await response.json();
         errorMessage = errorData.error || errorData.message || errorMessage;
-      } catch (e) {
-        // Si ce n'est pas du JSON, garder le message par défaut
-      }
+      } catch (e) {}
       throw new Error(errorMessage);
     }
     
-    // Pour les réponses vides (ex: DELETE)
     const text = await response.text();
     return text ? JSON.parse(text) : {};
     
   } catch (error) {
     clearTimeout(timeoutId);
     
-    // Gestion des erreurs de connexion
     if (error.name === 'AbortError') {
       throw new Error('La requête a expiré. Vérifiez votre connexion Internet.');
     }

@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 // Configuration alternative pour contourner les problèmes CSRF
-const BASE_URL = 'http://192.168.43.210:8000/api';
+const BASE_URL = 'https://application-tutorat.onrender.com/api';
 const simpleApi = axios.create({
   baseURL: BASE_URL,
   headers: { 
@@ -22,7 +22,6 @@ export const login = async (email, password, selectedRole) => {
     try {
       console.log(`Tentative de connexion ${attempt}/${maxRetries}, rôle: ${selectedRole}`);
       
-      // Essayer d'abord avec l'API normale
       let response;
       try {
         response = await api.post('/auth/login/', {
@@ -32,7 +31,6 @@ export const login = async (email, password, selectedRole) => {
           include_refresh: true,
         });
       } catch (apiError) {
-        // Si erreur 403, essayer avec l'API simple
         if (apiError.response?.status === 403) {
           console.log('API normale bloquée (403), essai avec API simple...');
           response = await simpleApi.post('/auth/login/', {
@@ -48,7 +46,6 @@ export const login = async (email, password, selectedRole) => {
       
       const { access, refresh, user } = response.data;
       
-      // Vérification côté client si l'utilisateur est actif
       console.log('Vérification utilisateur actif:', user);
       const isActive = user.is_active !== undefined ? user.is_active : true;
       
@@ -59,9 +56,7 @@ export const login = async (email, password, selectedRole) => {
         };
       }
       
-      // Vérification du rôle AVEC ASSOUPLISSEMENT POUR ENSEIGNANT/TUTEUR
       if (selectedRole) {
-        // Cas particulier : le rôle sélectionné est "tuteur" et l'utilisateur est "enseignant"
         if (selectedRole === 'tuteur' && user.role === 'enseignant') {
           console.log('✅ Connexion autorisée pour enseignant via le rôle tuteur');
         } else if (selectedRole !== user.role) {
@@ -72,7 +67,6 @@ export const login = async (email, password, selectedRole) => {
         }
       }
       
-      // Stocker les tokens et les informations utilisateur
       await AsyncStorage.setItem('accessToken', access);
       if (refresh) {
         await AsyncStorage.setItem('refreshToken', refresh);
@@ -86,7 +80,6 @@ export const login = async (email, password, selectedRole) => {
       lastError = error;
       console.error(`Erreur tentative ${attempt}:`, error.response?.status, error.response?.data);
       
-      // Gestion spécifique de l'erreur de rôle incompatible
       if (error.response?.status === 403 && error.response?.data?.error === 'role_mismatch') {
         return { 
           success: false, 
@@ -94,7 +87,6 @@ export const login = async (email, password, selectedRole) => {
         };
       }
       
-      // Si erreur 403 et pas dernière tentative, attendre et réessayer
       if (error.response?.status === 403 && attempt < maxRetries) {
         console.log(`Erreur 403, nouvelle tentative dans ${attempt * 1000}ms...`);
         await new Promise(resolve => setTimeout(resolve, attempt * 1000));
