@@ -149,7 +149,12 @@ SIMPLE_JWT = {
     'SIGNING_KEY': SECRET_KEY,
 }
 
-# CORS Configuration - Ajout de l'URL Render
+# ==================== CORS CONFIGURATION ====================
+# Autoriser toutes les origines (uniquement pour le développement/test)
+CORS_ALLOW_ALL_ORIGINS = True  # ⚠️ À n'utiliser qu'en développement / test
+CORS_ALLOW_CREDENTIALS = True
+
+# Liste explicite (conservée mais non utilisée si CORS_ALLOW_ALL_ORIGINS=True)
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
@@ -158,15 +163,11 @@ CORS_ALLOWED_ORIGINS = [
     "https://application-tutorat.onrender.com",
     "http://application-tutorat.onrender.com",
 ]
-
-CORS_ALLOW_CREDENTIALS = True
-
-# Pour le développement, autoriser toutes les origines (à désactiver en production)
-CORS_ALLOW_ALL_ORIGINS = True
+# ============================================================
 
 # File upload configuration
-FILE_UPLOAD_MAX_MEMORY_SIZE = 500 * 1024 * 1024  # 500MB en mémoire
-DATA_UPLOAD_MAX_MEMORY_SIZE = 500 * 1024 * 1024  # 500MB pour les données
+FILE_UPLOAD_MAX_MEMORY_SIZE = 500 * 1024 * 1024
+DATA_UPLOAD_MAX_MEMORY_SIZE = 500 * 1024 * 1024
 
 # Configure les types de fichiers autorisés
 ALLOWED_UPLOAD_EXTENSIONS = [
@@ -182,7 +183,6 @@ ALLOWED_UPLOAD_EXTENSIONS = [
 
 # Email configuration (pour les notifications)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Pour les tests
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True

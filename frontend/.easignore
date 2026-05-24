@@ -1,7 +1,8 @@
-# Créer le fichier .easignore
-echo "node_modules/" >> .easignore
-echo ".git/" >> .easignore
-echo ".expo/" >> .easignore
-echo "android/" >> .easignore
-echo "ios/" >> .easignore
-echo "*.log" >> .easignore
+node_modules/
+.git/
+.expo/
+android/
+ios/
+*.log
+.tmp
+.env
