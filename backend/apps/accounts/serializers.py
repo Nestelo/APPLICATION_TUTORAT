@@ -36,13 +36,29 @@ class UserSerializer(serializers.ModelSerializer):
         }
     
     def get_photo_url(self, obj):
-        if obj.photo:
+        """Retourne l'URL de la photo, supporte à la fois URLField et ImageField"""
+        if not obj.photo:
+            return None
+        
+        # Si photo est une chaîne (URL Cloudinary ou chemin)
+        if isinstance(obj.photo, str):
+            # Si c'est déjà une URL complète (Cloudinary)
+            if obj.photo.startswith('http://') or obj.photo.startswith('https://'):
+                return obj.photo
+            # Si c'est un chemin relatif
+            else:
+                request = self.context.get('request')
+                if request:
+                    return request.build_absolute_uri(obj.photo)
+                return f"{settings.MEDIA_URL}{obj.photo}"
+        
+        # Si photo est un objet FileField (ancien format avec attribut url)
+        if hasattr(obj.photo, 'url'):
             request = self.context.get('request')
             if request:
                 return request.build_absolute_uri(obj.photo.url)
-            else:
-                # Fallback si pas de contexte request
-                return f"{settings.MEDIA_URL}{obj.photo}"
+            return obj.photo.url
+        
         return None
 
 
@@ -113,21 +129,46 @@ class StudentProfileSerializer(serializers.ModelSerializer):
 
 class UserBasicSerializer(serializers.ModelSerializer):
     """Serializer minimal pour les références"""
+    photo_url = serializers.SerializerMethodField()
+    
     class Meta:
         model = User
-        fields = ['id', 'email', 'nom', 'prenom', 'photo', 'role', 'biographie', 'telephone', 'filiere', 'annee']
+        fields = ['id', 'email', 'nom', 'prenom', 'photo', 'photo_url', 'role', 'biographie', 'telephone', 'filiere', 'annee']
+    
+    def get_photo_url(self, obj):
+        """Retourne l'URL de la photo"""
+        if not obj.photo:
+            return None
+        
+        if isinstance(obj.photo, str):
+            if obj.photo.startswith('http://') or obj.photo.startswith('https://'):
+                return obj.photo
+            else:
+                request = self.context.get('request')
+                if request:
+                    return request.build_absolute_uri(obj.photo)
+                return f"{settings.MEDIA_URL}{obj.photo}"
+        
+        if hasattr(obj.photo, 'url'):
+            request = self.context.get('request')
+            if request:
+                return request.build_absolute_uri(obj.photo.url)
+            return obj.photo.url
+        
+        return None
 
 
 class UserDetailSerializer(serializers.ModelSerializer):
     """Serializer détaillé pour les profils"""
     tutor_profile = TutorProfileSerializer(read_only=True)
     student_profile = StudentProfileSerializer(read_only=True)
+    photo_url = serializers.SerializerMethodField()
     
     class Meta:
         model = User
         fields = [
             'id', 'email', 'nom', 'prenom', 'role', 'filiere', 'annee',
-            'bio', 'photo', 'centres_interet', 'matieres_maitrisees',
+            'bio', 'photo', 'photo_url', 'centres_interet', 'matieres_maitrisees',
             'tarif_horaire', 'is_active', 'date_inscription',
             'telephone', 'biographie', 'date_naissance', 'derniere_connexion',
             'email_verifie', 'telephone_verifie', 'matieres_enseignees',
@@ -138,3 +179,25 @@ class UserDetailSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ['id', 'date_inscription', 'note_moyenne', 
                           'nombre_evaluations', 'date_certification']
+    
+    def get_photo_url(self, obj):
+        """Retourne l'URL de la photo"""
+        if not obj.photo:
+            return None
+        
+        if isinstance(obj.photo, str):
+            if obj.photo.startswith('http://') or obj.photo.startswith('https://'):
+                return obj.photo
+            else:
+                request = self.context.get('request')
+                if request:
+                    return request.build_absolute_uri(obj.photo)
+                return f"{settings.MEDIA_URL}{obj.photo}"
+        
+        if hasattr(obj.photo, 'url'):
+            request = self.context.get('request')
+            if request:
+                return request.build_absolute_uri(obj.photo.url)
+            return obj.photo.url
+        
+        return None
