@@ -134,35 +134,34 @@ if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True
 
 # ==================== CLOUDINARY CONFIGURATION ====================
-# Utiliser Cloudinary pour le stockage des médias en production
+# Configuration Cloudinary pour les médias (images, vidéos, audios, documents)
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+cloudinary.config(
+    cloud_name=os.environ.get('CLOUDINARY_CLOUD_NAME', 'dqtk8z6of'),
+    api_key=os.environ.get('CLOUDINARY_API_KEY', '877765774416995'),
+    api_secret=os.environ.get('CLOUDINARY_API_SECRET', 'IlLuSpBfM3lsD8568Ve7nAZ6I-0'),
+    secure=True
+)
+
+# Utiliser Cloudinary comme backend de stockage par défaut en production
 if not DEBUG:
-    import cloudinary
-    import cloudinary.uploader
-    import cloudinary.api
-
-    cloudinary.config(
-        cloud_name=os.environ.get('CLOUDINARY_CLOUD_NAME', 'dqtk8z6of'),
-        api_key=os.environ.get('CLOUDINARY_API_KEY', '877765774416995'),
-        api_secret=os.environ.get('CLOUDINARY_API_SECRET', 'IlLuSpBfM3lsD8568Ve7nAZ6I-0'),
-        secure=True
-    )
-
-    # Utiliser Cloudinary comme backend de stockage par défaut
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-    # Configuration avancée Cloudinary
-    CLOUDINARY_STORAGE = {
-        'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME', 'dqtk8z6of'),
-        'API_KEY': os.environ.get('CLOUDINARY_API_KEY', '877765774416995'),
-        'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET', 'IlLuSpBfM3lsD8568Ve7nAZ6I-0'),
-        'SECURE': True,
-        'DEFAULT_TRANSFORMATION': {'quality': 'auto'},
-    }
 else:
-    # En développement, stockage local
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
-# Fichiers statiques et médias (fallback pour développement)
+# Configuration avancée Cloudinary
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME', 'dqtk8z6of'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY', '877765774416995'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET', 'IlLuSpBfM3lsD8568Ve7nAZ6I-0'),
+    'SECURE': True,
+    'DEFAULT_TRANSFORMATION': {'quality': 'auto'},
+}
+
+# Fichiers statiques et médias
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -172,7 +171,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # ============================================================
 
 # Configuration email – SendGrid SMTP (production)
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Pour éviter les blocages
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True

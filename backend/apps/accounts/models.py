@@ -32,10 +32,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     filiere = models.CharField(max_length=100, blank=True, null=True, db_index=True)
     annee = models.CharField(max_length=20, blank=True, null=True, db_index=True)
     bio = models.TextField(blank=True)
-    
-    # Modification : Utiliser URLField au lieu de ImageField pour Cloudinary
-    photo = models.URLField(max_length=500, blank=True, null=True, help_text="URL Cloudinary de la photo de profil")
-    
+    # Garder ImageField (Cloudinary gérera le stockage)
+    photo = models.ImageField(upload_to='profils/', blank=True, null=True)
     centres_interet = models.TextField(blank=True, help_text="Pour les étudiants")
     matieres_maitrisees = models.TextField(blank=True, help_text="Pour les tuteurs")
     tarif_horaire = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)

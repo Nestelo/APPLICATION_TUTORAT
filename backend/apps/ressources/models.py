@@ -26,10 +26,8 @@ class Ressource(models.Model):
     matiere = models.CharField(max_length=100, blank=True, db_index=True)
     niveau = models.CharField(max_length=50, blank=True, db_index=True)
     type_fichier = models.CharField(max_length=20, choices=TYPE_CHOICES)
-    
-    # Modification pour Cloudinary : URL au lieu de FileField
-    fichier = models.URLField(max_length=500, blank=True, null=True, help_text="URL Cloudinary du fichier")
-    
+    # Garder FileField (Cloudinary gérera le stockage)
+    fichier = models.FileField(upload_to='ressources/', blank=True, null=True)
     lien_externe = models.URLField(blank=True)
     tags = models.CharField(max_length=500, blank=True, help_text="Séparés par des virgules")
     statut = models.CharField(max_length=20, choices=STATUT_CHOICES, default='en_attente', db_index=True)
@@ -51,7 +49,7 @@ class Ressource(models.Model):
 
 class VersionRessource(models.Model):
     ressource = models.ForeignKey('Ressource', on_delete=models.CASCADE, related_name='versions')
-    fichier = models.URLField(max_length=500, blank=True, null=True, help_text="URL Cloudinary de la version")
+    fichier = models.FileField(upload_to='ressources/versions/')
     commentaire = models.TextField(blank=True)
     date_upload = models.DateTimeField(auto_now_add=True)
 

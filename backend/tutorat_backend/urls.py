@@ -27,6 +27,5 @@ urlpatterns = [
 ]
 
 # Servir les fichiers médias en développement uniquement
-# En production, Cloudinary gère tout
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -52,7 +52,7 @@ class UserSerializer(serializers.ModelSerializer):
                     return request.build_absolute_uri(obj.photo)
                 return f"{settings.MEDIA_URL}{obj.photo}"
         
-        # Si photo est un objet FileField (ancien format avec attribut url)
+        # Si photo est un objet FileField (format standard avec attribut url)
         if hasattr(obj.photo, 'url'):
             request = self.context.get('request')
             if request:
