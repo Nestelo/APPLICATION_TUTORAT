@@ -32,17 +32,20 @@ class User(AbstractBaseUser, PermissionsMixin):
     filiere = models.CharField(max_length=100, blank=True, null=True, db_index=True)
     annee = models.CharField(max_length=20, blank=True, null=True, db_index=True)
     bio = models.TextField(blank=True)
-    photo = models.ImageField(upload_to='profils/', blank=True, null=True)
+    
+    # Modification : Utiliser URLField au lieu de ImageField pour Cloudinary
+    photo = models.URLField(max_length=500, blank=True, null=True, help_text="URL Cloudinary de la photo de profil")
+    
     centres_interet = models.TextField(blank=True, help_text="Pour les étudiants")
     matieres_maitrisees = models.TextField(blank=True, help_text="Pour les tuteurs")
     tarif_horaire = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     justificatif = models.FileField(upload_to='justificatifs/', blank=True, null=True)
-    est_actif = models.BooleanField(default=True)  # À conserver si utilisé, mais on utilise is_active de base
+    est_actif = models.BooleanField(default=True)
     date_inscription = models.DateTimeField(auto_now_add=True, db_index=True)
     date_derniere_connexion = models.DateTimeField(blank=True, null=True)
 
     is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)  # Utilisé pour l'authentification
+    is_active = models.BooleanField(default=True)
     is_suspended = models.BooleanField(default=False)
     suspension_until = models.DateTimeField(blank=True, null=True)
     suspension_reason = models.TextField(blank=True)
@@ -56,11 +59,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         return f"{self.prenom} {self.nom} ({self.email})"
 
     def get_full_name(self):
-        """Retourne le nom complet de l'utilisateur"""
         return f"{self.prenom} {self.nom}".strip()
 
     def get_short_name(self):
-        """Retourne le prénom de l'utilisateur"""
         return self.prenom.strip()
 
     # Champs supplémentaires pour la plateforme tuteur
@@ -74,7 +75,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     # Champs spécifiques tuteur
     matieres_enseignees = models.JSONField(default=list, blank=True)
     niveau_enseignement = models.CharField(max_length=100, blank=True)
-    experience = models.PositiveIntegerField(default=0)  # années d'expérience
+    experience = models.PositiveIntegerField(default=0)
     disponible = models.BooleanField(default=True)
     note_moyenne = models.FloatField(default=0.0)
     nombre_evaluations = models.PositiveIntegerField(default=0)
@@ -108,26 +109,14 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class SystemSettings(models.Model):
-    """
-    Paramètres système de l'application
-    """
-    # Notifications
     email_notifications = models.BooleanField(default=True, verbose_name="Notifications email")
     push_notifications = models.BooleanField(default=False, verbose_name="Notifications push")
-
-    # Sauvegarde
     auto_backup = models.BooleanField(default=True, verbose_name="Sauvegarde automatique")
-
-    # Sécurité
     maintenance_mode = models.BooleanField(default=False, verbose_name="Mode maintenance")
     allow_registration = models.BooleanField(default=True, verbose_name="Autoriser les inscriptions")
     require_email_verification = models.BooleanField(default=True, verbose_name="Vérification email requise")
-
-    # Limites et quotas
     max_file_size = models.PositiveIntegerField(default=10, help_text="Taille max des fichiers en MB")
     max_users_per_day = models.PositiveIntegerField(default=100, help_text="Nombre max d'inscriptions par jour")
-
-    # Métadonnées
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     updated_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
@@ -141,9 +130,6 @@ class SystemSettings(models.Model):
 
     @classmethod
     def get_settings(cls):
-        """
-        Récupère les paramètres actuels ou en crée de nouveaux par défaut
-        """
         settings, created = cls.objects.get_or_create(id=1, defaults={
             'email_notifications': True,
             'push_notifications': False,
@@ -157,11 +143,11 @@ class SystemSettings(models.Model):
         return settings
 
     def update_rating(self, new_note):
-        """Met à jour la note moyenne du tuteur"""
         total = self.note_moyenne * self.nombre_evaluations + new_note
         self.nombre_evaluations += 1
         self.note_moyenne = total / self.nombre_evaluations
         self.save()
+
 
 class DemandeTuteur(models.Model):
     STATUT_CHOICES = (
@@ -177,8 +163,8 @@ class DemandeTuteur(models.Model):
     def __str__(self):
         return f"Demande de {self.utilisateur.email} - {self.statut}"
 
+
 class TutorProfile(models.Model):
-    """Profil détaillé du tuteur"""
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='tutor_profile')
     diplomes = models.JSONField(default=list, blank=True)
     competences = models.JSONField(default=list, blank=True)
@@ -191,22 +177,16 @@ class TutorProfile(models.Model):
     tarif_reduit = models.BooleanField(default=False)
     conditions_reductions = models.TextField(blank=True)
     
-    # Statistiques avancées
     total_sessions = models.PositiveIntegerField(default=0)
     total_etudiants = models.PositiveIntegerField(default=0)
     taux_reponse = models.FloatField(default=0.0)
     taux_completion = models.FloatField(default=0.0)
     temps_moyen_reponse = models.DurationField(null=True, blank=True)
-    
-    # Performance par matière
     performance_matieres = models.JSONField(default=dict, blank=True)
-    
-    # Badges et points pour gamification forum
     points = models.IntegerField(default=0)
-    badge_solutions = models.IntegerField(default=0)  # Nombre de solutions marquées
-    badge_aide = models.IntegerField(default=0)  # Nombre de réponses utiles
-    badge_expert = models.IntegerField(default=0)  # Badge expert matière
-    
+    badge_solutions = models.IntegerField(default=0)
+    badge_aide = models.IntegerField(default=0)
+    badge_expert = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -214,19 +194,14 @@ class TutorProfile(models.Model):
         return f"Profil de {self.user.get_full_name()}"
     
     def update_performance_stats(self):
-        """Met à jour les statistiques de performance"""
         from apps.tutorat.models import Seance, Evaluation
         
-        # Sessions totales
         self.total_sessions = Seance.objects.filter(tuteur=self.user, statut='terminee').count()
-        
-        # Étudiants uniques
         self.total_etudiants = Seance.objects.filter(
             tuteur=self.user, 
             statut='terminee'
         ).values('etudiants').distinct().count()
         
-        # Taux de réponse (basé sur les messages)
         try:
             from apps.communication.models import Message
             messages_recus = Message.objects.filter(
@@ -245,8 +220,8 @@ class TutorProfile(models.Model):
         
         self.save()
 
+
 class StudentProfile(models.Model):
-    """Profil détaillé de l'étudiant"""
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='student_profile')
     preferences_apprentissage = models.JSONField(default=list, blank=True)
     difficultes = models.JSONField(default=list, blank=True)
@@ -254,13 +229,10 @@ class StudentProfile(models.Model):
     disponibilites_etudiant = models.JSONField(default=list, blank=True)
     budget_mensuel = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     preferences_horaires = models.JSONField(default=dict, blank=True)
-    
-    # Statistiques d'apprentissage
     sessions_suivies = models.PositiveIntegerField(default=0)
     temps_apprentissage = models.DurationField(null=True, blank=True)
     matieres_etudiees = models.JSONField(default=list, blank=True)
     progression_globale = models.FloatField(default=0.0)
-    
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     

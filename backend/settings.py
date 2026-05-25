@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-your-secret-key-here-change-in-production')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 # ALLOWED_HOSTS - Autorise Render et les domaines locaux
 ALLOWED_HOSTS = ['*']
@@ -29,6 +29,8 @@ THIRD_PARTY_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'django_filters',
+    'cloudinary_storage',  # ← AJOUTER
+    'cloudinary',          # ← AJOUTER
 ]
 
 LOCAL_APPS = [
@@ -111,9 +113,48 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Media files (Uploads)
+# ==================== CLOUDINARY CONFIGURATION ====================
+# Configuration Cloudinary pour les médias (images, vidéos, audios, documents)
+
+# Utiliser Cloudinary pour le stockage des médias en production
+if not DEBUG:
+    # Configuration Cloudinary avec les variables d'environnement
+    import cloudinary
+    import cloudinary.uploader
+    import cloudinary.api
+
+    cloudinary.config(
+        cloud_name=os.environ.get('CLOUDINARY_CLOUD_NAME', 'dqtk8z6of'),
+        api_key=os.environ.get('CLOUDINARY_API_KEY', '877765774416995'),
+        api_secret=os.environ.get('CLOUDINARY_API_SECRET', 'IlLuSpBfM3lsD8568Ve7nAZ6I-0'),
+        secure=True
+    )
+
+    # Configuration du stockage par défaut pour les médias
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+    # Configuration spécifique pour différents types de fichiers
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME', 'dqtk8z6of'),
+        'API_KEY': os.environ.get('CLOUDINARY_API_KEY', '877765774416995'),
+        'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET', 'IlLuSpBfM3lsD8568Ve7nAZ6I-0'),
+        'SECURE': True,
+        'DEFAULT_TRANSFORMATION': {'quality': 'auto'},
+        'EXIF_DISABLE': True,
+        'STATIC_IMAGES_EXTENSIONS': ['jpg', 'jpeg', 'png', 'gif', 'webp'],
+        'VIDEO_EXTENSIONS': ['mp4', 'avi', 'mov', 'mkv', 'wmv', 'flv', 'webm'],
+        'AUDIO_EXTENSIONS': ['mp3', 'wav', 'ogg', 'aac', 'flac'],
+        'DOCUMENT_EXTENSIONS': ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'txt'],
+    }
+else:
+    # En développement, stockage local
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
+# Media files (Uploads) - Fallback pour développement
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# ============================================================
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -166,22 +207,31 @@ CORS_ALLOWED_ORIGINS = [
 # ============================================================
 
 # File upload configuration
-FILE_UPLOAD_MAX_MEMORY_SIZE = 500 * 1024 * 1024
-DATA_UPLOAD_MAX_MEMORY_SIZE = 500 * 1024 * 1024
+FILE_UPLOAD_MAX_MEMORY_SIZE = 500 * 1024 * 1024  # 500MB
+DATA_UPLOAD_MAX_MEMORY_SIZE = 500 * 1024 * 1024  # 500MB
 
 # Configure les types de fichiers autorisés
 ALLOWED_UPLOAD_EXTENSIONS = [
+    # Documents
     '.pdf', '.doc', '.docx', '.txt', '.rtf', '.odt',
+    # Présentations
     '.ppt', '.pptx', '.odp',
+    # Feuilles de calcul
     '.xls', '.xlsx', '.ods', '.csv',
+    # Images
     '.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.svg',
+    # Vidéos
     '.mp4', '.avi', '.mov', '.mkv', '.wmv', '.flv', '.webm',
+    # Audio
     '.mp3', '.wav', '.ogg', '.aac', '.flac',
+    # Archives
     '.zip', '.rar', '.7z', '.tar', '.gz',
+    # Code
     '.py', '.js', '.html', '.css', '.java', '.cpp', '.c',
 ]
 
 # Email configuration (pour les notifications)
+# Utiliser le backend console pour éviter les blocages en production
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Pour les tests
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587

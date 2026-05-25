@@ -1,6 +1,7 @@
 from django.db import models
 from apps.accounts.models import User
 from apps.tutorat.models import GroupeTutorat
+from django.utils import timezone
 
 # Modèle pour les ressources globales du tableau de bord
 class Ressource(models.Model):
@@ -25,7 +26,10 @@ class Ressource(models.Model):
     matiere = models.CharField(max_length=100, blank=True, db_index=True)
     niveau = models.CharField(max_length=50, blank=True, db_index=True)
     type_fichier = models.CharField(max_length=20, choices=TYPE_CHOICES)
-    fichier = models.FileField(upload_to='ressources/', blank=True, null=True)
+    
+    # Modification pour Cloudinary : URL au lieu de FileField
+    fichier = models.URLField(max_length=500, blank=True, null=True, help_text="URL Cloudinary du fichier")
+    
     lien_externe = models.URLField(blank=True)
     tags = models.CharField(max_length=500, blank=True, help_text="Séparés par des virgules")
     statut = models.CharField(max_length=20, choices=STATUT_CHOICES, default='en_attente', db_index=True)
@@ -44,14 +48,16 @@ class Ressource(models.Model):
         verbose_name_plural = 'Ressources globales'
         ordering = ['-date_publication']
 
+
 class VersionRessource(models.Model):
     ressource = models.ForeignKey('Ressource', on_delete=models.CASCADE, related_name='versions')
-    fichier = models.FileField(upload_to='ressources/versions/')
+    fichier = models.URLField(max_length=500, blank=True, null=True, help_text="URL Cloudinary de la version")
     commentaire = models.TextField(blank=True)
     date_upload = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"Version {self.id} de {self.ressource.titre}"
+
 
 class CommentaireRessource(models.Model):
     ressource = models.ForeignKey('Ressource', on_delete=models.CASCADE, related_name='commentaires')
@@ -63,10 +69,11 @@ class CommentaireRessource(models.Model):
     def __str__(self):
         return f"Commentaire de {self.auteur} sur {self.ressource.titre[:30]}"
 
+
 class NoteRessource(models.Model):
     ressource = models.ForeignKey('Ressource', on_delete=models.CASCADE, related_name='notes')
     auteur = models.ForeignKey(User, on_delete=models.CASCADE)
-    note = models.PositiveSmallIntegerField()  # 1-5
+    note = models.PositiveSmallIntegerField()
     date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -74,6 +81,7 @@ class NoteRessource(models.Model):
 
     def __str__(self):
         return f"{self.auteur} a noté {self.ressource.titre} : {self.note}/5"
+
 
 class FavoriRessource(models.Model):
     utilisateur = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favoris')
@@ -86,13 +94,14 @@ class FavoriRessource(models.Model):
     def __str__(self):
         return f"{self.utilisateur} a mis en favori {self.ressource.titre}"
 
+
 class Signalement(models.Model):
     TYPE_CONTENU_CHOICES = (
         ('ressource', 'Ressource'),
         ('commentaire', 'Commentaire'),
     )
     type_contenu = models.CharField(max_length=20, choices=TYPE_CONTENU_CHOICES)
-    id_contenu = models.PositiveIntegerField()  # ID de la ressource ou du commentaire signalé
+    id_contenu = models.PositiveIntegerField()
     motif = models.TextField()
     signalant = models.ForeignKey(User, on_delete=models.CASCADE, related_name='signalements')
     date = models.DateTimeField(auto_now_add=True)
@@ -101,8 +110,8 @@ class Signalement(models.Model):
     def __str__(self):
         return f"Signalement de {self.type_contenu} {self.id_contenu} par {self.signalant}"
 
+
 class PartageRessource(models.Model):
-    """Modèle pour le partage de ressources entre étudiants"""
     STATUT_VALIDATION_CHOICES = (
         ('en_attente', 'En attente de validation'),
         ('validee', 'Validée'),
@@ -127,13 +136,12 @@ class PartageRessource(models.Model):
         verbose_name = 'Partage de ressource'
         verbose_name_plural = 'Partages de ressources'
         ordering = ['-date_partage']
-        unique_together = ('ressource', 'destinataire')  # Éviter les doublons
+        unique_together = ('ressource', 'destinataire')
 
     def __str__(self):
         return f"{self.expediteur} → {self.destinataire}: {self.ressource.titre[:30]}"
 
     def marquer_comme_lue(self):
-        """Marquer le partage comme lu"""
         if not self.est_lue:
             self.est_lue = True
             self.date_lecture = timezone.now()

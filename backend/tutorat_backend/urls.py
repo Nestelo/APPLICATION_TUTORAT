@@ -22,9 +22,11 @@ urlpatterns = [
     path('api/ressources/', include('apps.ressources.urls')),
     path('api/forum/', include('apps.forum.urls')),
     path('api/admin/', include('apps.admin_panel.urls')),
-    path('api/stats/', stats_publiques, name='stats-publiques'),  # Route directe pour les stats
-    path('api/statistiques/', include('apps.accounts.urls')),  # Route alternative pour les stats
+    path('api/stats/', stats_publiques, name='stats-publiques'),
+    path('api/statistiques/', include('apps.accounts.urls')),
 ]
 
+# Servir les fichiers médias en développement uniquement
+# En production, Cloudinary gère tout
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
