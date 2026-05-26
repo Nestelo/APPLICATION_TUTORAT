@@ -2,6 +2,7 @@ from django.db import models
 from apps.accounts.models import User
 from apps.tutorat.models import GroupeTutorat
 from django.utils import timezone
+from cloudinary.models import CloudinaryField  # Importation essentielle pour la gestion des vidéos/médias
 
 # Modèle pour les ressources globales du tableau de bord
 class Ressource(models.Model):
@@ -26,8 +27,10 @@ class Ressource(models.Model):
     matiere = models.CharField(max_length=100, blank=True, db_index=True)
     niveau = models.CharField(max_length=50, blank=True, db_index=True)
     type_fichier = models.CharField(max_length=20, choices=TYPE_CHOICES)
-    # Garder FileField (Cloudinary gérera le stockage)
-    fichier = models.FileField(upload_to='ressources/', blank=True, null=True)
+    
+    # Remplacement par CloudinaryField pour prendre en charge de manière robuste les vidéos, audios et images
+    fichier = CloudinaryField('resource', resource_type='auto', blank=True, null=True)
+    
     lien_externe = models.URLField(blank=True)
     tags = models.CharField(max_length=500, blank=True, help_text="Séparés par des virgules")
     statut = models.CharField(max_length=20, choices=STATUT_CHOICES, default='en_attente', db_index=True)
@@ -49,7 +52,10 @@ class Ressource(models.Model):
 
 class VersionRessource(models.Model):
     ressource = models.ForeignKey('Ressource', on_delete=models.CASCADE, related_name='versions')
-    fichier = models.FileField(upload_to='ressources/versions/')
+    
+    # Remplacement par CloudinaryField pour s'assurer que l'historique des versions monte aussi sur Cloudinary
+    fichier = CloudinaryField('resource', resource_type='auto')
+    
     commentaire = models.TextField(blank=True)
     date_upload = models.DateTimeField(auto_now_add=True)
 

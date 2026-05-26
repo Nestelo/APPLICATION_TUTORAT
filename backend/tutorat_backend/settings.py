@@ -20,8 +20,9 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS_ENV = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,192.168.43.210,.onrender.com,application-tutorat.onrender.com')
 ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS_ENV.split(',')]
 
-# Application definition
+# Application definition - REORGANISÉE POUR CLOUDINARY
 INSTALLED_APPS = [
+    'cloudinary_storage',  # DOIT ÊTRE EN PREMIER (avant staticfiles)
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -33,7 +34,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'whitenoise.runserver_nostatic',
-    'cloudinary_storage',
     'cloudinary',
     'apps.accounts',
     'apps.tutorat',
@@ -134,7 +134,6 @@ if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True
 
 # ==================== CLOUDINARY CONFIGURATION ====================
-# Configuration Cloudinary pour les médias (images, vidéos, audios, documents)
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
@@ -146,11 +145,8 @@ cloudinary.config(
     secure=True
 )
 
-# Utiliser Cloudinary comme backend de stockage par défaut en production
-if not DEBUG:
-    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-else:
-    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+# Utiliser Cloudinary de manière permanente pour les fichiers médias (évite les conflits en mode local/Debug)
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Configuration avancée Cloudinary
 CLOUDINARY_STORAGE = {
@@ -171,7 +167,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # ============================================================
 
 # Configuration email – SendGrid SMTP (production)
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Pour éviter les blocages
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
