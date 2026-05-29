@@ -597,13 +597,8 @@ const FindTutorScreen = ({ navigation }) => {
               <View key={tuteur.id} style={styles.compareTutorCard}>
                 <View style={styles.compareTutorHeader}>
                   <View style={styles.compareTutorPhotoContainer}>
-                    {tuteur.photo ? (
-                      <Image source={{ uri: tuteur.photo.startsWith('http') ? tuteur.photo : `${API_BASE_URL}${tuteur.photo}` }} style={styles.compareTutorPhoto} />
-                    ) : (
-                      <View style={styles.compareTutorPhotoPlaceholder}>
-                        <Ionicons name="person" size={20} color="#999" />
-                      </View>
-                    )}
+                    {/* ✅ Utiliser photo_url (Cloudinary) */}
+                    <Image source={{ uri: tuteur.photo_url || tuteur.photo }} style={styles.compareTutorPhoto} />
                   </View>
                   <Text style={styles.compareTutorName}>{tuteur.prenom} {tuteur.nom}</Text>
                 </View>
@@ -687,13 +682,8 @@ const FindTutorScreen = ({ navigation }) => {
             <ScrollView style={styles.detailContent}>
               <View style={styles.detailTutorHeader}>
                 <View style={styles.detailTutorPhotoContainer}>
-                  {selectedTuteur.photo ? (
-                    <Image source={{ uri: selectedTuteur.photo.startsWith('http') ? selectedTuteur.photo : `${API_BASE_URL}${selectedTuteur.photo}` }} style={styles.detailTutorPhoto} />
-                  ) : (
-                    <View style={styles.detailTutorPhotoPlaceholder}>
-                      <Ionicons name="person" size={40} color="#999" />
-                    </View>
-                  )}
+                  {/* ✅ Utiliser photo_url (Cloudinary) */}
+                  <Image source={{ uri: selectedTuteur.photo_url || selectedTuteur.photo }} style={styles.detailTutorPhoto} />
                 </View>
                 
                 <View style={styles.detailTutorInfo}>

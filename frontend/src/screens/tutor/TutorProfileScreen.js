@@ -12,7 +12,7 @@ const TutorProfileScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [profile, setProfile] = useState({
-    photo: null,
+    photo: null,           // contiendra l'URL Cloudinary (photo_url)
     biographie: '',
     matieres_enseignees: [],
     niveau_enseignement: '',
@@ -64,7 +64,14 @@ const TutorProfileScreen = ({ navigation }) => {
 
       if (response.ok) {
         const data = await response.json();
-        setProfile(data);
+        // ✅ Utiliser photo_url (Cloudinary) ou photo (fallback)
+        const photoUrl = data.photo_url || data.photo;
+        setProfile({
+          ...data,
+          photo: photoUrl,
+        });
+      } else {
+        console.error('Erreur chargement profil:', response.status);
       }
     } catch (error) {
       console.error('Erreur chargement profil:', error);
@@ -84,6 +91,7 @@ const TutorProfileScreen = ({ navigation }) => {
       });
 
       if (!result.canceled) {
+        // Mettre à jour l'état local avec l'URI temporaire (pour l'aperçu)
         setProfile(prev => ({ ...prev, photo: result.assets[0].uri }));
       }
     } catch (error) {
@@ -129,7 +137,8 @@ const TutorProfileScreen = ({ navigation }) => {
       const token = await AsyncStorage.getItem('accessToken');
       
       const formData = new FormData();
-      if (profile.photo) {
+      // Si l'utilisateur a sélectionné une nouvelle photo (URI locale)
+      if (profile.photo && profile.photo.startsWith('file://')) {
         formData.append('photo', {
           uri: profile.photo,
           type: 'image/jpeg',
@@ -152,6 +161,8 @@ const TutorProfileScreen = ({ navigation }) => {
       });
 
       if (response.ok) {
+        // ✅ Recharger le profil pour obtenir la nouvelle URL Cloudinary
+        await loadProfile();
         Alert.alert('Succès', 'Votre profil a été mis à jour avec succès');
       } else {
         const error = await response.json();
