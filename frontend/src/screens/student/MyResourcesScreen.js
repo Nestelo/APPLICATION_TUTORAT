@@ -20,6 +20,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system/legacy';
 import * as Sharing from 'expo-sharing';
+import * as MediaLibrary from 'expo-media-library';
 import { API_BASE_URL } from '../../config/api';
 
 const { width } = Dimensions.get('window');
@@ -271,30 +272,54 @@ const MyResourcesScreen = ({ navigation }) => {
 
   const performDownload = async (fileUrl, fileUri, fileName) => {
     try {
-      // Télécharger le fichier
-      const downloadResult = await FileSystem.downloadAsync(fileUrl, fileUri);
+      // Télécharger le fichier dans le cache d'abord
+      const cacheUri = FileSystem.cacheDirectory + fileName;
+      const downloadResult = await FileSystem.downloadAsync(fileUrl, cacheUri);
 
       if (downloadResult.status === 200) {
-        Alert.alert(
-          'Succès',
-          `Fichier "${fileName}" téléchargé avec succès!`,
-          [
-            { text: 'OK', style: 'default' },
-            { 
-              text: 'Partager', 
-              onPress: () => Sharing.shareAsync(downloadResult.uri, {
-                dialogTitle: `Partager ${fileName}`
-              })
-            },
-            { 
-              text: 'Ouvrir', 
-              onPress: () => Sharing.shareAsync(downloadResult.uri, {
-                mimeType: 'application/octet-stream',
-                dialogTitle: `Ouvrir ${fileName}`
-              })
-            }
-          ]
-        );
+        // Déterminer le type de fichier et sauvegarder au bon endroit
+        const fileExtension = getFileExtension(fileName).toLowerCase();
+        const mediaTypes = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'mov', 'avi', 'mp3', 'wav'];
+        
+        if (mediaTypes.includes(fileExtension)) {
+          // Pour les médias (images, vidéos, audio), sauvegarder dans la galerie
+          const { status } = await MediaLibrary.requestPermissionsAsync();
+          if (status === 'granted') {
+            const asset = await MediaLibrary.createAssetAsync(cacheUri);
+            Alert.alert('Succès', `Fichier "${fileName}" sauvegardé dans la galerie !`);
+          } else {
+            throw new Error('Permission galerie refusée');
+          }
+        } else {
+          // Pour les documents (PDF, DOC, etc.), sauvegarder dans Documents
+          const documentsDir = FileSystem.documentDirectory + 'TutoratApp/';
+          const dirInfo = await FileSystem.getInfoAsync(documentsDir);
+          
+          if (!dirInfo.exists) {
+            await FileSystem.makeDirectoryAsync(documentsDir, { intermediates: true });
+          }
+          
+          const finalUri = documentsDir + fileName;
+          await FileSystem.moveAsync({
+            from: cacheUri,
+            to: finalUri
+          });
+          
+          Alert.alert(
+            'Succès',
+            `Fichier "${fileName}" téléchargé dans Documents/TutoratApp !`,
+            [
+              { text: 'OK' },
+              { 
+                text: 'Ouvrir', 
+                onPress: () => Sharing.shareAsync(finalUri, {
+                  mimeType: 'application/octet-stream',
+                  dialogTitle: `Ouvrir ${fileName}`
+                })
+              }
+            ]
+          );
+        }
       } else {
         throw new Error('Échec du téléchargement');
       }

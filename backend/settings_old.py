@@ -231,13 +231,14 @@ ALLOWED_UPLOAD_EXTENSIONS = [
 ]
 
 # Email configuration (pour les notifications)
-# Utiliser le backend console pour éviter les blocages en production
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Pour les tests
-EMAIL_HOST = 'smtp.gmail.com'
+# Utiliser Brevo (anciennement SendinBlue) - Gratuit jusqu'à 300 emails/jour
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp-relay.brevo.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'ndjerabeernest@gmail.com'
-EMAIL_HOST_PASSWORD = 'Nestelo10'
+EMAIL_HOST_USER = 'ad1e50001@smtp-brevo.com'
+EMAIL_HOST_PASSWORD = 'nB64yOsrKWNzfIx5'
+DEFAULT_FROM_EMAIL = 'ndjerabeernest@gmail.com'
 
 # Logging configuration
 LOGGING = {

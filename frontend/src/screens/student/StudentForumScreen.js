@@ -701,7 +701,7 @@ const StudentForumScreen = ({ navigation }) => {
                     </View>
                     <Text style={styles.vocalContent}>{vocal.contenu || 'Message vocal'}</Text>
                     <View style={styles.vocalActions}>
-                      <TouchableOpacity style={styles.playButton} onPress={() => playSound(vocal.fichier_audio)}>
+                      <TouchableOpacity style={styles.playButton} onPress={() => playSound(vocal.fichier_audio_url || vocal.fichier_audio)}>
                         <Ionicons name="play-outline" size={16} color="#007AFF" />
                         <Text style={styles.playButtonText}>Écouter</Text>
                       </TouchableOpacity>

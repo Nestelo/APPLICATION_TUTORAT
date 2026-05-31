@@ -1,5 +1,6 @@
 from django.db import models
 from apps.accounts.models import User
+from cloudinary.models import CloudinaryField
 
 class Question(models.Model):
     PRIORITE_CHOICES = [
@@ -92,8 +93,11 @@ class MessageVocal(models.Model):
     """Messages vocaux dans les réponses du forum"""
     reponse = models.ForeignKey(Reponse, on_delete=models.CASCADE, null=True, blank=True, related_name='messages_vocaux')
     auteur = models.ForeignKey(User, on_delete=models.CASCADE, related_name='messages_vocaux_forum')
-    fichier_audio = models.FileField(
-        upload_to='messages_vocaux/%Y/%m/',
+    fichier_audio = CloudinaryField(
+        'voice_message',
+        resource_type='video',
+        blank=True,
+        null=True,
         help_text="Fichier audio (.3gp, .m4a, .mp3, .wav)"
     )
     duree = models.DurationField(help_text="Durée du message vocal")

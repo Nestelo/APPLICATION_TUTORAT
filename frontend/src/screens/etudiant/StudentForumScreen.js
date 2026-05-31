@@ -540,8 +540,8 @@ const StudentForumScreen = ({ navigation }) => {
               </Text>
               <Text style={styles.voiceDuration}>{vm.duree}</Text>
             </View>
-            <VoicePlayer 
-              audioUri={vm.fichier_audio}
+            <VoicePlayer
+              audioUri={vm.fichier_audio_url || vm.fichier_audio}
               style={styles.voicePlayer}
             />
           </View>

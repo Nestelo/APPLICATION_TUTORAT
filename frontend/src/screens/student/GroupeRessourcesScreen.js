@@ -13,6 +13,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import * as FileSystem from 'expo-file-system/legacy';
 import * as Sharing from 'expo-sharing';
+import * as MediaLibrary from 'expo-media-library';
 import * as WebBrowser from 'expo-web-browser';
 import Header from '../../components/ui/Header';
 import Card from '../../components/ui/Card';
@@ -50,17 +51,13 @@ const GroupeRessourcesScreen = ({ navigation, route }) => {
       setLoading(true);
       console.log(`Chargement ressources pour le groupe ${groupeId}...`);
       
-      // Utiliser l'API correcte pour les ressources de groupe
       let params = {};
-      
       if (selectedFilter !== 'toutes') {
-        params.type = selectedFilter; // Le champ est 'type' pour les ressources de groupe
+        params.type = selectedFilter;
       }
       
       const data = await getRessourcesGroupe(groupeId, params);
       console.log(`Ressources reçues: ${Array.isArray(data) ? data.length : 0} ressources`);
-      
-      // L'API groupe filtre déjà les ressources validées pour les étudiants
       setResources(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Erreur chargement ressources:', error);
@@ -76,6 +73,7 @@ const GroupeRessourcesScreen = ({ navigation, route }) => {
     setRefreshing(false);
   };
 
+  // ==================== FONCTION TÉLÉCHARGEMENT AMÉLIORÉE (sauvegarde automatique) ====================
   const handleDownload = async (resource) => {
     try {
       if (!resource || !resource.id) {
@@ -98,104 +96,71 @@ const GroupeRessourcesScreen = ({ navigation, route }) => {
             { text: 'Annuler', style: 'cancel' },
             { 
               text: 'Ouvrir', 
-              onPress: () => {
-                // Ouvrir le lien avec WebBrowser
-                WebBrowser.openBrowserAsync(resource.lien).catch(err => {
-                  console.error('Erreur ouverture lien:', err);
-                  Alert.alert('Erreur', 'Impossible d\'ouvrir le lien');
-                });
-              }
+              onPress: () => WebBrowser.openBrowserAsync(resource.lien)
             }
           ]
         );
       } else if (resource.fichier) {
-        // Vérifier la taille du fichier (1.5GB max = 1.5 * 1024 * 1024 * 1024 bytes)
-        const MAX_FILE_SIZE = 1.5 * 1024 * 1024 * 1024; // 1.5GB
-        
-        try {
-          const fileInfo = await FileSystem.getInfoAsync(resource.fichier);
-          if (fileInfo.size && fileInfo.size > MAX_FILE_SIZE) {
-            Alert.alert(
-              'Fichier trop volumineux',
-              'La taille du fichier dépasse la limite de 1.5GB. Veuillez contacter le support.',
-              [{ text: 'OK' }]
-            );
-            return;
-          }
-        } catch (sizeError) {
-          console.warn('Impossible de vérifier la taille du fichier:', sizeError);
-        }
-        
-        // Télécharger le fichier
+        // Nettoyer le nom du fichier
         const fileExtension = resource.fichier.split('.').pop().toLowerCase();
         const fileName = `${resource.titre.replace(/[^a-zA-Z0-9]/g, '_')}.${fileExtension}`;
         
-        // Déterminer le répertoire de destination selon le type
-        let destinationDir;
-        let shareOptions = {};
+        // Télécharger dans le cache d'abord
+        const cacheUri = FileSystem.cacheDirectory + fileName;
+        const downloadResult = await FileSystem.downloadAsync(resource.fichier, cacheUri);
         
-        if (resource.type === 'video') {
-          // Pour les vidéos, utiliser la galerie
-          destinationDir = FileSystem.cacheDirectory;
-          shareOptions = {
-            mimeType: `video/${fileExtension}`,
-            UTI: `public.${fileExtension}`,
-          };
-        } else {
-          // Pour les documents (cours, pdf, exercice, corrige), utiliser le gestionnaire de fichiers
-          destinationDir = FileSystem.documentDirectory + 'TutoratApp/';
-          const dirInfo = await FileSystem.getInfoAsync(destinationDir);
+        if (downloadResult.status === 200) {
+          // Déterminer le type de fichier et sauvegarder au bon endroit
+          const mediaTypes = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'mov', 'avi', 'mp3', 'wav'];
           
-          if (!dirInfo.exists) {
-            await FileSystem.makeDirectoryAsync(destinationDir, { intermediates: true });
-          }
-          
-          shareOptions = {
-            mimeType: fileExtension === 'pdf' ? 'application/pdf' : 'application/octet-stream',
-            UTI: fileExtension === 'pdf' ? 'public.pdf' : 'public.data',
-          };
-        }
-        
-        const downloadUri = `${destinationDir}${fileName}`;
-        
-        // Télécharger avec progression
-        const downloadResumable = FileSystem.createDownloadResumable(
-          resource.fichier,
-          downloadUri,
-          {},
-          (downloadProgress) => {
-            const progress = downloadProgress.totalBytesWritten / downloadProgress.totalBytesExpectedToWrite;
-            console.log(`Téléchargement ${resource.titre}: ${Math.round(progress * 100)}%`);
-          }
-        );
-        
-        const result = await downloadResumable.downloadAsync();
-        
-        if (result.status === 200) {
-          console.log('Fichier téléchargé avec succès:', result.uri);
-          
-          // Partager le fichier pour l'enregistrer au bon endroit
-          if (await Sharing.isAvailableAsync()) {
-            await Sharing.shareAsync(result.uri, {
-              ...shareOptions,
-              dialogTitle: `Enregistrer ${resource.titre}`,
-            });
+          if (mediaTypes.includes(fileExtension)) {
+            // Pour les médias (images, vidéos, audio), sauvegarder dans la galerie
+            const { status } = await MediaLibrary.requestPermissionsAsync();
+            if (status === 'granted') {
+              const asset = await MediaLibrary.createAssetAsync(cacheUri);
+              Alert.alert('Succès', `Fichier "${resource.titre}" sauvegardé dans la galerie !`);
+            } else {
+              throw new Error('Permission galerie refusée');
+            }
           } else {
+            // Pour les documents (PDF, DOC, etc.), sauvegarder dans Documents
+            const documentsDir = FileSystem.documentDirectory + 'TutoratApp/';
+            const dirInfo = await FileSystem.getInfoAsync(documentsDir);
+            
+            if (!dirInfo.exists) {
+              await FileSystem.makeDirectoryAsync(documentsDir, { intermediates: true });
+            }
+            
+            const finalUri = documentsDir + fileName;
+            await FileSystem.moveAsync({
+              from: cacheUri,
+              to: finalUri
+            });
+            
             Alert.alert(
-              'Succès', 
-              `${resource.type === 'video' ? 'Vidéo' : 'Fichier'} téléchargé avec succès!`
+              'Succès',
+              `Fichier "${resource.titre}" téléchargé dans Documents/TutoratApp !`,
+              [
+                { text: 'OK' },
+                { 
+                  text: 'Ouvrir', 
+                  onPress: () => Sharing.shareAsync(finalUri, {
+                    mimeType: fileExtension === 'pdf' ? 'application/pdf' : 'application/octet-stream',
+                    dialogTitle: `Ouvrir ${resource.titre}`
+                  })
+                }
+              ]
             );
           }
           
-          // Mettre à jour la liste des ressources
-          loadResources();
+          // Rafraîchir la liste pour mettre à jour les compteurs
+          await loadResources();
         } else {
-          throw new Error(`Échec du téléchargement (status: ${result.status})`);
+          throw new Error(`Échec du téléchargement (status: ${downloadResult.status})`);
         }
       } else {
         Alert.alert('Erreur', 'Aucun fichier disponible pour cette ressource');
       }
-      
     } catch (error) {
       console.error('Erreur téléchargement:', error);
       Alert.alert('Erreur', 'Impossible de télécharger la ressource');
@@ -203,13 +168,12 @@ const GroupeRessourcesScreen = ({ navigation, route }) => {
       setDownloading(prev => ({ ...prev, [resource.id]: false }));
     }
   };
+  // ========================================================================
 
   const handleRate = async (resource, note) => {
     try {
       await noterRessource(resource.id, note);
       setRating(prev => ({ ...prev, [resource.id]: note }));
-      
-      // Mettre à jour la ressource dans la liste
       setResources(prev => {
         const prevArray = Array.isArray(prev) ? prev : [];
         return prevArray.map(r => 
@@ -218,7 +182,6 @@ const GroupeRessourcesScreen = ({ navigation, route }) => {
             : r
         );
       });
-      
       Alert.alert('Merci !', 'Votre note a été enregistrée');
     } catch (error) {
       console.error('Erreur notation:', error);
@@ -229,8 +192,6 @@ const GroupeRessourcesScreen = ({ navigation, route }) => {
   const handleToggleFavori = async (resource) => {
     try {
       await toggleFavori(resource.id);
-      
-      // Mettre à jour l'état visuel
       setResources(prev => {
         const prevArray = Array.isArray(prev) ? prev : [];
         return prevArray.map(r => 
@@ -239,11 +200,7 @@ const GroupeRessourcesScreen = ({ navigation, route }) => {
             : r
         );
       });
-      
-      Alert.alert(
-        'Succès',
-        resource.est_favori ? 'Retiré des favoris' : 'Ajouté aux favoris'
-      );
+      Alert.alert('Succès', resource.est_favori ? 'Retiré des favoris' : 'Ajouté aux favoris');
     } catch (error) {
       console.error('Erreur favori:', error);
       Alert.alert('Erreur', 'Impossible de modifier les favoris');
@@ -303,10 +260,7 @@ const GroupeRessourcesScreen = ({ navigation, route }) => {
   };
 
   const renderResourceItem = (resource) => {
-    if (!resource || !resource.id) {
-      console.warn('Ressource invalide dans renderResourceItem:', resource);
-      return null;
-    }
+    if (!resource || !resource.id) return null;
 
     return (
       <Card key={resource.id} style={styles.resourceCard}>
@@ -325,72 +279,72 @@ const GroupeRessourcesScreen = ({ navigation, route }) => {
               </Text>
             </View>
           </View>
-        <TouchableOpacity
-          style={styles.favoriButton}
-          onPress={() => handleToggleFavori(resource)}
-        >
-          <Ionicons
-            name={resource.est_favori ? 'heart' : 'heart-outline'}
-            size={20}
-            color={resource.est_favori ? '#dc3545' : '#666'}
-          />
-        </TouchableOpacity>
-      </View>
-      
-      <Text style={styles.resourceDescription} numberOfLines={3}>
-        {resource.description}
-      </Text>
-      
-      <View style={styles.resourceStats}>
-        <View style={styles.statItem}>
-          <Ionicons name="eye-outline" size={16} color="#666" />
-          <Text style={styles.statText}>{resource.nb_vues || 0}</Text>
+          <TouchableOpacity
+            style={styles.favoriButton}
+            onPress={() => handleToggleFavori(resource)}
+          >
+            <Ionicons
+              name={resource.est_favori ? 'heart' : 'heart-outline'}
+              size={20}
+              color={resource.est_favori ? '#dc3545' : '#666'}
+            />
+          </TouchableOpacity>
         </View>
-        <View style={styles.statItem}>
-          <Ionicons name="download-outline" size={16} color="#666" />
-          <Text style={styles.statText}>{resource.nb_telechargements || 0}</Text>
-        </View>
-        <View style={styles.statItem}>
-          <Ionicons name="time-outline" size={16} color="#666" />
-          <Text style={styles.statText}>
-            {resource.date_creation ? 
-              new Date(resource.date_creation).toLocaleDateString('fr-FR') : 
-              'Date non disponible'
-            }
-          </Text>
-        </View>
-      </View>
       
-      {renderStars(resource)}
+        <Text style={styles.resourceDescription} numberOfLines={3}>
+          {resource.description}
+        </Text>
       
-      <View style={styles.resourceActions}>
-        <TouchableOpacity
-          style={[styles.actionButton, styles.downloadButton]}
-          onPress={() => handleDownload(resource)}
-          disabled={downloading[resource.id]}
-        >
-          {downloading[resource.id] ? (
-            <ActivityIndicator size="small" color="#fff" />
-          ) : (
-            <>
-              <Ionicons name="download-outline" size={16} color="#fff" />
-              <Text style={styles.actionButtonText}>Télécharger</Text>
-            </>
-          )}
-        </TouchableOpacity>
+        <View style={styles.resourceStats}>
+          <View style={styles.statItem}>
+            <Ionicons name="eye-outline" size={16} color="#666" />
+            <Text style={styles.statText}>{resource.nb_vues || 0}</Text>
+          </View>
+          <View style={styles.statItem}>
+            <Ionicons name="download-outline" size={16} color="#666" />
+            <Text style={styles.statText}>{resource.nb_telechargements || 0}</Text>
+          </View>
+          <View style={styles.statItem}>
+            <Ionicons name="time-outline" size={16} color="#666" />
+            <Text style={styles.statText}>
+              {resource.date_creation ? 
+                new Date(resource.date_creation).toLocaleDateString('fr-FR') : 
+                'Date non disponible'
+              }
+            </Text>
+          </View>
+        </View>
+      
+        {renderStars(resource)}
+      
+        <View style={styles.resourceActions}>
+          <TouchableOpacity
+            style={[styles.actionButton, styles.downloadButton]}
+            onPress={() => handleDownload(resource)}
+            disabled={downloading[resource.id]}
+          >
+            {downloading[resource.id] ? (
+              <ActivityIndicator size="small" color="#fff" />
+            ) : (
+              <>
+                <Ionicons name="download-outline" size={16} color="#fff" />
+                <Text style={styles.actionButtonText}>Télécharger</Text>
+              </>
+            )}
+          </TouchableOpacity>
         
-        <TouchableOpacity
-          style={[styles.actionButton, styles.viewButton]}
-          onPress={() => navigation.navigate('GroupeRessourceDetail', { 
-          resourceId: resource.id,
-          groupeId: groupeId
-        })}
-        >
-          <Ionicons name="open-outline" size={16} color="#666" />
-          <Text style={[styles.actionButtonText, styles.viewButtonText]}>Voir</Text>
-        </TouchableOpacity>
-      </View>
-    </Card>
+          <TouchableOpacity
+            style={[styles.actionButton, styles.viewButton]}
+            onPress={() => navigation.navigate('GroupeRessourceDetail', { 
+              resourceId: resource.id,
+              groupeId: groupeId
+            })}
+          >
+            <Ionicons name="open-outline" size={16} color="#666" />
+            <Text style={[styles.actionButtonText, styles.viewButtonText]}>Voir</Text>
+          </TouchableOpacity>
+        </View>
+      </Card>
     );
   };
 

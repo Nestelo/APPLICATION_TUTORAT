@@ -252,7 +252,7 @@ const GlobalResourcesScreen = ({ navigation }) => {
     }
   };
 
-  // Télécharger une ressource
+  // =========== FONCTION TÉLÉCHARGEMENT AMÉLIORÉE (sauvegarde automatique) ===========
   const downloadResource = async (resource) => {
     try {
       if (!resource.fichier) {
@@ -260,59 +260,66 @@ const GlobalResourcesScreen = ({ navigation }) => {
         return;
       }
 
-      // Enregistrer le téléchargement
+      // Enregistrer le téléchargement dans le backend
       await telechargerRessource(resource.id, resource.titre, user?.id);
-
-      // Créer le dossier de destination
-      const directory = FileSystem.documentDirectory + 'global_resources/';
-      const dirInfo = await FileSystem.getInfoAsync(directory);
-      if (!dirInfo.exists) {
-        await FileSystem.makeDirectoryAsync(directory, { intermediates: true });
-      }
 
       // Nettoyer le nom du fichier
       const fileName = resource.titre
         .replace(/[^a-z0-9]/gi, '_')
         .toLowerCase() + '.' + getFileExtension(resource.fichier);
       
-      const fileUri = directory + fileName;
-
-      // Télécharger le fichier
-      const downloadResult = await FileSystem.downloadAsync(resource.fichier, fileUri);
+      // Télécharger dans le cache d'abord
+      const cacheUri = FileSystem.cacheDirectory + fileName;
+      const downloadResult = await FileSystem.downloadAsync(resource.fichier, cacheUri);
 
       if (downloadResult.status === 200) {
-        // Double sauvegarde pour images/vidéos
-        if (isImageOrVideo(resource.fichier) && mediaLibraryPermission) {
-          try {
-            const asset = await MediaLibrary.createAssetAsync(downloadResult.uri);
-            const album = await MediaLibrary.getAlbumAsync('TutorApp');
-            if (!album) {
-              await MediaLibrary.createAlbumAsync('TutorApp', asset, false);
-            } else {
-              await MediaLibrary.addAssetsToAlbumAsync([asset], album, false);
-            }
-          } catch (galleryError) {
-            console.error('Erreur galerie:', galleryError);
-          }
-        }
-
-        // Mettre à jour les statistiques
+        // Mettre à jour les statistiques locales
         const newStats = { ...statistics, downloaded: statistics.downloaded + 1 };
         saveLocalStatistics(newStats);
 
-        Alert.alert(
-          'Succès',
-          `Ressource "${resource.titre}" téléchargée avec succès!`,
-          [
-            { text: 'OK', style: 'default' },
-            { 
-              text: 'Partager', 
-              onPress: () => Sharing.shareAsync(downloadResult.uri, {
-                dialogTitle: `Partager ${resource.titre}`
-              })
-            }
-          ]
-        );
+        // Déterminer le type de fichier et sauvegarder au bon endroit
+        const fileExtension = getFileExtension(resource.fichier).toLowerCase();
+        const mediaTypes = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'mov', 'avi', 'mp3', 'wav'];
+        
+        if (mediaTypes.includes(fileExtension)) {
+          // Pour les médias (images, vidéos, audio), sauvegarder dans la galerie
+          const { status } = await MediaLibrary.requestPermissionsAsync();
+          if (status === 'granted') {
+            const asset = await MediaLibrary.createAssetAsync(cacheUri);
+            Alert.alert('Succès', `Fichier "${resource.titre}" sauvegardé dans la galerie !`);
+          } else {
+            throw new Error('Permission galerie refusée');
+          }
+        } else {
+          // Pour les documents (PDF, DOC, etc.), sauvegarder dans Documents
+          const documentsDir = FileSystem.documentDirectory + 'TutoratApp/';
+          const dirInfo = await FileSystem.getInfoAsync(documentsDir);
+          
+          if (!dirInfo.exists) {
+            await FileSystem.makeDirectoryAsync(documentsDir, { intermediates: true });
+          }
+          
+          const finalUri = documentsDir + fileName;
+          await FileSystem.moveAsync({
+            from: cacheUri,
+            to: finalUri
+          });
+          
+          Alert.alert(
+            'Succès',
+            `Fichier "${resource.titre}" téléchargé dans Documents/TutoratApp !`,
+            [
+              { text: 'OK' },
+              { 
+                text: 'Ouvrir', 
+                onPress: () => Sharing.shareAsync(finalUri, {
+                  mimeType: 'application/octet-stream',
+                  dialogTitle: `Ouvrir ${resource.titre}`
+                })
+              }
+            ]
+          );
+        }
       } else {
         throw new Error('Échec du téléchargement');
       }
@@ -321,6 +328,7 @@ const GlobalResourcesScreen = ({ navigation }) => {
       Alert.alert('Erreur', 'Impossible de télécharger la ressource');
     }
   };
+  // =======================================================================
 
   // Gérer les favoris
   const toggleFavorite = async (resource) => {

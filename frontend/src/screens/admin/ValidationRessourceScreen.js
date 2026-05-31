@@ -113,10 +113,16 @@ const ValidationRessourceScreen = ({ navigation, route }) => {
   };
 
   const openFile = async () => {
-    if (ressource.fichier) {
-      Linking.openURL(ressource.fichier);
+    // Utiliser fichier_url (URL complète) si disponible, sinon fichier (URL relative)
+    const fileUrl = ressource.fichier_url || ressource.fichier;
+    if (fileUrl) {
+      console.log('Ouverture du fichier avec URL:', fileUrl);
+      Linking.openURL(fileUrl);
     } else if (ressource.lien_externe) {
+      console.log('Ouverture du lien externe:', ressource.lien_externe);
       Linking.openURL(ressource.lien_externe);
+    } else {
+      Alert.alert('Erreur', 'Aucun fichier disponible pour cette ressource');
     }
   };
 

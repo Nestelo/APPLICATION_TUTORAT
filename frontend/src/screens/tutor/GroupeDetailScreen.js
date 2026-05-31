@@ -549,13 +549,9 @@ const renderMemberItem = ({ item }) => {
       <View style={styles.memberItem}>
         {/* Photo du membre */}
         <View style={styles.memberPhotoContainer}>
-          {item.photo ? (
-            <Image 
-              source={{ 
-                uri: item.photo.startsWith('http') 
-                  ? item.photo 
-                  : `http://192.168.43.210:8000${item.photo}` 
-              }} 
+          {item.photo_url ? (
+            <Image
+              source={{ uri: item.photo_url }}
               style={styles.memberPhoto}
             />
           ) : (
@@ -722,9 +718,9 @@ const renderMemberItem = ({ item }) => {
                     {inscriptionsEnAttente.map((inscription) => (
                       <View key={inscription.id} style={styles.inscriptionItem}>
                         <View style={styles.inscriptionStudentInfo}>
-                          {inscription.etudiant_details?.photo ? (
-                            <Image 
-                              source={{ uri: inscription.etudiant_details.photo }} 
+                          {inscription.etudiant_details?.photo_url ? (
+                            <Image
+                              source={{ uri: inscription.etudiant_details.photo_url }}
                               style={styles.studentPhoto}
                             />
                           ) : (

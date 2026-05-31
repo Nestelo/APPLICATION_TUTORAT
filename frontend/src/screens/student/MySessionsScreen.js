@@ -218,9 +218,9 @@ const MySessionsScreen = ({ navigation }) => {
       </View>
 
       <View style={styles.sessionTutor}>
-        {session.tuteur?.photo ? (
+        {session.tuteur?.photo_url ? (
           <Image
-            source={{ uri: `${API_BASE_URL}${session.tuteur.photo}` }}
+            source={{ uri: session.tuteur.photo_url }}
             style={styles.tutorPhoto}
           />
         ) : (
@@ -305,9 +305,9 @@ const MySessionsScreen = ({ navigation }) => {
                 <View style={styles.detailSection}>
                   <Text style={styles.detailLabel}>Tuteur</Text>
                   <View style={styles.tutorDetail}>
-                    {selectedSession.tuteur?.photo ? (
+                    {selectedSession.tuteur?.photo_url ? (
                       <Image
-                        source={{ uri: `${API_BASE_URL}${selectedSession.tuteur.photo}` }}
+                        source={{ uri: selectedSession.tuteur.photo_url }}
                         style={styles.tutorDetailPhoto}
                       />
                     ) : (

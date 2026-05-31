@@ -47,8 +47,8 @@ const EleveDetailScreen = ({ navigation, route }) => {
         {/* Photo et informations principales */}
         <Card style={styles.profileCard}>
           <View style={styles.profileHeader}>
-            {eleve.photo ? (
-              <Image source={{ uri: eleve.photo }} style={styles.profilePhoto} />
+            {eleve.photo_url ? (
+              <Image source={{ uri: eleve.photo_url }} style={styles.profilePhoto} />
             ) : (
               <View style={styles.profilePhotoPlaceholder}>
                 <Ionicons name="person" size={40} color="#95a5a6" />

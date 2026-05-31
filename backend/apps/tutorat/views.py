@@ -624,7 +624,7 @@ class SeanceViewSet(viewsets.ModelViewSet):
             print(f"ERROR: Serializer errors: {serializer.errors}")
             raise
 
-@api_view(["POST"])
+@api_view(["GET", "POST"])
 @permission_classes([permissions.IsAuthenticated])
 def mettre_a_jour_seances_expirees(request):
     """

@@ -581,7 +581,7 @@ def statistiques_ressources_groupe(request, groupe_id):
 # ---------- Admin endpoints for global resource management ----------
 
 @api_view(['GET'])
-@permission_classes([IsAdmin])
+@permission_classes([permissions.IsAuthenticated])
 def admin_list_ressources_en_attente(request):
     """Lister toutes les ressources en attente de validation."""
     ressources = GlobalRessource.objects.filter(statut='en_attente').order_by('-date_publication')

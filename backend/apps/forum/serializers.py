@@ -68,11 +68,25 @@ class AbonnementQuestionSerializer(serializers.ModelSerializer):
 
 class MessageVocalSerializer(serializers.ModelSerializer):
     auteur_details = UserSerializer(source='auteur', read_only=True)
-    
+    fichier_audio_url = serializers.SerializerMethodField()
+
     class Meta:
         model = MessageVocal
-        fields = ['id', 'reponse', 'auteur', 'fichier_audio', 'duree', 'date_envoi', 'auteur_details']
+        fields = ['id', 'reponse', 'auteur', 'fichier_audio', 'fichier_audio_url', 'duree', 'date_envoi', 'auteur_details']
         read_only_fields = ['id', 'auteur', 'date_envoi', 'auteur_details']
+
+    def get_fichier_audio_url(self, obj):
+        """Retourne l'URL complète du fichier audio"""
+        if not obj.fichier_audio:
+            return None
+
+        request = self.context.get('request')
+        if request and hasattr(request, 'build_absolute_uri'):
+            try:
+                return request.build_absolute_uri(obj.fichier_audio.url)
+            except:
+                return obj.fichier_audio.url
+        return obj.fichier_audio.url
     
     def validate_reponse(self, value):
         """Valider que la réponse existe et est accessible"""

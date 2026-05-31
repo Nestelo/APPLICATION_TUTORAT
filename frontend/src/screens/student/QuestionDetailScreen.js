@@ -193,10 +193,10 @@ const QuestionDetailScreen = ({ route, navigation }) => {
         await sound.unloadAsync();
       }
 
-      console.log('Lecture du message vocal:', vocal.fichier_audio);
-      
+      console.log('Lecture du message vocal:', vocal.fichier_audio_url || vocal.fichier_audio);
+
       const { sound: newSound } = await Audio.Sound.createAsync(
-        { uri: vocal.fichier_audio },
+        { uri: vocal.fichier_audio_url || vocal.fichier_audio },
         { shouldPlay: true }
       );
       

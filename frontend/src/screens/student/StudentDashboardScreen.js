@@ -324,13 +324,17 @@ const StudentDashboardScreen = ({ navigation }) => {
       if (response.ok) {
         const updatedUser = await response.json();
         console.log('Profil étudiant mis à jour:', updatedUser);
-        
-        if (updatedUser.photo) {
-          const newImageUrl = getImageUrl(updatedUser.photo);
+
+        if (updatedUser.photo_url) {
+          const newImageUrl = getImageUrl(updatedUser.photo_url);
           console.log('Nouvelle URL image étudiant:', newImageUrl);
           setProfileImage(newImageUrl);
+        } else if (updatedUser.photo) {
+          const newImageUrl = getImageUrl(updatedUser.photo);
+          console.log('Nouvelle URL image étudiant (fallback):', newImageUrl);
+          setProfileImage(newImageUrl);
         }
-        
+
         Alert.alert('Succès', 'Photo de profil mise à jour avec succès!');
       } else {
         const errorText = await response.text();

@@ -554,9 +554,9 @@ const TutorSessionBookingScreen = ({ route, navigation }) => {
         {tutorData && (
           <Card style={styles.tutorCard}>
             <View style={styles.tutorHeader}>
-              {tutorData.photo ? (
+              {tutorData.photo_url ? (
                 <Image
-                  source={{ uri: `${API_BASE_URL}${tutorData.photo}` }}
+                  source={{ uri: tutorData.photo_url }}
                   style={styles.tutorPhoto}
                 />
               ) : (

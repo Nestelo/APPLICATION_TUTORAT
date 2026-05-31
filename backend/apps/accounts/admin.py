@@ -5,11 +5,13 @@ from .models import User
 class UserAdmin(BaseUserAdmin):
     list_display = ('email', 'nom', 'prenom', 'role', 'est_actif')
     list_filter = ('role', 'est_actif')
+    readonly_fields = ('date_inscription',)  # Affichage en lecture seule
+
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         ('Informations personnelles', {'fields': ('nom', 'prenom', 'photo', 'bio')}),
         ('Rôle et permissions', {'fields': ('role', 'is_active', 'is_staff', 'is_superuser')}),
-        ('Dates', {'fields': ('last_login', 'date_inscription')}),
+        ('Dates', {'fields': ('last_login',)}),  # date_inscription retiré car non éditable
     )
     add_fieldsets = (
         (None, {

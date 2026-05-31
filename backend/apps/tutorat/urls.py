@@ -49,11 +49,14 @@ router.register(r"seances", SeanceViewSet)
 router.register(r"evaluations", EvaluationViewSet)
 
 urlpatterns = [
-    # === ENDPOINTS POST PERSONNALISÉS (AVANT le router pour éviter les conflits) ===
+    # === ENDPOINTS PERSONNALISÉS (AVANT le router pour éviter les conflits) ===
     path("seances/inscrire-seance-existante/", inscrire_seance_existante, name="inscrire-seance-existante"),
     path("seances/gerer-inscription/", gerer_inscription_seance, name="gerer-inscription-seance"),
     path("seances/disponibles-etudiants/", seances_disponibles_etudiants, name="seances-disponibles-etudiants"),
-    
+    path("seances/avenir/", seances_avenir_etudiant, name="seances-avenir-etudiant"),
+    path("seances/etudiant/", seances_etudiant, name="seances-etudiant"),
+    path("seances/mettre-a-jour-expirees/", mettre_a_jour_seances_expirees, name="mettre-a-jour-seances-expirees"),
+
     path("", include(router.urls)),
     # Endpoints spécifiques Étudiant
     path("student/dashboard/", student_dashboard, name="student-dashboard"),
@@ -84,9 +87,6 @@ urlpatterns = [
     path("seances/<int:seance_id>/confirmer/", confirmer_participation, name="confirmer-participation"),
     path("seances/creer-direct/", creer_seance_directe, name="creer-seance-directe"),
     path("seances/statistiques/etudiant/", seances_statistiques_etudiant, name="seances-statistiques-etudiant"),
-    path("seances/mettre-a-jour-expirees/", mettre_a_jour_seances_expirees, name="mettre-a-jour-seances-expirees"),
-    path("seances/avenir/", seances_avenir_etudiant, name="seances-avenir-etudiant"),
-    path("seances/etudiant/", seances_etudiant, name="seances-etudiant"),
     path("mes-seances/", mes_seances, name="mes-seances"),
     # Endpoints statistiques manquants
     path("evaluations/moyenne/etudiant/", student_dashboard, name="evaluations-moyenne-etudiant"),

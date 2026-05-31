@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils import timezone
+from cloudinary.models import CloudinaryField
 
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -32,8 +33,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     filiere = models.CharField(max_length=100, blank=True, null=True, db_index=True)
     annee = models.CharField(max_length=20, blank=True, null=True, db_index=True)
     bio = models.TextField(blank=True)
-    # Garder ImageField (Cloudinary gérera le stockage)
-    photo = models.ImageField(upload_to='profils/', blank=True, null=True)
+    # Utiliser CloudinaryField pour le stockage sur Cloudinary en production
+    photo = CloudinaryField('profile', resource_type='image', blank=True, null=True)
     centres_interet = models.TextField(blank=True, help_text="Pour les étudiants")
     matieres_maitrisees = models.TextField(blank=True, help_text="Pour les tuteurs")
     tarif_horaire = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)

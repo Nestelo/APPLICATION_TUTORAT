@@ -1,5 +1,5 @@
 from rest_framework import viewsets, permissions, status
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.response import Response
 from django.db.models import Q
 from .models import Notification
@@ -96,3 +96,21 @@ class AnnouncementViewSet(viewsets.ModelViewSet):
         recipient.delivered_at = timezone.now()
         recipient.save(update_fields=['delivery_status', 'delivered_at'])
         return Response({'status': 'marked delivered'})
+
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+def annonces_non_lues(request):
+    """Récupérer les annonces non lues pour l'utilisateur connecté."""
+    user = request.user
+    from .models import AnnouncementRecipient
+    
+    # Récupérer les annonces non lues pour l'utilisateur
+    annonces_non_lues = AnnouncementRecipient.objects.filter(
+        user=user,
+        delivery_status='delivered',
+        read_at__isnull=True
+    ).select_related('announcement').order_by('-announcement.created_at')
+    
+    serializer = AnnouncementSerializer([ar.announcement for ar in annonces_non_lues], many=True)
+    return Response(serializer.data)

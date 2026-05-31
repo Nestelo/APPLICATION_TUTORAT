@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
 import * as FileSystem from 'expo-file-system/legacy';
 import * as Sharing from 'expo-sharing';
+import * as MediaLibrary from 'expo-media-library';
 import Header from '../../components/ui/Header';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
@@ -99,37 +100,11 @@ const GroupeRessourceDetailScreen = ({ navigation, route }) => {
         const fileExtension = ressource.fichier.split('.').pop().toLowerCase();
         const fileName = `${ressource.titre?.replace(/[^a-zA-Z0-9]/g, '_') || 'fichier'}.${fileExtension}`;
         
-        // Déterminer le répertoire de destination selon le type
-        let destinationDir;
-        let shareOptions = {};
-        
-        if (ressource.type === 'video') {
-          // Pour les vidéos, utiliser la galerie
-          destinationDir = FileSystem.cacheDirectory;
-          shareOptions = {
-            mimeType: `video/${fileExtension}`,
-            UTI: `public.${fileExtension}`,
-          };
-        } else {
-          // Pour les documents, utiliser le gestionnaire de fichiers
-          destinationDir = FileSystem.documentDirectory + 'TutoratApp/';
-          const dirInfo = await FileSystem.getInfoAsync(destinationDir);
-          
-          if (!dirInfo.exists) {
-            await FileSystem.makeDirectoryAsync(destinationDir, { intermediates: true });
-          }
-          
-          shareOptions = {
-            mimeType: fileExtension === 'pdf' ? 'application/pdf' : 'application/octet-stream',
-            UTI: fileExtension === 'pdf' ? 'public.pdf' : 'public.data',
-          };
-        }
-        
-        const downloadUri = `${destinationDir}${fileName}`;
-        
+        // Télécharger dans le cache d'abord
+        const cacheUri = FileSystem.cacheDirectory + fileName;
         const downloadResumable = FileSystem.createDownloadResumable(
           ressource.fichier,
-          downloadUri,
+          cacheUri,
           {},
           (downloadProgress) => {
             const progress = downloadProgress.totalBytesWritten / downloadProgress.totalBytesExpectedToWrite;
@@ -142,15 +117,46 @@ const GroupeRessourceDetailScreen = ({ navigation, route }) => {
         if (result.status === 200) {
           console.log('Fichier téléchargé avec succès:', result.uri);
           
-          if (await Sharing.isAvailableAsync()) {
-            await Sharing.shareAsync(result.uri, {
-              ...shareOptions,
-              dialogTitle: `Enregistrer ${ressource.titre || 'fichier'}`,
-            });
+          // Déterminer le type de fichier et sauvegarder au bon endroit
+          const mediaTypes = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'mov', 'avi', 'mp3', 'wav'];
+          
+          if (mediaTypes.includes(fileExtension)) {
+            // Pour les médias (images, vidéos, audio), sauvegarder dans la galerie
+            const { status } = await MediaLibrary.requestPermissionsAsync();
+            if (status === 'granted') {
+              const asset = await MediaLibrary.createAssetAsync(cacheUri);
+              Alert.alert('Succès', `Fichier "${ressource.titre}" sauvegardé dans la galerie !`);
+            } else {
+              throw new Error('Permission galerie refusée');
+            }
           } else {
+            // Pour les documents (PDF, DOC, etc.), sauvegarder dans Documents
+            const documentsDir = FileSystem.documentDirectory + 'TutoratApp/';
+            const dirInfo = await FileSystem.getInfoAsync(documentsDir);
+            
+            if (!dirInfo.exists) {
+              await FileSystem.makeDirectoryAsync(documentsDir, { intermediates: true });
+            }
+            
+            const finalUri = documentsDir + fileName;
+            await FileSystem.moveAsync({
+              from: cacheUri,
+              to: finalUri
+            });
+            
             Alert.alert(
-              'Succès', 
-              `${ressource.type === 'video' ? 'Vidéo' : 'Fichier'} téléchargé avec succès!`
+              'Succès',
+              `Fichier "${ressource.titre}" téléchargé dans Documents/TutoratApp !`,
+              [
+                { text: 'OK' },
+                { 
+                  text: 'Ouvrir', 
+                  onPress: () => Sharing.shareAsync(finalUri, {
+                    mimeType: fileExtension === 'pdf' ? 'application/pdf' : 'application/octet-stream',
+                    dialogTitle: `Ouvrir ${ressource.titre}`
+                  })
+                }
+              ]
             );
           }
         } else {

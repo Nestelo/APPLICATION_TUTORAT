@@ -219,8 +219,8 @@ const BookingSession = ({ route, navigation }) => {
         <Card style={styles.tutorCard}>
           <View style={styles.tutorInfo}>
             <View style={styles.tutorPhotoContainer}>
-              {tutor.photo ? (
-                <Image source={{ uri: tutor.photo.startsWith('http') ? tutor.photo : `${API_BASE_URL}${tutor.photo}` }} style={styles.tutorPhoto} />
+              {tutor.photo_url ? (
+                <Image source={{ uri: tutor.photo_url }} style={styles.tutorPhoto} />
               ) : (
                 <View style={styles.tutorPhotoPlaceholder}>
                   <Ionicons name="person" size={30} color="#999" />

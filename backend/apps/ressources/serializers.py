@@ -90,11 +90,25 @@ class RessourceSerializer(serializers.ModelSerializer):
     nb_commentaires = serializers.IntegerField(source='commentaires.count', read_only=True)
     est_favori = serializers.SerializerMethodField()
     type_display = serializers.CharField(source='get_type_fichier_display', read_only=True)
+    fichier_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Ressource
         fields = '__all__'
         read_only_fields = ['date_publication', 'date_maj', 'nb_telechargements', 'nb_vues', 'auteur']
+
+    def get_fichier_url(self, obj):
+        """Retourner l'URL complète du fichier (Cloudinary en production, local en développement)"""
+        if obj.fichier:
+            request = self.context.get('request')
+            if request and hasattr(request, 'build_absolute_uri'):
+                try:
+                    return request.build_absolute_uri(obj.fichier.url)
+                except:
+                    # En cas d'erreur avec le host, retourner l'URL relative
+                    return obj.fichier.url
+            return obj.fichier.url
+        return None
 
     def get_moyenne_notes(self, obj):
         notes = obj.notes.all()

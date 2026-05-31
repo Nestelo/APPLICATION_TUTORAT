@@ -80,7 +80,6 @@ const AdminDashboardScreen = ({ navigation }) => {
     totalQuestions: 0,
     userGrowth: '+0%',
     sessionGrowth: '+0%',
-    // Stats détaillées actifs/inactifs
     tuteursActifs: 0,
     tuteursInactifs: 0,
     etudiantsActifs: 0,
@@ -99,7 +98,6 @@ const AdminDashboardScreen = ({ navigation }) => {
     loadProfileImage();
   }, []);
 
-  // Recharger l'image quand l'écran reçoit le focus (après retour de EditProfil)
   useFocusEffect(
     useCallback(() => {
       loadProfileImage();
@@ -110,15 +108,16 @@ const AdminDashboardScreen = ({ navigation }) => {
     filterUsers();
   }, [search, roleFilter, statusFilter, users]);
 
-  // Charger l'image de profil existante
+  // Charger l'image de profil existante (corrigé pour utiliser photo_url)
   const loadProfileImage = async () => {
     try {
       console.log('Chargement image profil pour admin:', user?.id);
-      
-      if (user?.photo) {
-        const imageUrl = getImageUrl(user.photo);
-        console.log('URL image profil admin:', imageUrl);
-        setProfileImage(imageUrl);
+      // ✅ Utiliser photo_url (Cloudinary) si disponible, sinon photo (fallback)
+      const photoUrl = user?.photo_url || user?.photo;
+      if (photoUrl) {
+        // photo_url est déjà une URL complète, pas besoin de la modifier
+        setProfileImage(photoUrl);
+        console.log('URL image profil admin:', photoUrl);
       } else {
         console.log('Aucune photo de profil trouvée pour admin');
         setProfileImage(null);
@@ -126,22 +125,6 @@ const AdminDashboardScreen = ({ navigation }) => {
     } catch (error) {
       console.error('Erreur chargement image profil admin:', error);
       setProfileImage(null);
-    }
-  };
-
-  // Générer une URL avec anti-cache
-  const getImageUrl = (photoPath) => {
-    if (!photoPath) return null;
-    
-    // Vérifier si l'URL est déjà complète (commence par http)
-    if (photoPath.startsWith('http')) {
-      // URL déjà complète, ajouter juste le timestamp
-      const timestamp = Date.now();
-      return `${photoPath}?t=${timestamp}`;
-    } else {
-      // URL relative, ajouter le base URL
-      const timestamp = Date.now();
-      return `${API_BASE_URL}${photoPath}?t=${timestamp}`;
     }
   };
 
@@ -177,12 +160,11 @@ const AdminDashboardScreen = ({ navigation }) => {
     }
   };
 
-  // Uploader la nouvelle image de profil
+  // Uploader la nouvelle image de profil (corrigé pour utiliser photo_url)
   const uploadProfileImage = async (imageAsset) => {
     try {
       setUpdatingImage(true);
 
-      // Créer le FormData pour l'upload
       const formData = new FormData();
       formData.append('photo', {
         uri: imageAsset.uri,
@@ -192,7 +174,6 @@ const AdminDashboardScreen = ({ navigation }) => {
 
       console.log('FormData créé pour admin:', formData);
 
-      // Envoyer l'image au backend
       const token = await AsyncStorage.getItem('accessToken');
       const profileUrl = `${API_BASE_URL}/api/auth/profile/`;
       
@@ -211,11 +192,11 @@ const AdminDashboardScreen = ({ navigation }) => {
         const updatedUser = await response.json();
         console.log('Profil admin mis à jour:', updatedUser);
         
-        // Mettre à jour immédiatement l'image affichée
-        if (updatedUser.photo) {
-          const newImageUrl = getImageUrl(updatedUser.photo);
-          console.log('Nouvelle URL image admin:', newImageUrl);
-          setProfileImage(newImageUrl);
+        // ✅ Mettre à jour l'image affichée avec photo_url (Cloudinary)
+        const newPhotoUrl = updatedUser.photo_url || updatedUser.photo;
+        if (newPhotoUrl) {
+          setProfileImage(newPhotoUrl);
+          console.log('Nouvelle URL image admin:', newPhotoUrl);
         }
         
         Alert.alert('Succès', 'Photo de profil mise à jour avec succès!');
@@ -251,37 +232,32 @@ const AdminDashboardScreen = ({ navigation }) => {
       console.log('Données stats reçues:', statsResult);
       
       if (statsResult) {
-        // Gérer les deux structures possibles de réponse API
         const utilisateursData = statsResult.stats?.utilisateurs || statsResult.utilisateurs || {};
         const offresData = statsResult.stats?.offres || statsResult.offres || {};
         const seancesData = statsResult.stats?.seances || statsResult.seances || {};
         const evaluationsData = statsResult.stats?.evaluations || statsResult.evaluations || {};
         const topTutorsData = statsResult.stats?.top_tuteurs || statsResult.top_tuteurs || [];
         
-        // Transformer les données de l'API pour le frontend
         const apiStats = {
           totalUsers: utilisateursData.total || 0,
           totalStudents: utilisateursData.etudiants || 0,
           totalTutors: utilisateursData.tuteurs || 0,
-          totalTeachers: 0, // Pas dans les données reçues
+          totalTeachers: 0,
           totalAdmins: utilisateursData.admins || 0,
-          userGrowth: '+12%', // Valeur par défaut
-          // Stats détaillées actifs/inactifs - utiliser les vraies données du backend
+          userGrowth: '+12%',
           tuteursActifs: utilisateursData.tuteurs_actifs || 0,
           tuteursInactifs: utilisateursData.tuteurs_inactifs || 0,
           etudiantsActifs: utilisateursData.etudiants_actifs || 0,
           etudiantsInactifs: utilisateursData.etudiants_inactifs || 0,
-          // Utiliser les vraies données des offres, séances et évaluations
           totalOffers: offresData.total || 0,
           totalSessions: seancesData.total || 0,
-          totalResources: 0, // Pas dans les données reçues
-          totalQuestions: 0, // Pas dans les données reçues
-          sessionGrowth: '+8%', // Valeur par défaut
+          totalResources: 0,
+          totalQuestions: 0,
+          sessionGrowth: '+8%',
           monthlyStats: {
             users: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             sessions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           },
-          // Ajouter les top tuteurs
           topTutors: topTutorsData
         };
         
@@ -314,7 +290,7 @@ const AdminDashboardScreen = ({ navigation }) => {
 
   const onRefresh = async () => {
     setRefreshing(true);
-    await Promise.all([loadUsers(), loadDashboardData()]);
+    await Promise.all([loadData(), loadDashboardData()]);
     setRefreshing(false);
   };
 
@@ -354,7 +330,6 @@ const AdminDashboardScreen = ({ navigation }) => {
   const handleExportData = async (type) => {
     try {
       const data = await exportAdminData(type);
-      // Logique pour télécharger le fichier (à implémenter)
       Alert.alert('Succès', `Données ${type} exportées avec succès`);
     } catch (error) {
       Alert.alert('Erreur', 'Impossible d\'exporter les données');
@@ -365,7 +340,6 @@ const AdminDashboardScreen = ({ navigation }) => {
     const source = Array.isArray(users) ? users : [];
     let filtered = source;
 
-    // Recherche par nom ou email
     if (search) {
       const lowerSearch = search.toLowerCase();
       filtered = filtered.filter(
@@ -376,12 +350,10 @@ const AdminDashboardScreen = ({ navigation }) => {
       );
     }
 
-    // Filtre par rôle
     if (roleFilter !== 'all') {
       filtered = filtered.filter((u) => u.role === roleFilter);
     }
 
-    // Filtre par statut (gérer les deux champs possibles)
     if (statusFilter !== 'all') {
       filtered = filtered.filter((u) => {
         const isActive = u.est_actif !== false && u.is_active !== false;
@@ -396,8 +368,7 @@ const AdminDashboardScreen = ({ navigation }) => {
     try {
       const newStatus = !user.is_active;
       await updateUserStatus(user.id, newStatus);
-      // Recharger les utilisateurs ET les statistiques pour mise à jour automatique
-      loadData(); // Charge les utilisateurs ET les stats
+      loadData();
       Alert.alert('Succès', `L'utilisateur est maintenant ${newStatus ? 'actif' : 'inactif'}`);
     } catch (error) {
       Alert.alert('Erreur', 'Impossible de modifier le statut');
@@ -423,7 +394,6 @@ const AdminDashboardScreen = ({ navigation }) => {
   };
 
   const handleSendEmail = (user) => {
-    // Ouvre le formulaire d'email dans l'application
     setSelectedUser(user);
     setEmailSubject(`Message depuis la plateforme de tutorat`);
     setEmailContent(`Bonjour ${user.prenom},\n\n`);
@@ -439,14 +409,11 @@ const AdminDashboardScreen = ({ navigation }) => {
     setSendingEmail(true);
     
     try {
-      // Étape 1: Créer le message dans la base de données
       const messageResult = await envoyerEmail(selectedUser.id, emailSubject, emailContent);
       
-      // Étape 2: Envoyer l'email réel via le backend
       if (messageResult.id) {
         const sendResult = await envoyerEmailDirect(messageResult.id);
         
-        // Affiche un message de succès
         Alert.alert(
           '✅ Email envoyé!',
           `Message envoyé directement à ${selectedUser.prenom} ${selectedUser.nom}`,
@@ -654,7 +621,6 @@ const AdminDashboardScreen = ({ navigation }) => {
           
           {/* Listes d'utilisateurs par catégorie */}
           <View style={styles.userListsContainer}>
-            {/* Liste des étudiants */}
             <Card style={styles.userListCard}>
               <Text style={styles.userListTitle}>🎓 Étudiants récents</Text>
               {filteredUsers.filter(u => u.role === 'etudiant').slice(0, 3).map(student => (
@@ -700,7 +666,6 @@ const AdminDashboardScreen = ({ navigation }) => {
               )}
             </Card>
 
-            {/* Liste des tuteurs */}
             <Card style={styles.userListCard}>
               <Text style={styles.userListTitle}>👨‍🏫 Tuteurs récents</Text>
               {filteredUsers.filter(u => u.role === 'tuteur' || u.role === 'enseignant').slice(0, 3).map(tutor => (
@@ -746,7 +711,6 @@ const AdminDashboardScreen = ({ navigation }) => {
               )}
             </Card>
 
-            {/* Liste des admins */}
             <Card style={styles.userListCard}>
               <Text style={styles.userListTitle}>👑 Administrateurs</Text>
               {filteredUsers.filter(u => u.role === 'admin').slice(0, 3).map(admin => (
@@ -1423,7 +1387,6 @@ const styles = StyleSheet.create({
     marginTop: 2,
     fontWeight: '500',
   },
-  // Styles pour le modal d'email
   modalContainer: {
     flex: 1,
     backgroundColor: '#f5f5f5',
@@ -1495,7 +1458,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
-  // Styles pour les listes d'utilisateurs
   userListsContainer: {
     gap: 16,
     marginTop: 16,
@@ -1563,7 +1525,6 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     paddingVertical: 20,
   },
-  // Styles pour les statistiques détaillées
   detailStatsGrid: {
     flexDirection: 'column',
     gap: 16,
@@ -1603,7 +1564,6 @@ const styles = StyleSheet.create({
     color: '#666',
     fontWeight: '500',
   },
-  // Styles pour les top tuteurs
   topTutorsCard: {
     backgroundColor: '#fff',
     borderRadius: 12,
@@ -1649,7 +1609,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: '#f8f9fa',
   },
-  // Styles pour la carte personnalisée Offres et Séances
   card: {
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -1678,4 +1637,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AdminDashboardScreen;
+export default AdminDashboardScreen; 

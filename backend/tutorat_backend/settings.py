@@ -166,17 +166,14 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 # ============================================================
 
-# Configuration email – SendGrid SMTP (production)
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'smtp.sendgrid.net'
+# Configuration email – Brevo SMTP (production)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp-relay.brevo.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME', 'apikey')
-EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD', '')
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'ndjerabeernest@gmail.com')
-
-if DEBUG and not EMAIL_HOST_PASSWORD:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST_USER = 'ad1e50001@smtp-brevo.com'
+EMAIL_HOST_PASSWORD = 'nB64yOsrKWNzfIx5'
+DEFAULT_FROM_EMAIL = 'ndjerabeernest@gmail.com'
 
 # Logging
 LOGGING = {

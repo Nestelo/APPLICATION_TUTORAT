@@ -13,8 +13,8 @@ const EleveItem = ({ eleve, onPress }) => (
   <Card onPress={onPress} style={styles.eleveCard}>
     <View style={styles.eleveHeader}>
       <View style={styles.eleveInfo}>
-        {eleve.photo ? (
-          <Image source={{ uri: eleve.photo }} style={styles.elevePhoto} />
+        {eleve.photo_url ? (
+          <Image source={{ uri: eleve.photo_url }} style={styles.elevePhoto} />
         ) : (
           <View style={styles.elevePhotoPlaceholder}>
             <Ionicons name="person" size={24} color="#95a5a6" />

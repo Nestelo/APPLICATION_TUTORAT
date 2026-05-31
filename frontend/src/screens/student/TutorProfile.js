@@ -162,8 +162,8 @@ const TutorProfile = ({ route, navigation }) => {
         <Card style={styles.profileCard}>
           <View style={styles.profileHeader}>
             <View style={styles.profilePhotoContainer}>
-              {tutor.photo ? (
-                <Image source={{ uri: tutor.photo.startsWith('http') ? tutor.photo : `${API_BASE_URL}${tutor.photo}` }} style={styles.profilePhoto} />
+              {tutor.photo_url ? (
+                <Image source={{ uri: tutor.photo_url }} style={styles.profilePhoto} />
               ) : (
                 <View style={styles.profilePhotoPlaceholder}>
                   <Ionicons name="person" size={40} color="#999" />

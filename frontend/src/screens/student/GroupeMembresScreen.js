@@ -40,8 +40,8 @@ const GroupeMembresScreen = ({ navigation, route }) => {
   const renderMembre = ({ item }) => (
     <View style={styles.membreCard}>
       <View style={styles.membreHeader}>
-        {item.photo ? (
-          <Image source={{ uri: item.photo }} style={styles.photo} />
+        {item.photo_url ? (
+          <Image source={{ uri: item.photo_url }} style={styles.photo} />
         ) : (
           <View style={[styles.photo, styles.photoPlaceholder]}>
             <Ionicons name="person" size={24} color="#666" />
