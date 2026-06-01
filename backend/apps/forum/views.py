@@ -551,10 +551,11 @@ def reponses_non_lues(request):
     user = request.user
     # Récupérer les réponses aux questions de l'utilisateur qu'il n'a pas encore vues
     questions_user = Question.objects.filter(auteur=user)
+    derniere_connexion = user.derniere_connexion or (timezone.now() - timezone.timedelta(days=7))
     reponses_non_lues = Reponse.objects.filter(
         question__in=questions_user,
-        date_creation__gt=user.derniere_connexion or timezone.now() - timezone.timedelta(days=7)
-    ).exclude(auteur=user).order_by('-date_creation')[:10]
+        date__gt=derniere_connexion
+    ).exclude(auteur=user).order_by('-date')[:10]
     
     serializer = ReponseSerializer(reponses_non_lues, many=True)
     return Response(serializer.data)

@@ -1402,15 +1402,20 @@ def recherche_tuteurs(request):
             except:
                 matieres_list = [str(tuteur.matieres_enseignees)]
         
+        # S'assurer que matieres_list est une liste
+        if not isinstance(matieres_list, list):
+            matieres_list = []
+        
         # Construire les données COMPLÈTES du tuteur
         tuteur_data = {
             'id': tuteur.id,
             'prenom': tuteur.prenom,
             'nom': tuteur.nom,
+            'photo_url': tuteur.photo.url if tuteur.photo else None,
             'photo': tuteur.photo.url if tuteur.photo else None,
-            'biographie': tuteur.biographie or '',
-            'matieres_enseignees': matieres_list,
-            'niveau_enseignement': tuteur.niveau_enseignement or '',
+            'biographie': tuteur.biographie or 'Pas de description disponible',
+            'matieres_enseignees': matieres_list if matieres_list else ['Matières non spécifiées'],
+            'niveau_enseignement': tuteur.niveau_enseignement or 'Non spécifié',
             'note_moyenne': note_moyenne,
             'nombre_evaluations': nombre_evaluations,
             'nombre_seances': nombre_seances,
@@ -1419,11 +1424,12 @@ def recherche_tuteurs(request):
             'disponibilites': [
                 {
                     'jour': dispo.jour_semaine,
+                    'jour_display': dispo.get_jour_semaine_display(),
                     'heures': f"{dispo.heure_debut} - {dispo.heure_fin}"
                 } for dispo in disponibilites
-            ],
+            ] if disponibilites.exists() else [],
             'badges': [],
-            'experience_ans': getattr(tuteur, 'experience_ans', 0),
+            'experience_ans': getattr(tuteur, 'experience', 0),
             'nombre_etudiants': nombre_etudiants,
         }
         
@@ -1474,21 +1480,44 @@ def tuteurs_recommandes(request):
         disponibilites = Disponibilite.objects.filter(tuteur=tuteur)
         nombre_seances = Seance.objects.filter(tuteur=tuteur).count()
         
+        # Parser les matières
+        matieres_list = []
+        if tuteur.matieres_enseignees:
+            try:
+                matieres_str = str(tuteur.matieres_enseignees)
+                if matieres_str.startswith('[') and matieres_str.endswith(']'):
+                    import json
+                    matieres_list = json.loads(matieres_str)
+                else:
+                    matieres_list = [m.strip() for m in matieres_str.split(',') if m.strip()]
+            except:
+                matieres_list = [str(tuteur.matieres_enseignees)]
+        
+        # S'assurer que matieres_list est une liste
+        if not isinstance(matieres_list, list):
+            matieres_list = []
+        
         resultats.append({
             'id': tuteur.id,
             'prenom': tuteur.prenom,
             'nom': tuteur.nom,
+            'photo_url': tuteur.photo.url if tuteur.photo else None,
             'photo': tuteur.photo.url if tuteur.photo else None,
-            'biographie': tuteur.biographie or '',
-            'matieres_enseignees': tuteur.matieres_enseignees or [],
+            'biographie': tuteur.biographie or 'Pas de description disponible',
+            'matieres_enseignees': matieres_list if matieres_list else ['Matières non spécifiées'],
+            'niveau_enseignement': tuteur.niveau_enseignement or 'Non spécifié',
             'note_moyenne': float(tuteur.note_moyenne) if tuteur.note_moyenne else 0,
             'nombre_evaluations': tuteur.nombre_evaluations or 0,
             'nombre_seances': nombre_seances,
             'tarif': offres.first().tarif if offres.exists() else None,
             'disponibilites': [
-                {'jour': dispo.jour, 'heures': dispo.heures} 
+                {
+                    'jour': dispo.jour_semaine,
+                    'jour_display': dispo.get_jour_semaine_display(),
+                    'heures': f"{dispo.heure_debut} - {dispo.heure_fin}"
+                }
                 for dispo in disponibilites
-            ],
+            ] if disponibilites.exists() else [],
             'badges': list(tuteur.badges_tuteur_set.all().values('nom', 'icone', 'couleur')) if hasattr(tuteur, 'badges_tuteur_set') else []
         })
     
@@ -1667,19 +1696,19 @@ def tuteur_evaluations(request, tuteur_id):
     try:
         tuteur = User.objects.get(id=tuteur_id, role='tuteur')
         
-        evaluations = Evaluation.objects.filter(cible=tuteur).order_by('-date_evaluation')
+        evaluations = Evaluation.objects.filter(cible=tuteur).order_by('-date')
         
         resultats = []
         for eval in evaluations:
             resultats.append({
                 'id': eval.id,
-                'eleve_nom': f"{eval.etudiant.prenom} {eval.etudiant.nom}",
+                'eleve_nom': f"{eval.auteur.prenom} {eval.auteur.nom}",
                 'note': eval.note,
                 'commentaire': eval.commentaire,
-                'points_forts': eval.points_forts,
-                'points_amelioration': eval.points_amelioration,
-                'recommanderait': eval.recommanderait,
-                'date_evaluation': eval.date_evaluation
+                'points_forts': getattr(eval, 'points_forts', ''),
+                'points_amelioration': getattr(eval, 'points_amelioration', ''),
+                'recommanderait': getattr(eval, 'recommanderait', True),
+                'date_evaluation': eval.date
             })
         
         return Response(resultats)
