@@ -13,12 +13,12 @@ class OffreTutoratSerializer(serializers.ModelSerializer):
         model = OffreTutorat
         fields = '__all__'
         read_only_fields = ['date_creation', 'date_modification', 'vues', 
-                          'candidatures', 'sessions_realisees', 'note_moyenne']
+                          'candidatures', 'sessions_realisees', 'note_moyenne',
+                          'tuteur', 'admin_validateur', 'date_validation', 'validee_par_admin']
         extra_kwargs = {
-            'matiere': {'required': False},
-            'niveau': {'required': False},
-            'titre': {'required': False},
-            'tuteur': {'required': False},
+            'titre': {'required': True},
+            'matiere': {'required': True},
+            'niveau': {'required': True},
             'description': {'required': False},
             'tarif': {'required': False},
             'type': {'required': False},

@@ -54,7 +54,7 @@ Date: {email.date_envoi.strftime('%d/%m/%Y %H:%M')}
                 contenu,
                 settings.DEFAULT_FROM_EMAIL,
                 [email.destinataire.email],
-                fail_silently=False,
+                fail_silently=True,
             )
             
             print(f"** EMAIL ENVOYÉ AVEC SUCCÈS vers {email.destinataire.email} **")
@@ -105,7 +105,7 @@ Date: {email.date_envoi.strftime('%d/%m/%Y %H:%M')}
                 contenu,
                 settings.DEFAULT_FROM_EMAIL,
                 [email.destinataire.email],
-                fail_silently=False,
+                fail_silently=True,
             )
             
             AccuseReception.objects.create(
