@@ -16,8 +16,9 @@ class ForumNotificationService:
         
         # Récupérer les tuteurs spécialisés dans cette matière
         tuteurs_specialises = User.objects.filter(
+            Q(matieres_maitrisees__icontains=matiere) |
+            Q(matieres_enseignees__contains=[matiere]),
             role__in=['tuteur', 'enseignant'],
-            matieres_enseignees__contains=[matiere],
             is_active=True
         )
         

@@ -446,9 +446,23 @@ def rapports_utilisateurs(request):
     matieres_populaires = []
     tuteurs = users_qs.filter(role__in=['tuteur', 'enseignant'])
     for tuteur in tuteurs:
-        if tuteur.matieres_enseignees:
-            for matiere in tuteur.matieres_enseignees:
-                matieres_populaires.append(matiere)
+        # Utiliser matieres_maitrisees en priorité, puis matieres_enseignees
+        matieres = tuteur.matieres_maitrisees or tuteur.matieres_enseignees
+        if matieres:
+            # Parser si c'est une chaîne
+            if isinstance(matieres, str):
+                try:
+                    import json
+                    if matieres.startswith('[') and matieres.endswith(']'):
+                        matieres = json.loads(matieres)
+                    else:
+                        matieres = [m.strip() for m in matieres.split(',') if m.strip()]
+                except:
+                    matieres = [matieres]
+            # Ajouter les matières
+            if isinstance(matieres, list):
+                for matiere in matieres:
+                    matieres_populaires.append(matiere)
     
     # Compter les matières
     from collections import Counter

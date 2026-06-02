@@ -1287,19 +1287,24 @@ def recherche_tuteurs(request):
     tuteurs = User.objects.filter(role='tuteur', is_active=True)
     print(f"Tuteurs de base: {tuteurs.count()}")
     
-    # Filtrer par recherche textuelle
+    # Filtrer par recherche textuelle - utiliser bio et matieres_maitrisees
     if search:
         tuteurs = tuteurs.filter(
             Q(prenom__icontains=search) |
             Q(nom__icontains=search) |
+            Q(bio__icontains=search) |
             Q(biographie__icontains=search) |
+            Q(matieres_maitrisees__icontains=search) |
             Q(matieres_enseignees__icontains=search)
         )
         print(f"Tuteurs après filtre search: {tuteurs.count()}")
     
-    # Filtrer par matière (dans matieres_enseignees)
+    # Filtrer par matière (dans matieres_maitrisees et matieres_enseignees)
     if matiere:
-        tuteurs = tuteurs.filter(matieres_enseignees__icontains=matiere)
+        tuteurs = tuteurs.filter(
+            Q(matieres_maitrisees__icontains=matiere) |
+            Q(matieres_enseignees__icontains=matiere)
+        )
         print(f"Tuteurs après filtre matière: {tuteurs.count()}")
     
     # Filtrer par niveau
@@ -1389,12 +1394,25 @@ def recherche_tuteurs(request):
             note_moyenne = 0.0
             nombre_evaluations = 0
         
-        # Parser les matières
+        # Parser les matières - utiliser matieres_maitrisees (champ que le tuteur met à jour)
         matieres_list = []
-        if tuteur.matieres_enseignees:
+        if tuteur.matieres_maitrisees:
+            try:
+                matieres_str = str(tuteur.matieres_maitrisees)
+                if matieres_str.startswith('[') and matieres_str.endswith(']'):
+                    import json
+                    matieres_list = json.loads(matieres_str)
+                else:
+                    matieres_list = [m.strip() for m in matieres_str.split(',') if m.strip()]
+            except:
+                matieres_list = [str(tuteur.matieres_maitrisees)]
+        elif tuteur.matieres_enseignees:
+            # Fallback sur matieres_enseignees si matieres_maitrisees est vide
             try:
                 matieres_str = str(tuteur.matieres_enseignees)
-                if matieres_str.startswith('[') and matieres_str.endswith(']'):
+                if isinstance(matieres_str, list):
+                    matieres_list = matieres_str
+                elif matieres_str.startswith('[') and matieres_str.endswith(']'):
                     import json
                     matieres_list = json.loads(matieres_str)
                 else:
@@ -1413,7 +1431,7 @@ def recherche_tuteurs(request):
             'nom': tuteur.nom,
             'photo_url': tuteur.photo.url if tuteur.photo else None,
             'photo': tuteur.photo.url if tuteur.photo else None,
-            'biographie': tuteur.biographie or 'Pas de description disponible',
+            'biographie': tuteur.bio or tuteur.biographie or 'Pas de description disponible',
             'matieres_enseignees': matieres_list if matieres_list else ['Matières non spécifiées'],
             'niveau_enseignement': tuteur.niveau_enseignement or 'Non spécifié',
             'note_moyenne': note_moyenne,
@@ -1467,6 +1485,7 @@ def tuteurs_recommandes(request):
     # Filtrer par filière si disponible
     if user.filiere:
         tuteurs = tuteurs.filter(
+            Q(matieres_maitrisees__icontains=user.filiere) |
             Q(matieres_enseignees__icontains=user.filiere) |
             Q(offretutorat__matiere__icontains=user.filiere)
         ).distinct()
@@ -1480,12 +1499,24 @@ def tuteurs_recommandes(request):
         disponibilites = Disponibilite.objects.filter(tuteur=tuteur)
         nombre_seances = Seance.objects.filter(tuteur=tuteur).count()
         
-        # Parser les matières
+        # Parser les matières - utiliser matieres_maitrisees avec fallback
         matieres_list = []
-        if tuteur.matieres_enseignees:
+        if tuteur.matieres_maitrisees:
+            try:
+                matieres_str = str(tuteur.matieres_maitrisees)
+                if matieres_str.startswith('[') and matieres_str.endswith(']'):
+                    import json
+                    matieres_list = json.loads(matieres_str)
+                else:
+                    matieres_list = [m.strip() for m in matieres_str.split(',') if m.strip()]
+            except:
+                matieres_list = [str(tuteur.matieres_maitrisees)]
+        elif tuteur.matieres_enseignees:
             try:
                 matieres_str = str(tuteur.matieres_enseignees)
-                if matieres_str.startswith('[') and matieres_str.endswith(']'):
+                if isinstance(matieres_str, list):
+                    matieres_list = matieres_str
+                elif matieres_str.startswith('[') and matieres_str.endswith(']'):
                     import json
                     matieres_list = json.loads(matieres_str)
                 else:
@@ -1503,7 +1534,7 @@ def tuteurs_recommandes(request):
             'nom': tuteur.nom,
             'photo_url': tuteur.photo.url if tuteur.photo else None,
             'photo': tuteur.photo.url if tuteur.photo else None,
-            'biographie': tuteur.biographie or 'Pas de description disponible',
+            'biographie': tuteur.bio or tuteur.biographie or 'Pas de description disponible',
             'matieres_enseignees': matieres_list if matieres_list else ['Matières non spécifiées'],
             'niveau_enseignement': tuteur.niveau_enseignement or 'Non spécifié',
             'note_moyenne': float(tuteur.note_moyenne) if tuteur.note_moyenne else 0,
@@ -1652,8 +1683,8 @@ def tuteur_profile(request, tuteur_id):
             'prenom': tuteur.prenom,
             'nom': tuteur.nom,
             'photo': tuteur.photo.url if tuteur.photo else None,
-            'biographie': tuteur.biographie or '',
-            'matieres_enseignees': tuteur.matieres_enseignees or [],
+            'biographie': tuteur.bio or tuteur.biographie or '',
+            'matieres_enseignees': tuteur.matieres_maitrisees or tuteur.matieres_enseignees or [],
             'niveau_enseignement': tuteur.niveau_enseignement or '',
             'note_moyenne': float(tuteur.note_moyenne) if tuteur.note_moyenne else 0,
             'nombre_evaluations': tuteur.nombre_evaluations or 0,
