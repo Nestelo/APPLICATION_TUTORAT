@@ -32,56 +32,17 @@ class EmailMessageViewSet(viewsets.ModelViewSet):
         # Générer un ID unique pour le suivi
         email_id_externe = str(uuid.uuid4())
         email.email_id_externe = email_id_externe
-        email.save()
         
-        # Envoyer l'email réel via SendGrid SMTP
-        try:
-            sujet = f"[TUTORAT] {email.sujet}"
-            contenu = f"""
-Cher/Chère {email.destinataire.prenom} {email.destinataire.nom},
-
-{email.contenu}
-
----
-Message envoyé via la plateforme de tutorat
-ID de suivi: {email_id_externe}
-Date: {email.date_envoi.strftime('%d/%m/%Y %H:%M')}
-            """
-            
-            # Envoyer l'email via Django send_mail (utilise la configuration SendGrid SMTP)
-            send_mail(
-                sujet,
-                contenu,
-                settings.DEFAULT_FROM_EMAIL,
-                [email.destinataire.email],
-                fail_silently=True,
-            )
-            
-            print(f"** EMAIL ENVOYÉ AVEC SUCCÈS vers {email.destinataire.email} **")
-            print(f"** Sujet: {sujet} **")
-            print(f"** ID: {email_id_externe} **")
-            
-            # Créer l'accusé de réception d'envoi
-            AccuseReception.objects.create(
-                email=email,
-                type_accus='envoi',
-                ip_adresse=self._get_client_ip(self.request),
-                user_agent=self.request.META.get('HTTP_USER_AGENT', '')
-            )
-            
-            email.statut = 'envoye'
-            email.save()
-            
-        except Exception as e:
-            print(f"** ERREUR ENVOI EMAIL: {e} **")
-            email.statut = 'echec'
-            email.save()
+        # Mettre le statut à 'en_attente' (l'envoi se fera via l'action envoyer_email)
+        email.statut = 'en_attente'
+        email.save()
     
     @action(detail=True, methods=['post'])
     def envoyer_email(self, request, pk=None):
-        """Renvoyer un email (si échec précédent)"""
+        """Envoyer un email (si statut en_attente ou echec)"""
         email = self.get_object()
         
+        # Permettre l'envoi seulement si l'email n'est pas déjà envoyé
         if email.statut == 'envoye':
             return Response({
                 'error': 'Cet email a déjà été envoyé avec succès'
@@ -108,6 +69,10 @@ Date: {email.date_envoi.strftime('%d/%m/%Y %H:%M')}
                 fail_silently=True,
             )
             
+            print(f"** EMAIL ENVOYÉ AVEC SUCCÈS vers {email.destinataire.email} **")
+            print(f"** Sujet: {sujet} **")
+            print(f"** ID: {email.email_id_externe} **")
+            
             AccuseReception.objects.create(
                 email=email,
                 type_accus='envoi',
@@ -120,10 +85,13 @@ Date: {email.date_envoi.strftime('%d/%m/%Y %H:%M')}
             
             return Response({
                 'success': True,
-                'message': 'Email renvoyé avec succès'
+                'message': 'Email envoyé avec succès'
             })
             
         except Exception as e:
+            print(f"** ERREUR ENVOI EMAIL: {e} **")
+            email.statut = 'echec'
+            email.save()
             return Response({
                 'success': False,
                 'error': str(e)
