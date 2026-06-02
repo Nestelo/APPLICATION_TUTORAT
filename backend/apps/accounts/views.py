@@ -593,34 +593,18 @@ def get_user_by_id(request, pk):
             if serializer.is_valid():
                 updated_user = serializer.save()
                 
-                # Envoyer un email si l'utilisateur vient d'être activé
+                # Envoyer un email si l'utilisateur vient d'être activé (asynchrone avec Celery)
                 if not old_status and updated_user.is_active:
                     try:
-                        from django.core.mail import send_mail
-                        from django.conf import settings
-                        
-                        subject = 'Votre compte a été activé !'
-                        message = f'''
-Cher/Chère {updated_user.prenom} {updated_user.nom},
-
-Votre compte sur l'application de tutorat a été activé par l'administrateur.
-
-Vous pouvez maintenant vous connecter avec vos identifiants.
-
-Cordialement,
-L'équipe de tutorat
-                        '''
-                        
-                        send_mail(
-                            subject,
-                            message,
-                            settings.DEFAULT_FROM_EMAIL,
-                            [updated_user.email],
-                            fail_silently=False,
+                        from tutorat_backend.celery import send_activation_email_task
+                        send_activation_email_task.delay(
+                            updated_user.email,
+                            updated_user.prenom,
+                            updated_user.nom
                         )
-                        print(f"Email d'activation envoyé à {updated_user.email}")
+                        print(f"📧 Tâche d'email d'activation en queue pour {updated_user.email}")
                     except Exception as e:
-                        print(f"Erreur envoi email activation: {e}")
+                        print(f"Erreur mise en queue email activation: {e}")
                 
                 return Response({
                     'success': True,

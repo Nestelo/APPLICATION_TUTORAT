@@ -2,7 +2,15 @@ node_modules/
 .git/
 .expo/
 android/
+android_backup/
 ios/
 *.log
 .tmp
 .env
+backend/
+documentation/
+*.md
+.gitignore
+VALIDATION_*.md
+GUIDE_*.md
+SYNTHESE_*.md

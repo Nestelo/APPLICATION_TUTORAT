@@ -1,4 +1,4 @@
-package com.anonymous.tutoratinsta
+package com.tutorat.insta
 
 import android.app.Application
 import android.content.res.Configuration
