@@ -2,7 +2,7 @@
   "expo": {
     "name": "Tutorat INSTA",
     "slug": "tutorat-insta",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "light",
@@ -15,7 +15,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tutorat.insta"
     },
     "android": {
       "adaptiveIcon": {
@@ -31,7 +32,8 @@
         "android.permission.READ_MEDIA_VIDEO",
         "android.permission.READ_MEDIA_AUDIO"
       ],
-      "package": "com.anonymous.tutoratinsta"
+      "package": "com.tutorat.insta",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

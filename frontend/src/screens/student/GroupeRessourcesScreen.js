@@ -100,14 +100,25 @@ const GroupeRessourcesScreen = ({ navigation, route }) => {
             }
           ]
         );
-      } else if (resource.fichier) {
+      } else {
+        // Utiliser fichier_url (URL complète Cloudinary) ou fichier (URL relative)
+        const fileUrl = resource.fichier_url || resource.fichier;
+        
+        if (!fileUrl) {
+          Alert.alert('Erreur', 'Aucun fichier disponible pour cette ressource');
+          return;
+        }
+
+        console.log('📥 Téléchargement depuis:', fileUrl);
+        
         // Nettoyer le nom du fichier
-        const fileExtension = resource.fichier.split('.').pop().toLowerCase();
+        const fileExtension = fileUrl.split('.').pop().toLowerCase().split('?')[0];
         const fileName = `${resource.titre.replace(/[^a-zA-Z0-9]/g, '_')}.${fileExtension}`;
         
         // Télécharger dans le cache d'abord
         const cacheUri = FileSystem.cacheDirectory + fileName;
-        const downloadResult = await FileSystem.downloadAsync(resource.fichier, cacheUri);
+        const downloadResult = await FileSystem.downloadAsync(fileUrl, cacheUri);
+        console.log('📥 Résultat téléchargement:', downloadResult);
         
         if (downloadResult.status === 200) {
           // Déterminer le type de fichier et sauvegarder au bon endroit
@@ -158,12 +169,10 @@ const GroupeRessourcesScreen = ({ navigation, route }) => {
         } else {
           throw new Error(`Échec du téléchargement (status: ${downloadResult.status})`);
         }
-      } else {
-        Alert.alert('Erreur', 'Aucun fichier disponible pour cette ressource');
       }
     } catch (error) {
       console.error('Erreur téléchargement:', error);
-      Alert.alert('Erreur', 'Impossible de télécharger la ressource');
+      Alert.alert('Erreur', `Impossible de télécharger la ressource: ${error.message}`);
     } finally {
       setDownloading(prev => ({ ...prev, [resource.id]: false }));
     }

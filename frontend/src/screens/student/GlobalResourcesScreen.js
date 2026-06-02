@@ -255,10 +255,15 @@ const GlobalResourcesScreen = ({ navigation }) => {
   // =========== FONCTION TÉLÉCHARGEMENT AMÉLIORÉE (sauvegarde automatique) ===========
   const downloadResource = async (resource) => {
     try {
-      if (!resource.fichier) {
+      // Utiliser fichier_url (URL complète Cloudinary) ou fichier (URL relative)
+      const fileUrl = resource.fichier_url || resource.fichier;
+      
+      if (!fileUrl) {
         Alert.alert('Erreur', 'Aucun fichier disponible pour cette ressource');
         return;
       }
+
+      console.log('📥 Téléchargement depuis:', fileUrl);
 
       // Enregistrer le téléchargement dans le backend
       await telechargerRessource(resource.id, resource.titre, user?.id);
@@ -266,11 +271,14 @@ const GlobalResourcesScreen = ({ navigation }) => {
       // Nettoyer le nom du fichier
       const fileName = resource.titre
         .replace(/[^a-z0-9]/gi, '_')
-        .toLowerCase() + '.' + getFileExtension(resource.fichier);
+        .toLowerCase() + '.' + getFileExtension(fileUrl);
       
       // Télécharger dans le cache d'abord
       const cacheUri = FileSystem.cacheDirectory + fileName;
-      const downloadResult = await FileSystem.downloadAsync(resource.fichier, cacheUri);
+      console.log('📥 Téléchargement vers:', cacheUri);
+      
+      const downloadResult = await FileSystem.downloadAsync(fileUrl, cacheUri);
+      console.log('📥 Résultat téléchargement:', downloadResult);
 
       if (downloadResult.status === 200) {
         // Mettre à jour les statistiques locales
@@ -278,7 +286,7 @@ const GlobalResourcesScreen = ({ navigation }) => {
         saveLocalStatistics(newStats);
 
         // Déterminer le type de fichier et sauvegarder au bon endroit
-        const fileExtension = getFileExtension(resource.fichier).toLowerCase();
+        const fileExtension = getFileExtension(fileUrl).toLowerCase();
         const mediaTypes = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'mov', 'avi', 'mp3', 'wav'];
         
         if (mediaTypes.includes(fileExtension)) {
@@ -313,7 +321,7 @@ const GlobalResourcesScreen = ({ navigation }) => {
               { 
                 text: 'Ouvrir', 
                 onPress: () => Sharing.shareAsync(finalUri, {
-                  mimeType: 'application/octet-stream',
+                  mimeType: fileExtension === 'pdf' ? 'application/pdf' : 'application/octet-stream',
                   dialogTitle: `Ouvrir ${resource.titre}`
                 })
               }
@@ -321,11 +329,11 @@ const GlobalResourcesScreen = ({ navigation }) => {
           );
         }
       } else {
-        throw new Error('Échec du téléchargement');
+        throw new Error(`Échec du téléchargement (status: ${downloadResult.status})`);
       }
     } catch (error) {
       console.error('Erreur téléchargement:', error);
-      Alert.alert('Erreur', 'Impossible de télécharger la ressource');
+      Alert.alert('Erreur', `Impossible de télécharger la ressource: ${error.message}`);
     }
   };
   // =======================================================================

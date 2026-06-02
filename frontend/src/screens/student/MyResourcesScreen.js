@@ -226,10 +226,15 @@ const MyResourcesScreen = ({ navigation }) => {
 
   const downloadResource = async (resource) => {
     try {
-      if (!resource.fichier) {
+      // Utiliser fichier_url (URL complète Cloudinary) ou fichier (URL relative)
+      const fileUrl = resource.fichier_url || resource.fichier;
+      
+      if (!fileUrl) {
         Alert.alert('Erreur', 'Aucun fichier disponible pour cette ressource');
         return;
       }
+
+      console.log('📥 Téléchargement depuis:', fileUrl);
 
       // Créer le dossier de destination
       const directory = FileSystem.documentDirectory + 'my_resources/received/';
@@ -241,7 +246,7 @@ const MyResourcesScreen = ({ navigation }) => {
       // Nettoyer le nom du fichier
       const fileName = resource.titre
         .replace(/[^a-z0-9]/gi, '_')
-        .toLowerCase() + '.' + getFileExtension(resource.fichier);
+        .toLowerCase() + '.' + getFileExtension(fileUrl);
       
       const fileUri = directory + fileName;
 
@@ -256,17 +261,17 @@ const MyResourcesScreen = ({ navigation }) => {
             { 
               text: 'Remplacer', 
               onPress: async () => {
-                await performDownload(resource.fichier, fileUri, fileName);
+                await performDownload(fileUrl, fileUri, fileName);
               }
             }
           ]
         );
       } else {
-        await performDownload(resource.fichier, fileUri, fileName);
+        await performDownload(fileUrl, fileUri, fileName);
       }
     } catch (error) {
       console.error('Erreur téléchargement:', error);
-      Alert.alert('Erreur', 'Impossible de télécharger le fichier');
+      Alert.alert('Erreur', `Impossible de télécharger le fichier: ${error.message}`);
     }
   };
 
