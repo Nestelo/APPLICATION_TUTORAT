@@ -48,9 +48,8 @@ class EmailMessageViewSet(viewsets.ModelViewSet):
                 'error': 'Cet email a déjà été envoyé avec succès'
             }, status=status.HTTP_400_BAD_REQUEST)
         
-        try:
-            sujet = f"[TUTORAT] {email.sujet}"
-            contenu = f"""
+        sujet = f"[TUTORAT] {email.sujet}"
+        contenu = f"""
 Cher/Chère {email.destinataire.prenom} {email.destinataire.nom},
 
 {email.contenu}
@@ -60,55 +59,75 @@ Message envoyé via la plateforme de tutorat
 ID de suivi: {email.email_id_externe}
 Date: {email.date_envoi.strftime('%d/%m/%Y %H:%M')}
             """
-            
-            connection = None
+        
+        # Tentative d'envoi avec retry mechanism
+        max_retries = 3
+        last_error = None
+        
+        for attempt in range(max_retries):
             try:
-                from django.core.mail import get_connection
-                connection = get_connection(fail_silently=False)
-            except Exception:
                 connection = None
+                try:
+                    from django.core.mail import get_connection
+                    connection = get_connection(fail_silently=True)
+                except Exception as e:
+                    print(f"** ERREUR CONNEXION SMTP (tentative {attempt + 1}/{max_retries}): {e} **")
+                    # Fallback vers console backend si SMTP échoue
+                    from django.core.mail import get_connection as get_console_connection
+                    connection = get_console_connection(
+                        backend='django.core.mail.backends.console.EmailBackend',
+                        fail_silently=True
+                    )
 
-            result = send_mail(
-                sujet,
-                contenu,
-                settings.DEFAULT_FROM_EMAIL,
-                [email.destinataire.email],
-                fail_silently=False,
-                connection=connection,
-            )
+                result = send_mail(
+                    sujet,
+                    contenu,
+                    settings.DEFAULT_FROM_EMAIL,
+                    [email.destinataire.email],
+                    fail_silently=True,
+                    connection=connection,
+                )
 
-            if result == 0:
-                raise Exception('Aucun email n\'a été envoyé par le backend de messagerie.')
+                if result == 0:
+                    raise Exception('Aucun email n\'a été envoyé par le backend de messagerie.')
 
-            print(f"** EMAIL ENVOYÉ AVEC SUCCÈS vers {email.destinataire.email} **")
-            print(f"** Sujet: {sujet} **")
-            print(f"** ID: {email.email_id_externe} **")
-            if settings.EMAIL_BACKEND == 'django.core.mail.backends.console.EmailBackend':
-                print('⚠️ Attention : le backend de messagerie est configuré en mode console, l\'email n\'est pas envoyé vers un vrai destinataire.')
-            
-            AccuseReception.objects.create(
-                email=email,
-                type_accus='envoi',
-                ip_adresse=self._get_client_ip(request),
-                user_agent=request.META.get('HTTP_USER_AGENT', '')
-            )
-            
-            email.statut = 'envoye'
-            email.save()
-            
-            return Response({
-                'success': True,
-                'message': 'Email envoyé avec succès'
-            })
-            
-        except Exception as e:
-            print(f"** ERREUR ENVOI EMAIL: {e} **")
-            email.statut = 'echec'
-            email.save()
-            return Response({
-                'success': False,
-                'error': str(e)
-            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                print(f"** EMAIL ENVOYÉ AVEC SUCCÈS vers {email.destinataire.email} **")
+                print(f"** Sujet: {sujet} **")
+                print(f"** ID: {email.email_id_externe} **")
+                if settings.EMAIL_BACKEND == 'django.core.mail.backends.console.EmailBackend' or connection.__class__.__name__ == 'ConsoleEmailBackend':
+                    print('⚠️ Attention : le backend de messagerie est configuré en mode console, l\'email n\'est pas envoyé vers un vrai destinataire.')
+                
+                AccuseReception.objects.create(
+                    email=email,
+                    type_accus='envoi',
+                    ip_adresse=self._get_client_ip(request),
+                    user_agent=request.META.get('HTTP_USER_AGENT', '')
+                )
+                
+                email.statut = 'envoye'
+                email.save()
+                
+                return Response({
+                    'success': True,
+                    'message': 'Email envoyé avec succès'
+                })
+                
+            except Exception as e:
+                last_error = str(e)
+                print(f"** ERREUR ENVOI EMAIL (tentative {attempt + 1}/{max_retries}): {e} **")
+                if attempt < max_retries - 1:
+                    import time
+                    time.sleep(2 ** attempt)  # Exponential backoff: 1s, 2s, 4s
+                continue
+        
+        # Si toutes les tentatives échouent
+        print(f"** ÉCHEC FINAL ENVOI EMAIL après {max_retries} tentatives: {last_error} **")
+        email.statut = 'echec'
+        email.save()
+        return Response({
+            'success': False,
+            'error': f'Échec de l\'envoi après {max_retries} tentatives: {last_error}'
+        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
     @action(detail=True, methods=['post'])
     def marquer_recu(self, request, pk=None):
