@@ -168,7 +168,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # Configuration email – Brevo SMTP (production)
 # Utiliser le backend console en développement pour éviter les erreurs SMTP
-EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
+EMAIL_BACKEND = os.environ.get(
+    'EMAIL_BACKEND',
+    'django.core.mail.backends.console.EmailBackend' if DEBUG else 'django.core.mail.backends.smtp.EmailBackend'
+)
 EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp-relay.brevo.com')
 EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'

@@ -70,7 +70,15 @@ class OffreTutoratViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         """Créer une offre avec le tuteur connecté"""
-        serializer.save(tuteur=self.request.user)
+        offre = serializer.save(tuteur=self.request.user)
+
+        # Si un tuteur crée une offre sans statut explicite, on la publie
+        # afin qu'elle apparaisse immédiatement sur son tableau de bord et pour les étudiants.
+        if self.request.user.role == 'tuteur' and not self.request.data.get('statut_workflow'):
+            offre.statut_workflow = 'publie'
+            offre.date_publication = timezone.now()
+            offre.est_active = True
+            offre.save(update_fields=['statut_workflow', 'date_publication', 'est_active'])
 
     def perform_update(self, serializer):
         """Mettre à jour une offre (géré par les permissions)"""

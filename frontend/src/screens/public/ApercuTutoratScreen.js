@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import Header from '../../components/ui/Header';
 import Card from '../../components/ui/Card';
@@ -12,48 +12,93 @@ const isSmallDevice = width < 380;
 const tutoratCategories = [
   {
     id: '1',
-    titre: 'Sciences Exactes',
-    description: 'Mathématiques, Physique, Chimie',
-    icon: 'flask-outline',
-    color: '#FF6B6B',
-    bgColor: '#FFE5E5',
-    matieres: ['Algèbre', 'Calcul', 'Mécanique', 'Thermodynamique']
-  },
-  {
-    id: '2',
-    titre: 'Informatique',
-    description: 'Programmation, Algorithmes, Bases de données',
+    titre: 'Département de Génie Informatique (GI)',
+    description: 'Algorithmique, Programmation orientée objet, Bases de données',
     icon: 'code-outline',
     color: '#4ECDC4',
     bgColor: '#E5F9F6',
-    matieres: ['Python', 'JavaScript', 'SQL', 'Structures de données']
+    matieres: [
+      'Algorithmique et structures de données',
+      'Programmation orientée objet (Java, C++, Python)',
+      'Bases de données SQL/NoSQL',
+      'Développement Web et Mobile',
+      'Génie logiciel et modélisation'
+    ]
   },
   {
-    id: '3',
-    titre: 'Langues',
-    description: 'Français, Anglais, Espagnol',
-    icon: 'language-outline',
-    color: '#45B7D1',
-    bgColor: '#E5F4F8',
-    matieres: ['Grammaire', 'Conversation', 'Rédaction', 'TOEFL']
-  },
-  {
-    id: '4',
-    titre: 'Sciences Sociales',
-    description: 'Histoire, Géographie, Économie',
-    icon: 'globe-outline',
-    color: '#96CEB4',
-    bgColor: '#E5F5EE',
-    matieres: ['Histoire contemporaine', 'Géopolitique', 'Macroéconomie']
-  },
-  {
-    id: '5',
-    titre: 'Ingénierie',
-    description: 'Génie civil, Mécanique, Électrique',
+    id: '2',
+    titre: 'Département de Génie Mécanique (GM)',
+    description: 'Mécanique des milieux continus, Résistance des matériaux, CAO/DAO',
     icon: 'construct-outline',
     color: '#FECA57',
     bgColor: '#FFF9E5',
-    matieres: ['RDM', 'Automatisme', 'Électronique', 'CAO']
+    matieres: [
+      'Mécanique des milieux continus',
+      'Résistance des matériaux',
+      'Construction mécanique et CAO/DAO',
+      'Fabrication mécanique et usinage',
+      'Dynamique et vibrations des structures'
+    ]
+  },
+  {
+    id: '3',
+    titre: 'Master EEA (Électrotechnique-Énergie-Automatique)',
+    description: 'Commande avancée, Smart Grids, Machines électriques',
+    icon: 'battery-charging-outline',
+    color: '#96CEB4',
+    bgColor: '#E5F5EE',
+    matieres: [
+      'Automatique avancée (commande robuste, commande optimale)',
+      'Modélisation et commande des machines électriques',
+      'Gestion intelligente des réseaux électriques (Smart Grids)',
+      'Optimisation des systèmes énergétiques hybrides',
+      'Conversibilité et qualité de l’énergie'
+    ]
+  },
+  {
+    id: '4',
+    titre: 'Master MEGVIB (Génie Mécanique)',
+    description: 'Vibrations, éléments finis, acoustique industrielle',
+    icon: 'speedometer-outline',
+    color: '#FFA726',
+    bgColor: '#FFF4E6',
+    matieres: [
+      'Dynamique avancée et vibrations des structures',
+      'Éléments finis et modélisation numérique',
+      'Acoustique industrielle et contrôle des bruits',
+      'Fiabilité des systèmes mécaniques',
+      'Maintenance prédictive et diagnostic'
+    ]
+  },
+  {
+    id: '5',
+    titre: 'Département de Télécommunication et Multimédia (TELECOM)',
+    description: 'Réseaux, 4G/5G, traitement d’images et multimédia',
+    icon: 'wifi-outline',
+    color: '#5C6BC0',
+    bgColor: '#E8EAF6',
+    matieres: [
+      'Théorie du signal et traitement numérique',
+      'Réseaux informatiques et protocoles IP',
+      'Télécommunications mobiles 4G/5G',
+      'Fibres optiques et communications satellites',
+      'Traitement d’image et multimédia'
+    ]
+  },
+  {
+    id: '6',
+    titre: 'Sciences Biomédicales et Pharmaceutiques (SBMP)',
+    description: 'Anatomie, Biochimie, Pharmacologie et pathologie',
+    icon: 'medical-outline',
+    color: '#EC407A',
+    bgColor: '#FCE4EC',
+    matieres: [
+      'Anatomie humaine et physiologie',
+      'Biochimie clinique et biologie moléculaire',
+      'Pharmacologie générale',
+      'Microbiologie médicale et immunologie',
+      'Pathologie générale et sémiologie'
+    ]
   }
 ];
 
@@ -105,11 +150,11 @@ const ApercuTutoratScreen = ({ navigation }) => {
         
         <View style={styles.statsSection}>
           <View style={styles.statItem}>
-            <Text style={styles.statNumber}>5+</Text>
+            <Text style={styles.statNumber}>6+</Text>
             <Text style={styles.statLabel}>Catégories</Text>
           </View>
           <View style={styles.statItem}>
-            <Text style={styles.statNumber}>20+</Text>
+            <Text style={styles.statNumber}>30+</Text>
             <Text style={styles.statLabel}>Matières</Text>
           </View>
           <View style={styles.statItem}>

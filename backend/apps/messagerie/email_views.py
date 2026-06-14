@@ -61,17 +61,30 @@ ID de suivi: {email.email_id_externe}
 Date: {email.date_envoi.strftime('%d/%m/%Y %H:%M')}
             """
             
-            send_mail(
+            connection = None
+            try:
+                from django.core.mail import get_connection
+                connection = get_connection(fail_silently=False)
+            except Exception:
+                connection = None
+
+            result = send_mail(
                 sujet,
                 contenu,
                 settings.DEFAULT_FROM_EMAIL,
                 [email.destinataire.email],
-                fail_silently=True,
+                fail_silently=False,
+                connection=connection,
             )
-            
+
+            if result == 0:
+                raise Exception('Aucun email n\'a été envoyé par le backend de messagerie.')
+
             print(f"** EMAIL ENVOYÉ AVEC SUCCÈS vers {email.destinataire.email} **")
             print(f"** Sujet: {sujet} **")
             print(f"** ID: {email.email_id_externe} **")
+            if settings.EMAIL_BACKEND == 'django.core.mail.backends.console.EmailBackend':
+                print('⚠️ Attention : le backend de messagerie est configuré en mode console, l\'email n\'est pas envoyé vers un vrai destinataire.')
             
             AccuseReception.objects.create(
                 email=email,

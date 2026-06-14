@@ -44,7 +44,7 @@ Solution proposée:
    - Évalue tuteurs
 
 2. TUTEUR (👨‍🏫)
-   - Crée offres tutorat
+   - Crée offres tutorat avec tarifs
    - Gère disponibilités
    - Répond aux questions forum
    - Partage ressources

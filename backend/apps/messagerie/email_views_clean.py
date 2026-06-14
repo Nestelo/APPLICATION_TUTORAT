@@ -58,7 +58,7 @@ class EmailMessageViewSet(viewsets.ModelViewSet):
                 return Response({
                     'success': True,
                     'message': 'Email envoyé avec succès',
-                    'email_id': email_id_exterre
+                    'email_id': email_id_externe
                 })
             else:
                 return Response({
@@ -233,20 +233,32 @@ Pour répondre à cet email, utilisez simplement le bouton "Répondre" de votre 
             """
             
             # Envoyer l'email avec Django
-            send_mail(
+            connection = None
+            try:
+                from django.core.mail import get_connection
+                connection = get_connection(fail_silently=False)
+            except Exception:
+                connection = None
+
+            result = send_mail(
                 sujet=sujet,
                 message=contenu,
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[email.destinataire.email],
                 fail_silently=False,
+                connection=connection,
             )
-            
+
+            if result == 0:
+                raise Exception('Aucun email n\'a été envoyé par le backend de messagerie.')
+
             print(f"✅ Email réel envoyé à {email.destinataire.email}")
             print(f"📧 Sujet: {sujet}")
             print(f"🆔 ID: {email_id_externe}")
-            
+            if settings.EMAIL_BACKEND == 'django.core.mail.backends.console.EmailBackend':
+                print('⚠️ Attention : le backend de messagerie est configuré en mode console, l\'email n\'est pas envoyé vers un vrai destinataire.')
+
             return True
-            
         except Exception as e:
             print(f"❌ Erreur envoi email SMTP: {e}")
             return False
