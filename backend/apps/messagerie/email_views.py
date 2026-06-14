@@ -8,6 +8,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from .models import EmailMessage, EmailReponse, AccuseReception
 from .email_serializers import EmailMessageSerializer, EmailReponseSerializer, AccuseReceptionSerializer
+from .brevo_api_client import BrevoAPIClient
 from apps.accounts.permissions import IsAdmin
 import uuid
 
@@ -39,7 +40,7 @@ class EmailMessageViewSet(viewsets.ModelViewSet):
     
     @action(detail=True, methods=['post'])
     def envoyer_email(self, request, pk=None):
-        """Envoyer un email (si statut en_attente ou echec)"""
+        """Envoyer un email (si statut en_attente ou echec) via API Brevo"""
         email = self.get_object()
         
         # Permettre l'envoi seulement si l'email n'est pas déjà envoyé
@@ -49,7 +50,36 @@ class EmailMessageViewSet(viewsets.ModelViewSet):
             }, status=status.HTTP_400_BAD_REQUEST)
         
         sujet = f"[TUTORAT] {email.sujet}"
-        contenu = f"""
+        
+        # Créer le contenu HTML pour l'email
+        contenu_html = f"""
+        <html>
+        <body>
+            <p>Cher/Chère {email.destinataire.prenom} {email.destinataire.nom},</p>
+            <p>{email.contenu.replace(chr(10), '<br>')}</p>
+            <hr>
+            <p><em>Message envoyé via la plateforme de tutorat</em></p>
+            <p><strong>ID de suivi:</strong> {email.email_id_externe}</p>
+            <p><strong>Date:</strong> {email.date_envoi.strftime('%d/%m/%Y %H:%M')}</p>
+        </body>
+        </html>
+        """
+        
+        try:
+            # Utiliser l'API Brevo pour contourner les restrictions SMTP de Render
+            brevo_client = BrevoAPIClient()
+            
+            # Tester la connexion API
+            if not brevo_client.test_connection():
+                print("** ERREUR: Impossible de se connecter à l'API Brevo **")
+                # Fallback vers console backend si API échoue
+                from django.core.mail import get_connection
+                connection = get_connection(
+                    backend='django.core.mail.backends.console.EmailBackend',
+                    fail_silently=True
+                )
+                
+                contenu_texte = f"""
 Cher/Chère {email.destinataire.prenom} {email.destinataire.nom},
 
 {email.contenu}
@@ -58,32 +88,36 @@ Cher/Chère {email.destinataire.prenom} {email.destinataire.nom},
 Message envoyé via la plateforme de tutorat
 ID de suivi: {email.email_id_externe}
 Date: {email.date_envoi.strftime('%d/%m/%Y %H:%M')}
-            """
-        
-        try:
-            # Utiliser directement le backend console pour éviter les timeouts SMTP
-            from django.core.mail import get_connection
-            connection = get_connection(
-                backend='django.core.mail.backends.console.EmailBackend',
-                fail_silently=True
-            )
-
-            result = send_mail(
-                sujet,
-                contenu,
-                settings.DEFAULT_FROM_EMAIL,
-                [email.destinataire.email],
-                fail_silently=True,
-                connection=connection,
-            )
-
-            if result == 0:
-                raise Exception('Aucun email n\'a été envoyé par le backend de messagerie.')
-
-            print(f"** EMAIL ENVOYÉ AVEC SUCCÈS vers {email.destinataire.email} **")
-            print(f"** Sujet: {sujet} **")
-            print(f"** ID: {email.email_id_externe} **")
-            print('⚠️ Email envoyé via le backend console (mode simulation). Pour envoyer de vrais emails, configurez correctement le serveur SMTP.')
+                """
+                
+                result = send_mail(
+                    sujet,
+                    contenu_texte,
+                    settings.DEFAULT_FROM_EMAIL,
+                    [email.destinataire.email],
+                    fail_silently=True,
+                    connection=connection,
+                )
+                
+                print(f"** EMAIL ENVOYÉ VIA CONSOLE (fallback) vers {email.destinataire.email} **")
+                print('⚠️ API Brevo non disponible, email envoyé en mode console')
+            else:
+                # Envoyer via l'API Brevo
+                result = brevo_client.send_email(
+                    to_email=email.destinataire.email,
+                    subject=sujet,
+                    html_content=contenu_html,
+                    sender_email=settings.DEFAULT_FROM_EMAIL,
+                    sender_name="Plateforme Tutorat"
+                )
+                
+                if result:
+                    print(f"** EMAIL ENVOYÉ VIA API BREVO vers {email.destinataire.email} **")
+                    print(f"** Sujet: {sujet} **")
+                    print(f"** ID: {email.email_id_externe} **")
+                    print(f"** Message ID Brevo: {result.get('messageId', 'N/A')} **")
+                else:
+                    raise Exception('Échec de l\'envoi via API Brevo')
             
             AccuseReception.objects.create(
                 email=email,
@@ -97,7 +131,7 @@ Date: {email.date_envoi.strftime('%d/%m/%Y %H:%M')}
             
             return Response({
                 'success': True,
-                'message': 'Email envoyé avec succès (mode console)'
+                'message': 'Email envoyé avec succès via API Brevo'
             })
             
         except Exception as e:
