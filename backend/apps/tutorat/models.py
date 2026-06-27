@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from apps.accounts.models import User
+from cloudinary.models import CloudinaryField
 
 class OffreTutorat(models.Model):
     TYPE_CHOICES = (('individuel', 'Individuel'), ('groupe', 'Groupe'))
@@ -436,7 +437,7 @@ class Ressource(models.Model):
     type = models.CharField(max_length=20, choices=TYPE_CHOICES)
     
     # Contenu
-    fichier = models.FileField(upload_to='ressources/', blank=True, null=True)
+    fichier = CloudinaryField('ressource', resource_type='auto', blank=True, null=True)
     lien = models.URLField(blank=True)
     contenu_texte = models.TextField(blank=True)
     
