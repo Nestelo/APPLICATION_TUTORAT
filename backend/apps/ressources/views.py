@@ -695,7 +695,7 @@ def admin_apercu_validation(request, pk):
     }
     return Response(data)
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 @permission_classes([IsAdmin])
 def admin_historique_validations(request, pk):
     """Historique des validations/réjections via notifications envoyées à l'auteur."""
