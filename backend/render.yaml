@@ -4,7 +4,7 @@ services:
     runtime: python
     plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn tutorat_backend.wsgi:application --timeout 120 --workers 2
+    startCommand: gunicorn tutorat_backend.wsgi:application --timeout 240 --workers 2
     envVars:
       - key: DATABASE_URL
         fromDatabase:
