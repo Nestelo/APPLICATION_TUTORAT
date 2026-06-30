@@ -104,8 +104,8 @@ else:
 AUTH_USER_MODEL = 'accounts.User'
 
 # File upload settings (pour éviter les timeouts lors du téléchargement de fichiers volumineux)
-DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50 MB
-FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50 MB
+DATA_UPLOAD_MAX_MEMORY_SIZE = 104857600  # 100 MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 104857600  # 100 MB
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000
 
 # REST Framework
